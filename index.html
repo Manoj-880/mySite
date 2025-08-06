@@ -1,514 +1,157 @@
 <!DOCTYPE html>
-<html class="no-js ss-preload" lang="en">
+<html lang="en">
 <head>
-
-    <!--- basic page needs
-    ================================================== -->
-    <meta charset="utf-8">
-    <title>Manoj Inamanamelluri | Full-Stack Developer & UI/UX Designer</title>
-    <meta name="description" content="Manoj Inamanamelluri – Full-Stack Developer & UI/UX Designer in Hyderabad. Expert in MERN stack, Flutter, React.js, and Svelte.js, building responsive web and mobile apps." />
-    <meta name="author" content="Manoj Inamanamelluri">
-    <link rel="canonical" href="https://www.craftbymanoj.site/" />
-
-    <!-- mobile specific metas
-    ================================================== -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- CSS
-    ================================================== -->
-    <link rel="stylesheet" href="css/vendor.css">
-    <link rel="stylesheet" href="css/styles.css">
-
-    <!-- favicons
-    ================================================== -->
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-    <link rel="manifest" href="site.webmanifest">
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H11TETHCVW"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-H11TETHCVW');
-    </script>
-
-    <!-- Schema markup -->
-    <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "Person",
-            "name": "Manoj Inamanamelluri",
-            "url": "https://www.craftbymanoj.site",
-            "image": "https://www.craftbymanoj.site/your-profile-image.jpg",
-            "jobTitle": "Full-Stack Developer and UI/UX Designer",
-            "worksFor": {
-                "@type": "Organization",
-                "name": "Craft By Manoj"
-            },
-            "sameAs": [
-                "https://www.linkedin.com/in/yourprofile",
-                "https://github.com/Manoj-880"
-            ],
-            "alumniOf": {
-                "@type": "EducationalOrganization",
-                "name": "Your University Name"
-            },
-            "knowsAbout": ["MERN Stack", "Flutter", "React.js", "Node.js", "SEO", "Svelte.js", "UI/UX Design"],
-            "email": "mailto:your-email@example.com",
-            "description": "Full-Stack Developer, UI/UX Designer, and SEO Specialist skilled in MERN stack, Flutter, React.js, Svelte.js, and more. Creating responsive, user-centric web and mobile experiences."
-        }
-    </script>
-    
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manoj Inamanamelluri</title>
+    <link rel="shortcut icon" href="assets/logo.svg" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
 </head>
+<body>
+    <!-- nav bar -->
+    <nav class="nav-bar col-sm-12">
+        <img src="assets/logo.svg" alt="manoj logo" class="logo">
+        <ul class="nav-list">
+            <li><a class="nav-item" href="#">Home</a></li>
+            <li><a class="nav-item" href="#projects">Projects</a></li>
+            <li><a class="nav-item" href="#experience">Experience</a></li>
+            <li><a class="nav-item" href="#contact">Contact</a></li>
+        </ul>
+        <i class="fa-solid fa-bars menu-icon"></i>
+    </nav>
 
-<body id="top">
+    <nav class="side-menu col-sm-3" style="background-color: #222222;">
+        <ul class="nav-list">
+            <li><a class="nav-item" href="#" style="font-size: 5vw;">Home</a></li>
+            <li><a class="nav-item" href="#projects" style="font-size: 5vw;">Projects</a></li>
+            <li><a class="nav-item" href="#experience" style="font-size: 5vw;">Experience</a></li>
+            <li><a class="nav-item" href="#contact" style="font-size: 5vw;">Contact</a></li>
+        </ul>
+    </nav>
 
-
-    <!-- # preloader
-    ================================================== -->
-    <div id="preloader">
-        <div id="loader">
-        </div>
-    </div>
-
-
-    <!-- # page wrap
-    ================================================== -->
-    <div class="s-pagewrap">
-
-        <div class="circles">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-
-
-        <!-- ## site header 
-        ================================================== -->
-        <header class="s-header">
-
-            <div class="header-mobile">
-                <span class="mobile-home-link"><a href="index.html">Manoj.</a></span>
-                <a class="mobile-menu-toggle" href="#0"><span>Menu</span></a>
+    <!-- home -->
+    <section class="home" id="home">
+        <div class="home-container col-sm-12">
+            <div class="avathar col-sm-12">
+                <img src="assets/avathar.svg" alt="my avathar" class="col-2 col-sm-4 col-md-2">
             </div>
-
-            <div class="row wide main-nav-wrap">
-                <nav class="column lg-12 main-nav">
-                    <ul>
-                        <li><a href="index.html" class="home-link">Manoj.</a></li>
-                        <li class="current"><a href="#intro" class="smoothscroll">Intro</a></li>
-                        <li><a href="#about" class="smoothscroll">About</a></li>
-                        <li><a href="#works" class="smoothscroll">Works</a></li>
-                        <li><a href="#contact" class="smoothscroll">Say Hello</a></li>
-                    </ul>
-                </nav>
+            <h1 class="main-text">
+                I <span class="spl">design</span> digital products and make it work by <span class="spl">code!</span>
+            </h1>
+            <p class="paragraph">
+                I am a seasoned full-stack software engineer with over 
+                3 years of professional experience, specializing in UI/UX design & Full-Stack Development. 
+                My expertise lies in crafting robust and scalable SaaS-based 
+                architectures on the Amazon AWS platform.
+            </p>
+            <div class="hero-buttons col-sm-12">
+                <button class="primary-btn col-4 col-sm-5 col-xl-3" onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })">
+                    Get In Touch
+                </button>
+                <button id="dnlbtn" class="secondary-btn col-4 col-sm-5 col-xl-3">
+                    Download CV
+                </button>
             </div>
-
-        </header> <!-- end s-header -->
-
-
-        <!-- ## main content
-        ==================================================- -->
-        <main class="s-content">
-
-
-            <!-- ### intro
-            ================================================== -->
-            <section id="intro" class="s-intro target-section">
-
-                <div class="row intro-content wide">
-
-                    <div class="column">
-                        <div class="text-pretitle with-line">
-                            Hello World
-                        </div>
-
-                        <h1 class="text-huge-title">
-                            I'm Manoj, <br>
-                            a UI/UX Designer <br>
-                            and Full-Stack <br>
-                            Web Developer <br>
-                            based in Hyderabad.
-                        </h1>                        
-                    </div>
-
-                    <ul class="intro-social">
-                        <li><a href="https://www.behance.net/manojmanoj61">Behance</a></li>
-                        <li><a href="https://github.com/Manoj-880">Github</a></li>
-                        <li><a href="https://www.linkedin.com/in/manoj-inamanamelluri-319852184/">LinkedIn</a></li>
-                        <li><a href="https://www.instagram.com/manoj_880">Instagram</a></li>
-                        <li><a href="https://x.com/IManoj880">Twitter</a></li>
-                    </ul>
-
-                </div> <!-- end intro content -->
-
-                <a href="#about" class="intro-scrolldown smoothscroll">
-                    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M11 21.883l-6.235-7.527-.765.644 7.521 9 7.479-9-.764-.645-6.236 7.529v-21.884h-1v21.883z"/></svg>
-                </a>
-
-            </section> <!-- end s-intro -->
-
-
-            <!-- ### about
-            ================================================== -->
-            <section id="about" class="s-about target-section">
-
-
-                <div class="row about-info wide" data-animate-block>
-
-                    <div class="column lg-6 md-12 about-info__pic-block">
-                        <img src="images/about-photo.png" 
-                            srcset="images/about-photo.png 1x, images/about-photo.png 2x" alt="Manoj inamanamelluri picture" class="about-info__pic" data-animate-el>
-                    </div>
-
-                    <div class="column lg-6 md-12">
-                        <div class="about-info__text">
-                    
-                            <h2 class="text-pretitle with-line" data-animate-el>
-                                About
-                            </h2>
-                            <p class="attention-getter" data-animate-el>
-                                I'm Manoj Inamanamelluri, a Full-Stack Developer, and UI/UX Designer with 2+ years of experience delivering digital solutions. Skilled in the MERN stack, I build scalable, responsive apps and design engaging interfaces. Using Figma, Adobe XD, and Photoshop, I create user-focused designs, while my backend expertise includes Node.js, Express, MongoDB, and MySQL. Open to remote/international roles in development and design.
-                            </p>
-                            <a href="Manoj Inamanamelluri CV.pdf" class="btn btn--medium u-fullwidth" data-animate-el>Download CV</a>
-                    
-                        </div>
-                    </div>
-                    
-                </div> <!-- about-info -->
-
-
-                <div class="row about-expertise" data-animate-block>
-                    <div class="column lg-12">
-                
-                        <h2 class="text-pretitle" data-animate-el>Expertise</h2>
-                
-                        <ul class="skills-list h1" data-animate-el>
-                            <li>UI/UX Design</li>
-                            <li>Full-Stack Web Development</li>
-                            <li>Responsive Web Design</li>
-                            <li>Cross-Platform Mobile Development</li>
-                            <li>Prototyping & Wireframing</li>
-                            <li>Backend Development</li>
-                        </ul>
-                
-                    </div>
-                </div> <!-- end about-expertise -->                
-
-
-                <div class="row about-timelines" data-animate-block>
-
-                    <div class="column lg-6 tab-12">
-
-                        <h2 class="text-pretitle" data-animate-el>
-                            Experience
-                        </h2>
-                    
-                        <div class="timeline" data-animate-el>
-                    
-                            <div class="timeline__block">
-                                <div class="timeline__bullet"></div>
-                                <div class="timeline__header">
-                                    <h4 class="timeline__title">S&M Scholarly Solutions</h4>
-                                    <h5 class="timeline__meta">UI/UX Designer & Developer</h5>
-                                    <p class="timeline__timeframe">August 2022 - Present</p>
-                                </div>
-                                <div class="timeline__desc">
-                                    <p>Designing and developing user-centric interfaces for mobile and web applications, creating responsive sites, and managing backend servers. Building cross-platform mobile apps using Flutter.</p>
-                                </div>
-                            </div>
-                    
-                        </div> <!-- end timeline -->
-                    
-                    </div> <!-- end column -->                    
-
-                    <div class="column lg-6 tab-12">
-
-                        <h2 class="text-pretitle" data-animate-el>
-                            Education
-                        </h2>
-
-                        <div class="timeline" data-animate-el>
-
-                            <div class="timeline__block">
-                                <div class="timeline__bullet"></div>
-                                <div class="timeline__header">
-                                    <h4 class="timeline__title">Vasireddy Venkatadri Institute of Technology</h4>
-                                    <h5 class="timeline__meta">Bachelor’s in Mechanical Engineering</h5>
-                                    <p class="timeline__timeframe">Graduated July 2021</p>
-                                </div>
-                                <div class="timeline__desc">
-                                    <p>Developed analytical and problem-solving skills during my Mechanical Engineering studies, which sparked my interest in UI/UX design and web development, paving the way for my career as a full-stack developer.</p>
-                                </div>                                
-                            </div>                            
-    
-                        </div> <!-- end timeline -->
-                        
-                    </div> <!-- end column -->
-
-
-                </div> <!-- end about-timelines -->
-
-            </section> <!-- end s-about -->
-
-
-            <!-- ### works
-            ================================================== -->
-            <section id="works" class="s-works target-section">
-
-
-                <div class="row works-portfolio">
-
-                    <div class="column lg-12" data-animate-block>
-
-                        <h2 class="text-pretitle" data-animate-el>
-                            Recent Works
-                        </h2>
-                        <p class="h1" data-animate-el>
-                            Here are some of my favorite projects I have done lately. Feel free to check them out.
-                        </p>
-    
-                        <ul class="folio-list row block-lg-one-half block-stack-on-1000">
-
-                            <li class="folio-list__item column" data-animate-el>
-                                <a class="folio-list__item-link" href="#modal-01">
-                                    <div class="folio-list__item-pic">
-                                        <img src="images/portfolio/nehwe.png"
-                                            srcset="images/portfolio/nehwe.png 1x, images/portfolio/nehwe.png 2x"  alt="Nehwe Logo">
-                                    </div>
-                                    
-                                    <div class="folio-list__item-text">
-                                        <div class="folio-list__item-cat">
-                                            MobileApp design
-                                        </div>
-                                        <div class="folio-list__item-title">
-                                            Nehwe
-                                        </div>
-                                    </div>
-                                </a>
-                                <a class="folio-list__proj-link" href="#" title="project link">
-                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
-                                </a>
-                            </li> <!--end folio-list__item -->
-
-                            <li class="folio-list__item column" data-animate-el>
-                                <a class="folio-list__item-link" href="#modal-02">
-                                    <div class="folio-list__item-pic">
-                                        <img src="images/portfolio/fcf.png" 
-                                            srcset="images/portfolio/fcf.png 1x, images/portfolio/fcf.png 2x" alt="Feed Care Fear logo">
-                                    </div>
-                                    
-                                    <div class="folio-list__item-text">
-                                        <div class="folio-list__item-cat">
-                                            Product Design
-                                        </div>
-                                        <div class="folio-list__item-title">
-                                            Feed Care & Fear.
-                                        </div>
-                                    </div>
-                                </a>
-                                <a class="folio-list__proj-link" href="#" title="project link">
-                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
-                                </a>
-                            </li> <!--end folio-list__item -->
-
-                            <li class="folio-list__item column" data-animate-el>
-                                <a class="folio-list__item-link" href="#modal-03">
-                                    <div class="folio-list__item-pic">
-                                        <img src="images/portfolio/mason.png" 
-                                            srcset="images/portfolio/mason.png 1x, images/portfolio/mason.png 2x" alt="Mason uPVC logo">
-                                    </div>
-                                    
-                                    <div class="folio-list__item-text">
-                                        <div class="folio-list__item-cat">
-                                            website
-                                        </div>
-                                        <div class="folio-list__item-title">
-                                            Mason-uPVC.
-                                        </div>
-                                    </div>
-                                </a>
-                                <a class="folio-list__proj-link" href="#" title="project link">
-                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
-                                </a>
-                            </li> <!--end folio-list__item -->
-
-                            <li class="folio-list__item column" data-animate-el>
-                                <a class="folio-list__item-link" href="#modal-04">
-                                    <div class="folio-list__item-pic">
-                                        <img src="images/portfolio/jagbandhu.png"
-                                            srcset="images/portfolio/jagbandhu.png 1x, images/portfolio/jagbandhu.png 2x" alt="Jagbandhu Logo">
-                                    </div>
-                                    
-                                    <div class="folio-list__item-text">
-                                        <div class="folio-list__item-cat">
-                                            Website
-                                        </div>
-                                        <div class="folio-list__item-title">
-                                            jagbandhu.
-                                        </div>
-                                    </div>
-                                </a>
-                                <a class="folio-list__proj-link" href="#" title="project link">
-                                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
-                                </a>
-                            </li> <!--end folio-list__item -->
-
-                        </ul> <!-- end folio-list -->
-
-                    </div> <!-- end column -->
-
-
-                    <!-- Modal Templates Popup
-                    -------------------------------------------- -->
-                    <div id="modal-01" hidden>
-                        <div class="modal-popup">
-                            <img src="images/portfolio/gallery/g-nehwe.png" alt="Nehwe Logo">
-                
-                            <div class="modal-popup__desc">
-                                <h5>Nehwe</h5>
-                                <p>I created the mobile app design in Figma and supported the development of the user interface using Flutter to bring the design to life with a smooth, intuitive experience.</p>
-                                <ul class="modal-popup__cat">
-                                    <li>Mobile app</li>
-                                    <li>Product Design</li>
-                                </ul>
-                            </div>
-                
-                            <a href="https://www.behance.net/gallery/179979811/Nehwe-Elearning-Platform" class="modal-popup__details">Project link</a>
-                        </div>
-                    </div> <!-- end modal -->
-
-                    <div id="modal-02" hidden>
-                        <div class="modal-popup">
-                            <img src="images/portfolio/gallery/fcf.png" alt="feed care fear logo">
-                
-                            <div class="modal-popup__desc">
-                                <h5>Feed Care & Fear</h5>
-                                <p>I crafted a clean and engaging web application interface using Figma to meet client needs, focusing on user experience and accessibility in design.</p>
-                                <ul class="modal-popup__cat">
-                                    <li>Product Design</li>
-                                </ul>
-                            </div>
-                
-                            <a href="https://www.behance.net/gallery/157770849/Feed-Care-Fear-web-application" class="modal-popup__details">Project link</a>
-                        </div>
-                    </div> <!-- end modal -->
-
-                    <div id="modal-03" hidden>
-                        <div class="modal-popup">
-                            <img src="images/portfolio/gallery/g-mason.png" alt="mason upvc logo">
-                
-                            <div class="modal-popup__desc">
-                                <h5>Mason-uPVC</h5>
-                                <p>I designed and developed a single-page, responsive website to showcase uPVC products. The project involved creating the layout in Figma and coding the site with HTML, CSS, and JavaScript, ensuring responsiveness across devices.</p>
-                                <ul class="modal-popup__cat">
-                                    <li>Product Design</li>
-                                </ul>
-                            </div>
-                
-                            <a href="https://www.behance.net/gallery/194587439/Mason-UPVC-website-redesign" class="modal-popup__details">Project link</a>
-                        </div>
-                    </div> <!-- end modal -->
-
-                    <div id="modal-04" hidden>
-                        <div class="modal-popup">
-                            <img src="images/portfolio/gallery/g-jagbandhu.png" alt="Jagbandhu Logo">
-                
-                            <div class="modal-popup__desc">
-                                <h5>Jagbandhu</h5>
-                                <p>For the Jagbandhu project, I designed the mobile application, web application, and website in Figma. Additionally, I developed a responsive website using HTML, CSS, and JavaScript. I supported mobile app development using Flutter and contributed to the web application’s functionality using React.js.</p>
-                                <ul class="modal-popup__cat">
-                                    <li>mobile application</li>
-                                    <li>web application</li>
-                                    <li>website</li>
-                                </ul>
-                            </div>
-                
-                            <a href="https://www.jagbandhu.com" class="modal-popup__details">Project link</a>
-                        </div>
-                    </div> <!-- end modal -->
-
-                </div> <!-- end works-portfolio -->
-
-
-                
-
-            </section> <!-- end s-works -->
-
-
-            <!-- ### contact
-            ================================================== -->
-            <section id="contact" class="s-contact target-section">
-
-                <div class="row contact-top">
-                    <div class="column lg-12">
-                        <h2 class="text-pretitle">
-                            Get In Touch
-                        </h2>
-
-                        <p class="h1">
-                            I love to hear from you.
-                            Whether you have a question or just 
-                            want to chat about design, tech & art — shoot me a message.
-                        </p>
-                    </div>
-                </div> <!-- end contact-top -->
-
-                <div class="row contact-bottom">
-                    <div class="column lg-3 md-5 tab-6 stack-on-550 contact-block">
-                        <h3 class="text-pretitle">Reach me at</h3>
-                        <p class="contact-links">
-                            <a href="manoj.inamanamelluri123@gmail.com" class="mailtoui">manoj inamanamelluri</a> <br>
-                            <a href="tel:+917730855454">+91 7730855454</a>
-                        </p>
-                    </div>
-                    <div class="column lg-4 md-5 tab-6 stack-on-550 contact-block">
-                        <h3 class="text-pretitle">Social</h3>
-                        <ul class="contact-social">
-                            <li><a href="https://www.behance.net/manojmanoj61">Behance</a></li>
-                        <li><a href="https://github.com/Manoj-880">Github</a></li>
-                        <li><a href="https://www.linkedin.com/in/manoj-inamanamelluri-319852184/">LinkedIn</a></li>
-                        <li><a href="https://www.instagram.com/manoj_880">Instagram</a></li>
-                        </ul>
-                    </div>
-                    <div class="column lg-4 md-12 contact-block">
-                        <a href="mailto:manoj.inamanamelluri123@gmail.com" class="mailtoui btn btn--medium u-fullwidth contact-btn">Say Hello.</a>
-                    </div>
-                </div> <!-- end contact-bottom -->
-
-            </section> <!-- end contact -->
-
-        </main> <!-- end s-content -->
-
-
-        <!-- ## footer
-        ================================================== -->
-        <footer class="s-footer">
-
-            <div class="row">
-                <div class="ss-go-top">
-                    <a class="smoothscroll" title="Back to Top" href="#top">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill-rule="evenodd" clip-rule="evenodd"><path d="M11 2.206l-6.235 7.528-.765-.645 7.521-9 7.479 9-.764.646-6.236-7.53v21.884h-1v-21.883z"/></svg>
-                    </a>
+            <p class="sub-heading">
+                Experience with
+            </p>
+            <div class="tech-icons">
+                <div class="tech-item">
+                    <i class="fab fa-figma"></i>
+                    <span>Figma</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-pencil-ruler"></i> <!-- Used for Adobe XD -->
+                    <span>Adobe XD</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fab fa-html5"></i>
+                    <span>HTML</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fab fa-css3-alt"></i>
+                    <span>CSS</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fab fa-js"></i>
+                    <span>JavaScript</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fab fa-react"></i>
+                    <span>React</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fab fa-node-js"></i>
+                    <span>Node.js</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-server"></i>
+                    <span>Express</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-database"></i>
+                    <span>MySQL</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-leaf"></i>
+                    <span>MongoDB</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fab fa-aws"></i>
+                    <span>AWS</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fab fa-google"></i>
+                    <span>GCP</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fab fa-android"></i>
+                    <span>Flutter</span>
                 </div>
             </div>
-
-        </footer> <!-- end s-footer -->
-
-    </div> <!-- end -s-pagewrap -->
-
-
-    <!-- Java Script
-    ================================================== -->
-    <script src="js/plugins.js"></script>
-    <script src="js/main.js"></script>
-
+        </div>
+    </section>
+    <section class="projects" id="projects">
+        <div class="projects-content col-sm-12">
+            <p class="sub-heading">
+                Projects
+            </p>
+        </div>
+    </section>
+    <section class="experience" id="experience">
+        <div class="experience-content col-sm-12">
+            <p class="sub-heading">
+                Career
+            </p>
+        </div>
+    </section>
+    <footer id="contact" class="contact">
+        <div class="contact-content">
+            <p class="big-text">Contact</p>
+            <p class="paragraph">
+                Versatile UI/UX Designer and Full-Stack Developer with over 3+ years of experience in crafting intuitive user interfaces, developing responsive web applications, and building cross-platform mobile solutions. Adept at bridging design and development to deliver seamless user experiences across platforms. Continuously expanding expertise in SEO optimization and backend development to drive impactful, user-centric solutions that align with business goals.
+            </p>
+            <p class="email paragraph">
+                <i class="fas fa-envelope" style="margin-right: 8px;"></i>manoj.inamanamelluri123@gmail.com
+            </p>
+            <div class="social-icons">
+                <a href="https://www.instagram.com/manoj_880" class="icon-link" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.linkedin.com/in/manoj-inamanamelluri-319852184/" class="icon-link" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://www.behance.net/manojmanoj61" class="icon-link" target="_blank"><i class="fab fa-behance"></i></a>
+                <a href="https://github.com/Manoj-880" class="icon-link" target="_blank"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
