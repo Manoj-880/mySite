@@ -34,8 +34,8 @@ document.addEventListener("DOMContentLoaded", () => {
     //download file
     document.getElementById('dnlbtn').addEventListener('click', () => {
         const link = document.createElement('a');
-        link.href = 'assets/cv.pdf';
-        link.download = 'cv.pdf';
+        link.href = 'assets/Manoj\ Inamanamelluri\ CV.pdf';
+        // link.download = 'cv.pdf';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
