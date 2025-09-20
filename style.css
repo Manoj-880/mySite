@@ -2068,16 +2068,42 @@ body::-webkit-scrollbar {
         display: block !important;
         position: relative !important;
         z-index: 1 !important;
+        background: linear-gradient(135deg, rgba(34, 34, 34, 0.95) 0%, rgba(22, 21, 19, 0.98) 100%) !important;
+        border: 1px solid rgba(255, 134, 96, 0.3) !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
     }
     
     .project-content,
     .career-content {
         position: relative;
         z-index: 2;
+        color: #ffffff !important;
     }
     
     .projects-grid,
     .career-timeline {
         overflow: visible;
+    }
+    
+    /* Force visibility for all text elements */
+    .project-title,
+    .project-description,
+    .project-category,
+    .career-info h3,
+    .career-company,
+    .career-description {
+        color: #ffffff !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    
+    /* Ensure tech tags and skill tags are visible */
+    .tech-tag,
+    .skill-tag {
+        background: rgba(255, 134, 96, 0.2) !important;
+        color: #ffffff !important;
+        border: 1px solid rgba(255, 134, 96, 0.4) !important;
+        opacity: 1 !important;
+        visibility: visible !important;
     }
 }
