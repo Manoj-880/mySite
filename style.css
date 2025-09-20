@@ -1284,6 +1284,10 @@ body::-webkit-scrollbar {
 
 /* Responsive adjustments for career timeline */
 @media (max-width: 768px) {
+    .career-timeline {
+        padding: 0 10px;
+    }
+    
     .career-timeline::before {
         left: 20px;
     }
@@ -1292,21 +1296,29 @@ body::-webkit-scrollbar {
         flex-direction: column !important;
         align-items: flex-start;
         padding-left: 50px;
+        margin-bottom: 30px;
     }
     
     .career-card {
-        width: 100%;
+        width: 100% !important;
         margin-left: 0;
         margin-right: 0;
+        padding: 20px 15px;
+        border-radius: 15px;
+        min-height: 200px;
+        display: block !important;
     }
     
     .career-timeline-dot {
         left: 20px;
+        width: 16px;
+        height: 16px;
     }
     
     .career-logo {
         width: 50px;
         height: 50px;
+        margin-right: 15px;
     }
     
     .career-logo img {
@@ -1315,23 +1327,35 @@ body::-webkit-scrollbar {
     }
     
     .career-info h3 {
-        font-size: 3vw;
+        font-size: 16px;
+        margin-bottom: 5px;
+        line-height: 1.3;
     }
     
     .career-company {
-        font-size: 2.5vw;
+        font-size: 14px;
+        margin-bottom: 5px;
     }
     
     .career-duration {
-        font-size: 2vw;
+        font-size: 12px;
+        padding: 4px 8px;
+        border-radius: 8px;
     }
     
     .career-description {
-        font-size: 2.2vw;
+        font-size: 13px;
+        line-height: 1.4;
+        margin-bottom: 15px;
     }
     
     .skill-tag {
-        font-size: 1.8vw;
+        font-size: 10px;
+        padding: 3px 6px;
+        border-radius: 6px;
+        margin-right: 5px;
+        margin-bottom: 5px;
+        display: inline-block;
     }
 }
 
@@ -1450,58 +1474,71 @@ body::-webkit-scrollbar {
 
     .projects-grid {
         grid-template-columns: 1fr;
-        gap: 4vh;
+        gap: 20px;
+        padding: 0 10px;
     }
 
     .project-card {
         height: auto;
-        border-radius: 3vw;
+        border-radius: 15px;
+        margin-bottom: 20px;
+        min-height: 300px;
+        display: block !important;
     }
 
     .project-image {
-        height: 250px;
+        height: 200px;
+        width: 100%;
+        background-size: cover;
+        background-position: center;
     }
 
     .project-overlay {
-        font-size: 2.5vw;
-        padding: 1.5vh 3vw;
-        border-radius: 3vw;
+        font-size: 14px;
+        padding: 8px 16px;
+        border-radius: 15px;
     }
 
     .project-content {
-        padding: 3vh 4vw;
+        padding: 20px 15px;
+        min-height: 200px;
     }
 
     .project-category {
-        font-size: 2vw;
-        padding: 1vh 2vw;
-        border-radius: 2vw;
-        margin-bottom: 2vh;
+        font-size: 12px;
+        padding: 6px 12px;
+        border-radius: 12px;
+        margin-bottom: 10px;
+        display: inline-block;
     }
 
     .project-title {
-        font-size: 4vw;
-        margin-bottom: 2vh;
+        font-size: 18px;
+        margin-bottom: 10px;
+        line-height: 1.3;
     }
 
     .project-description {
-        font-size: 2.5vw;
-        margin-bottom: 3vh;
+        font-size: 14px;
+        margin-bottom: 15px;
+        line-height: 1.4;
     }
 
     .tech-tag {
-        font-size: 2vw;
-        padding: 0.8vh 1.5vw;
-        border-radius: 2vw;
-        margin-bottom: 1vh;
+        font-size: 11px;
+        padding: 4px 8px;
+        border-radius: 8px;
+        margin-bottom: 5px;
+        margin-right: 5px;
+        display: inline-block;
     }
 
     .project-link {
-        font-size: 2.5vw;
+        font-size: 14px;
     }
 
     .project-year {
-        font-size: 2vw;
+        font-size: 12px;
     }
 
 
@@ -2021,5 +2058,26 @@ body::-webkit-scrollbar {
     .contact-content .paragraph{
         text-align: start;
         font-size: 1vw;
+    }
+    
+    /* Additional mobile fixes for better visibility */
+    .project-card,
+    .career-card {
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: block !important;
+        position: relative !important;
+        z-index: 1 !important;
+    }
+    
+    .project-content,
+    .career-content {
+        position: relative;
+        z-index: 2;
+    }
+    
+    .projects-grid,
+    .career-timeline {
+        overflow: visible;
     }
 }
