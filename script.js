@@ -1,152 +1,330 @@
 document.addEventListener("DOMContentLoaded", () => {
-    //handle toggle menu
-    const menuBtn = document.querySelector('.menu-icon');
-    const sideNavBar = document.querySelector('.side-menu');
-    const navItems = document.querySelectorAll('.side-menu .nav-item');
+    // Custom Cursor Functionality (Desktop only)
+    const cursor = document.querySelector('.custom-cursor');
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    
+    if (isTouchDevice) {
+        cursor.style.display = 'none';
+        document.body.style.cursor = 'auto';
+        return;
+    }
+    
+    let mouseX = 0;
+    let mouseY = 0;
+    let cursorX = 0;
+    let cursorY = 0;
+    let isHovering = false;
+    let isClicking = false;
 
+    // Smooth cursor movement
+    function animateCursor() {
+        const diffX = mouseX - cursorX;
+        const diffY = mouseY - cursorY;
+        
+        cursorX += diffX * 0.1;
+        cursorY += diffY * 0.1;
+        
+        cursor.style.left = cursorX + 'px';
+        cursor.style.top = cursorY + 'px';
+        
+        requestAnimationFrame(animateCursor);
+    }
 
-    sideNavBar.style.display = 'none';
-
-    menuBtn.addEventListener('click', () => {
-        console.log(sideNavBar.style.display);
-
-        if (sideNavBar.style.display == "" || sideNavBar.style.display == 'none') {
-            sideNavBar.style.display = 'flex';
-        } else {
-            sideNavBar.style.display = 'none';
+    // Mouse move event
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        
+        // Create trail effect
+        if (Math.random() > 0.7) {
+            createTrail(e.clientX, e.clientY);
         }
     });
 
-    navItems.forEach(item => {
-        item.addEventListener('click', (e) => {
-            e.preventDefault(); // prevent default anchor behavior
+    // Create cursor trail
+    function createTrail(x, y) {
+        const trail = document.createElement('div');
+        trail.className = 'cursor-trail';
+        trail.style.left = x + 'px';
+        trail.style.top = y + 'px';
+        document.body.appendChild(trail);
+        
+        setTimeout(() => {
+            trail.remove();
+        }, 600);
+    }
 
-            const targetId = item.getAttribute('href');
+    // Mouse enter/leave for hoverable elements
+    const hoverableElements = document.querySelectorAll('a, button, .nav-item, .tech-item, .project-card, .icon-link, .menu-icon, .tech-icons i, .social-icons a, .hero-buttons button, .service-card, .mobile-nav-link, .mobile-social-link, .mobile-menu-close');
+    
+    hoverableElements.forEach(element => {
+        element.addEventListener('mouseenter', () => {
+            isHovering = true;
+            cursor.classList.add('hover');
+        });
+        
+        element.addEventListener('mouseleave', () => {
+            isHovering = false;
+            cursor.classList.remove('hover');
+        });
+    });
+
+    // Click events
+    document.addEventListener('mousedown', () => {
+        isClicking = true;
+        cursor.classList.add('click');
+    });
+    
+    document.addEventListener('mouseup', () => {
+        isClicking = false;
+        cursor.classList.remove('click');
+    });
+
+    // Hide cursor when leaving window
+    document.addEventListener('mouseleave', () => {
+        cursor.classList.add('hidden');
+    });
+    
+    document.addEventListener('mouseenter', () => {
+        cursor.classList.remove('hidden');
+    });
+
+    // Start cursor animation
+    animateCursor();
+
+    // Mobile Menu Functionality
+    const menuBtn = document.querySelector('.menu-icon');
+    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+    const mobileMenuClose = document.getElementById('mobile-menu-close');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+    // Open mobile menu
+    menuBtn.addEventListener('click', () => {
+        mobileMenuOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    });
+
+    // Close mobile menu
+    mobileMenuClose.addEventListener('click', () => {
+        closeMobileMenu();
+    });
+
+    // Close mobile menu when clicking overlay
+    mobileMenuOverlay.addEventListener('click', (e) => {
+        if (e.target === mobileMenuOverlay) {
+            closeMobileMenu();
+        }
+    });
+
+    // Close mobile menu function
+    function closeMobileMenu() {
+        mobileMenuOverlay.classList.remove('active');
+        document.body.style.overflow = 'auto'; // Restore scrolling
+    }
+
+    // Handle mobile navigation links
+    mobileNavLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            const targetId = link.getAttribute('href');
             const targetElement = document.querySelector(targetId);
 
             if (targetElement) {
-                sideNavBar.style.display = 'none'; // hide the menu
-                targetElement.scrollIntoView({ behavior: 'smooth' }); // scroll to section
+                closeMobileMenu(); // Close the menu
+                setTimeout(() => {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                }, 300); // Wait for menu close animation
             }
         });
     });
 
-    //download file
+    // Close mobile menu on escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mobileMenuOverlay.classList.contains('active')) {
+            closeMobileMenu();
+        }
+    });
+
+    //open CV in new tab
     document.getElementById('dnlbtn').addEventListener('click', () => {
-        const link = document.createElement('a');
-        link.href = 'assets/cv.pdf';
-        link.download = 'cv.pdf';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        window.open('assets/Manoj Inamanamelluri CV.pdf', '_blank');
     });
 
 
-    // showing projects
+    // Projects Data with enhanced information
     const projectsData = [
         {
             image: 'assets/projects/jagbandhu.png',
             title: 'Jagbandhu',
-            link: 'https://www.jagbandhu.com'
+            description: 'A comprehensive web platform for community services and social networking, built with modern web technologies.',
+            link: 'https://www.jagbandhu.com',
+            category: 'web',
+            year: '2023',
+            tech: ['React', 'Node.js', 'MongoDB', 'AWS']
         },
         {
             image: 'assets/projects/fcf.png',
             title: 'Feed Care Fear',
-            link: 'https://www.figma.com/design/vjrkcZ21wBSYECQb4EpP85/web-application--Copy-?node-id=0-1&m=dev'
+            description: 'UI/UX design for a healthcare application focused on patient care and medical data management.',
+            link: 'https://www.figma.com/design/vjrkcZ21wBSYECQb4EpP85/web-application--Copy-?node-id=0-1&m=dev',
+            category: 'design',
+            year: '2023',
+            tech: ['Figma', 'Adobe XD', 'UI/UX Design']
         },
         {
             image: 'assets/projects/mason.png',
             title: 'Mason Upvc',
-            link: 'https://www.figma.com/design/vjrkcZ21wBSYECQb4EpP85/web-application--Copy-?node-id=0-1&m=dev'
+            description: 'E-commerce website for UPVC products with modern design and seamless user experience.',
+            link: 'https://www.figma.com/design/vjrkcZ21wBSYECQb4EpP85/web-application--Copy-?node-id=0-1&m=dev',
+            category: 'web',
+            year: '2022',
+            tech: ['HTML', 'CSS', 'JavaScript', 'Bootstrap']
         },
         {
             image: 'assets/projects/nehwe.png',
             title: 'Nehwe',
-            link: 'https://www.figma.com/design/vjrkcZ21wBSYECQb4EpP85/web-application--Copy-?node-id=0-1&m=dev'
+            description: 'Mobile application design for a social platform connecting people with similar interests.',
+            link: 'https://www.figma.com/design/vjrkcZ21wBSYECQb4EpP85/web-application--Copy-?node-id=0-1&m=dev',
+            category: 'mobile',
+            year: '2023',
+            tech: ['Flutter', 'Firebase', 'UI/UX Design']
         },
         {
             image: 'assets/projects/srbs.png',
             title: "SRBS",
+            description: 'Educational mobile application designed for student management and academic tracking.',
             link: "https://www.figma.com/design/m6bOYNNibty89G1BHuSDqT/Mobile-App?node-id=0-1&t=JIlfm5Rw1G3KMUtK-1",
+            category: 'mobile',
+            year: '2022',
+            tech: ['Flutter', 'SQLite', 'REST API']
         },
         {
             image: "assets/projects/smscholarly.png",
             title: "S&M Scholarly",
+            description: 'Comprehensive educational platform with web and mobile applications for academic excellence.',
             link: "https://www.smscholarly.com//",
+            category: 'web',
+            year: '2022',
+            tech: ['React', 'Node.js', 'MySQL', 'AWS']
         }
     ];
 
-    const container = document.querySelector('.projects-content');
+    // Project filtering functionality
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const projectsGrid = document.getElementById('projects-grid');
+    let currentFilter = 'all';
 
-    const gridWrapper = document.createElement('div');
-    gridWrapper.className = 'row g-4 justify-content-center mt-4';
+    function renderProjects(filter = 'all') {
+        projectsGrid.innerHTML = '';
+        
+        const filteredProjects = filter === 'all' 
+            ? projectsData 
+            : projectsData.filter(project => project.category === filter);
 
-    projectsData.forEach((project) => {
-        const card = document.createElement('div');
-        card.className = 'project-card col-sm-5';
+        filteredProjects.forEach((project) => {
+            const card = document.createElement('div');
+            card.className = 'project-card';
+            card.setAttribute('data-category', project.category);
 
-
-        card.innerHTML = `
-        <a href="${project.link}" target="_blank" style="text-decoration: none;">
-                <img src="${project.image}" alt="${project.title}" class="col-12 col-sm-12">
-                <div class="project-data row">
-                    <div class="project-details col-10 col-sm-10">
-                        <p class="project-action small-text">
-                            Click here to visit
-                        </p>
-                        <p class="project-title medium-test">
-                            ${project.title}
-                        </p>
-                    </div>
-                    <i class="fa-solid fa-square-arrow-up-right col-2 col-sm-2 project-icon"></i>
+            card.innerHTML = `
+                <div class="project-image" style="background-image: url('${project.image}')">
+                    <div class="project-overlay">View Project</div>
                 </div>
-            </a>
-        `;
+                <div class="project-content">
+                    <div class="project-category">${project.category.toUpperCase()}</div>
+                    <h3 class="project-title">${project.title}</h3>
+                    <p class="project-description">${project.description}</p>
+                    <div class="project-tech">
+                        ${project.tech.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
+                    </div>
+                    <div class="project-footer">
+                        <a href="${project.link}" target="_blank" class="project-link">
+                            View Project <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <span class="project-year">${project.year}</span>
+                    </div>
+                </div>
+            `;
 
-        gridWrapper.appendChild(card);
+            projectsGrid.appendChild(card);
+        });
+    }
+
+    // Filter button event listeners
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Remove active class from all buttons
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            // Add active class to clicked button
+            button.classList.add('active');
+            
+            // Get filter value and render projects
+            currentFilter = button.getAttribute('data-filter');
+            renderProjects(currentFilter);
+        });
     });
 
-    container.appendChild(gridWrapper);
 
-    // experience content
-    const experiencesData = [
+    // Initial render
+    renderProjects();
+
+    // Career timeline content
+    const careerData = [
         {
             img: "assets/career/sm.png",
             title: "S&M Scholarly Solutions",
+            company: "Software Engineer",
             timeline: "Aug 2022 - Present",
-            description: `In my role at S&M Scholarly Solutions, I design user interfaces for mobile and web applications, ensuring they are both intuitive and visually engaging. I develop responsive websites and web applications to provide a seamless user experience across various devices. Additionally, I build backend servers to manage data transactions between mobile apps and web applications and create cross-platform mobile applications using Flutter. I am also responsible for designing graphical elements and assets needed for these projects. Currently, I am expanding my expertise by learning SEO optimization to enhance web visibility and search engine performance.`
+            description: `Leading full-stack development of educational platforms, crafting intuitive UI/UX designs, and building scalable web & mobile applications. Specialized in React, Node.js, and Flutter while driving SEO optimization strategies for enhanced digital presence.`,
+            skills: ["React", "Node.js", "Flutter", "UI/UX Design", "AWS", "MongoDB", "SEO"]
         },
         {
             img: "assets/career/fsa.png",
             title: "FullStack Academy",
+            company: "Full-Stack Development Bootcamp",
             timeline: "Jan 2022 - May 2022",
-            description: `During my time at FullStack Academy, I underwent intensive training in modern web development and full-stack engineering. I gained hands-on experience with HTML, CSS, JavaScript, React, Node.js, and MongoDB, focusing on building scalable and responsive web applications. The program emphasized real-world project development, where I collaborated with peers to design, develop, and deploy full-stack applications. I also deepened my understanding of UI/UX design principles, version control with Git, and agile development workflows. This immersive experience laid the foundation for my transition into professional full-stack development.`
+            description: `Intensive 4-month bootcamp mastering modern web technologies including React, Node.js, and MongoDB. Built multiple full-stack applications using agile methodologies, gaining hands-on experience in collaborative development and deployment.`,
+            skills: ["JavaScript", "React", "Node.js", "MongoDB", "Git", "Agile", "Team Collaboration"]
         },
         {
             img: "assets/career/vvit.png",
             title: "Vasireddy Venkatadri Institute of Technology",
+            company: "Bachelor of Technology - Mechanical Engineering",
             timeline: "Jun 2017 - Jul 2021",
-            description: `I pursued my Bachelor's degree in Mechanical Engineering at VVIT, where I developed a strong analytical and problem-solving mindset. Alongside my core engineering curriculum, I actively participated in various technical events and workshops that introduced me to programming and software development. My growing interest in technology led me to explore web and mobile app development independently during my academic years. This period was instrumental in shaping my decision to shift toward a career in software engineering, equipping me with both a technical foundation and the adaptability to transition into full-stack development.`
+            description: `Developed strong analytical and problem-solving foundation through mechanical engineering studies. Self-taught programming and web development, participating in tech workshops that sparked my transition into software engineering.`,
+            skills: ["Problem Solving", "Analytical Thinking", "Mathematics", "Physics", "Engineering Design"]
         }
     ];
 
-    const experienceContainer = document.querySelector('.experience-content');
+    const careerTimeline = document.getElementById('career-timeline');
 
-    experiencesData.forEach((exp) => {
-        const card = document.createElement('div');
-        card.className = 'experience-card col-sm-12';
+    careerData.forEach((career, index) => {
+        const entry = document.createElement('div');
+        entry.className = 'career-entry';
 
-        card.innerHTML = `
-        <div class="exp-card-heading row col-sm-12">
-            <div class="card-brief row col-8 col-sm-8">
-            <img src="${exp.img}" alt="${exp.title}" class="col-2 col-sm-2">
-            <p class="medium-test col-10 col-sm-10">${exp.title}</p>
+        entry.innerHTML = `
+            <div class="career-card">
+                <div class="career-content">
+                    <div class="career-header">
+                        <div class="career-logo">
+                            <img src="${career.img}" alt="${career.title}">
+                        </div>
+                        <div class="career-info">
+                            <h3>${career.title}</h3>
+                            <div class="career-company">${career.company}</div>
+                            <div class="career-duration">${career.timeline}</div>
+                        </div>
+                    </div>
+                    <p class="career-description">${career.description}</p>
+                    <div class="career-skills">
+                        ${career.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+                    </div>
+                </div>
             </div>
-            <p class="paragraph col-3 col-sm-3">${exp.timeline}</p>
-        </div>
-        <p class="paragraph">${exp.description}</p>
+            <div class="career-timeline-dot"></div>
         `;
 
-        experienceContainer.appendChild(card);
+        careerTimeline.appendChild(entry);
     });
 });

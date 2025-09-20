@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manoj Inamanamelluri</title>
+    <title>Manoj Inamanamelluri - Full-Stack Developer & UI/UX Designer</title>
     <link rel="shortcut icon" href="assets/logo.svg" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
     <link
@@ -17,11 +17,15 @@
     <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
 </head>
 <body>
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
+    
     <!-- nav bar -->
     <nav class="nav-bar col-sm-12">
         <img src="assets/logo.svg" alt="manoj logo" class="logo">
         <ul class="nav-list">
             <li><a class="nav-item" href="#">Home</a></li>
+            <li><a class="nav-item" href="#services">Services</a></li>
             <li><a class="nav-item" href="#projects">Projects</a></li>
             <li><a class="nav-item" href="#experience">Experience</a></li>
             <li><a class="nav-item" href="#contact">Contact</a></li>
@@ -29,17 +33,99 @@
         <i class="fa-solid fa-bars menu-icon"></i>
     </nav>
 
-    <nav class="side-menu col-sm-3" style="background-color: #222222;">
-        <ul class="nav-list">
-            <li><a class="nav-item" href="#" style="font-size: 5vw;">Home</a></li>
-            <li><a class="nav-item" href="#projects" style="font-size: 5vw;">Projects</a></li>
-            <li><a class="nav-item" href="#experience" style="font-size: 5vw;">Experience</a></li>
-            <li><a class="nav-item" href="#contact" style="font-size: 5vw;">Contact</a></li>
-        </ul>
-    </nav>
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay">
+        <div class="mobile-menu-content">
+            <div class="mobile-menu-header">
+                <img src="assets/logo.svg" alt="manoj logo" class="mobile-menu-logo">
+                <button class="mobile-menu-close" id="mobile-menu-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <nav class="mobile-menu-nav">
+                <ul class="mobile-nav-list">
+                    <li class="mobile-nav-item">
+                        <a href="#" class="mobile-nav-link">
+                            <i class="fas fa-home"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li class="mobile-nav-item">
+                        <a href="#services" class="mobile-nav-link">
+                            <i class="fas fa-cogs"></i>
+                            <span>Services</span>
+                        </a>
+                    </li>
+                    <li class="mobile-nav-item">
+                        <a href="#projects" class="mobile-nav-link">
+                            <i class="fas fa-folder-open"></i>
+                            <span>Projects</span>
+                        </a>
+                    </li>
+                    <li class="mobile-nav-item">
+                        <a href="#experience" class="mobile-nav-link">
+                            <i class="fas fa-briefcase"></i>
+                            <span>Experience</span>
+                        </a>
+                    </li>
+                    <li class="mobile-nav-item">
+                        <a href="#contact" class="mobile-nav-link">
+                            <i class="fas fa-envelope"></i>
+                            <span>Contact</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="mobile-menu-footer">
+                <div class="mobile-social-links">
+                    <a href="https://www.instagram.com/manoj_880" class="mobile-social-link" target="_blank">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/manoj-inamanamelluri-319852184/" class="mobile-social-link" target="_blank">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://www.behance.net/manojmanoj61" class="mobile-social-link" target="_blank">
+                        <i class="fab fa-behance"></i>
+                    </a>
+                    <a href="https://github.com/Manoj-880" class="mobile-social-link" target="_blank">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- home -->
     <section class="home" id="home">
+        <!-- Tech Animation Background -->
+        <div class="tech-bg">
+            <div class="tech-grid"></div>
+            <div class="floating-code">const developer = {</div>
+            <div class="floating-code">skills: ['React', 'Node.js'],</div>
+            <div class="floating-code">passion: 'coding'</div>
+            <div class="floating-code">};</div>
+            <div class="floating-code">function create() {</div>
+            <div class="floating-particles">
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+            </div>
+            <div class="floating-symbols">
+                <div class="symbol"></div>
+                <div class="symbol"></div>
+                <div class="symbol"></div>
+                <div class="symbol"></div>
+                <div class="symbol"></div>
+                <div class="symbol"></div>
+                <div class="symbol"></div>
+                <div class="symbol"></div>
+            </div>
+        </div>
         <div class="home-container col-sm-12">
             <div class="avathar col-sm-12">
                 <img src="assets/avathar.svg" alt="my avathar" class="col-2 col-sm-4 col-md-2">
@@ -120,18 +206,121 @@
             </div>
         </div>
     </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="services-content col-sm-12">
+            <p class="sub-heading">
+                Services
+            </p>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3 class="service-title">UI/UX Design</h3>
+                    <p class="service-description">
+                        Creating intuitive and visually appealing user interfaces that enhance user experience and drive engagement across all platforms.
+                    </p>
+                    <ul class="service-features">
+                        <li>User Research & Analysis</li>
+                        <li>Wireframing & Prototyping</li>
+                        <li>Visual Design & Branding</li>
+                        <li>Usability Testing</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3 class="service-title">Graphic Design</h3>
+                    <p class="service-description">
+                        Crafting compelling visual identities and marketing materials that communicate your brand's message effectively.
+                    </p>
+                    <ul class="service-features">
+                        <li>Logo Design & Brand Identity</li>
+                        <li>Print & Digital Marketing</li>
+                        <li>Social Media Graphics</li>
+                        <li>Illustration & Icons</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="service-title">Fullstack Web Development</h3>
+                    <p class="service-description">
+                        Building robust, scalable web applications from frontend to backend, ensuring optimal performance and security.
+                    </p>
+                    <ul class="service-features">
+                        <li>Frontend Development (React, HTML, CSS)</li>
+                        <li>Backend Development (Node.js, Express)</li>
+                        <li>Database Design & Management</li>
+                        <li>Cloud Deployment & DevOps</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="service-title">Mobile Application Development</h3>
+                    <p class="service-description">
+                        Developing cross-platform mobile applications that deliver native performance and seamless user experience.
+                    </p>
+                    <ul class="service-features">
+                        <li>Cross-Platform Development (Flutter)</li>
+                        <li>Native iOS & Android Apps</li>
+                        <li>App Store Optimization</li>
+                        <li>Push Notifications & Analytics</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="projects" id="projects">
         <div class="projects-content col-sm-12">
-            <p class="sub-heading">
-                Projects
-            </p>
+            <div class="projects-header">
+                <p class="sub-heading">
+                    Featured Projects
+                </p>
+                <p class="projects-description">
+                    Explore my portfolio of creative and technical projects that showcase my skills in design and development.
+                </p>
+            </div>
+            
+            <!-- Project Filter Tabs -->
+            <div class="project-filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="web">Web Development</button>
+                <button class="filter-btn" data-filter="mobile">Mobile Apps</button>
+                <button class="filter-btn" data-filter="design">UI/UX Design</button>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="projects-grid" id="projects-grid">
+                <!-- Projects will be dynamically loaded here -->
+            </div>
         </div>
     </section>
     <section class="experience" id="experience">
         <div class="experience-content col-sm-12">
-            <p class="sub-heading">
-                Career
-            </p>
+            <div class="experience-header">
+                <p class="sub-heading">
+                    Career Journey
+                </p>
+                <p class="experience-description">
+                    My professional growth and achievements in the world of technology and design.
+                </p>
+            </div>
+            
+            <!-- Career Timeline -->
+            <div class="career-timeline" id="career-timeline">
+                <!-- Career entries will be dynamically loaded here -->
+            </div>
         </div>
     </section>
     <footer id="contact" class="contact">
