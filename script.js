@@ -21,8 +21,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const diffX = mouseX - cursorX;
         const diffY = mouseY - cursorY;
         
-        cursorX += diffX * 0.1;
-        cursorY += diffY * 0.1;
+        // Increase interpolation factor for faster catch-up
+        cursorX += diffX * 0.18;
+        cursorY += diffY * 0.18;
         
         cursor.style.left = cursorX + 'px';
         cursor.style.top = cursorY + 'px';
@@ -92,6 +93,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // Start cursor animation
     animateCursor();
 
+    // Theme locked to dark. Remove any stored preference.
+    try { localStorage.removeItem('theme-preference'); } catch (_) {}
+    document.body.setAttribute('data-theme', 'dark');
+
     // Mobile Menu Functionality
     const menuBtn = document.querySelector('.menu-icon');
     const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
@@ -152,60 +157,90 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    // Projects Data with enhanced information
+    // Projects Data with enhanced information (rewritten for trendy UI)
     const projectsData = [
         {
+            image: 'assets/projects/secureusdt.png',
+            title: 'SecureUSDT',
+            description: 'Full‑stack USDT investment platform with automated profits, secure wallets, and invoices.',
+            link: 'https://secureusdt.com',
+            repo: 'https://github.com/Manoj-880/ustdCrypto',
+            category: 'web',
+            year: '2025',
+            role: 'Full‑Stack',
+            company: 'Freelance',
+            tech: ['React', 'Node.js', 'MongoDB', 'AWS', 'TronWeb']
+        },
+        {
             image: 'assets/projects/jagbandhu.png',
-            title: 'Jagbandhu',
-            description: 'A comprehensive web platform for community services and social networking, built with modern web technologies.',
+            title: 'Jagbandhu Platform',
+            description: 'Community-first platform connecting people with services. Modern stack, fast, and accessible.',
             link: 'https://www.jagbandhu.com',
             category: 'web',
             year: '2023',
+            role: 'Full‑Stack',
+            company: 'S&M Scholarly Solutions',
+            repo: '',
             tech: ['React', 'Node.js', 'MongoDB', 'AWS']
         },
         {
             image: 'assets/projects/fcf.png',
-            title: 'Feed Care Fear',
-            description: 'UI/UX design for a healthcare application focused on patient care and medical data management.',
+            title: 'Feed Care Fear (UX)',
+            description: 'Design system and flows for a healthcare app. Clean, legible, and patient‑centric.',
             link: 'https://www.figma.com/design/vjrkcZ21wBSYECQb4EpP85/web-application--Copy-?node-id=0-1&m=dev',
             category: 'design',
             year: '2023',
-            tech: ['Figma', 'Adobe XD', 'UI/UX Design']
+            role: 'Product Design',
+            company: 'S&M Scholarly Solutions',
+            repo: '',
+            tech: ['Figma', 'Proto', 'Design Tokens']
         },
         {
             image: 'assets/projects/mason.png',
-            title: 'Mason Upvc',
-            description: 'E-commerce website for UPVC products with modern design and seamless user experience.',
+            title: 'Mason UPVC',
+            description: 'E‑commerce storefront with conversion‑focused UI and super‑smooth interactions.',
             link: 'https://www.figma.com/design/vjrkcZ21wBSYECQb4EpP85/web-application--Copy-?node-id=0-1&m=dev',
             category: 'web',
             year: '2022',
+            role: 'Frontend',
+            company: 'S&M Scholarly Solutions',
+            repo: '',
             tech: ['HTML', 'CSS', 'JavaScript', 'Bootstrap']
         },
         {
             image: 'assets/projects/nehwe.png',
-            title: 'Nehwe',
-            description: 'Mobile application design for a social platform connecting people with similar interests.',
+            title: 'Nehwe (Mobile)',
+            description: 'Social discovery app. Lightweight, responsive, and built for quick iteration.',
             link: 'https://www.figma.com/design/vjrkcZ21wBSYECQb4EpP85/web-application--Copy-?node-id=0-1&m=dev',
             category: 'mobile',
             year: '2023',
-            tech: ['Flutter', 'Firebase', 'UI/UX Design']
+            role: 'Design + Flutter',
+            company: 'S&M Scholarly Solutions',
+            repo: '',
+            tech: ['Flutter', 'Firebase', 'UI/UX']
         },
         {
             image: 'assets/projects/srbs.png',
-            title: "SRBS",
-            description: 'Educational mobile application designed for student management and academic tracking.',
+            title: "SRBS (EdTech)",
+            description: 'Student success app with offline‑first flows and clear progress tracking.',
             link: "https://www.figma.com/design/m6bOYNNibty89G1BHuSDqT/Mobile-App?node-id=0-1&t=JIlfm5Rw1G3KMUtK-1",
             category: 'mobile',
             year: '2022',
-            tech: ['Flutter', 'SQLite', 'REST API']
+            role: 'Mobile',
+            company: 'S&M Scholarly Solutions',
+            repo: '',
+            tech: ['Flutter', 'SQLite', 'REST']
         },
         {
             image: "assets/projects/smscholarly.png",
             title: "S&M Scholarly",
-            description: 'Comprehensive educational platform with web and mobile applications for academic excellence.',
+            description: 'Full‑stack suite for schools: CMS, analytics, and parent portal—deployed on AWS.',
             link: "https://www.smscholarly.com//",
             category: 'web',
             year: '2022',
+            role: 'Full‑Stack',
+            company: 'S&M Scholarly Solutions',
+            repo: '',
             tech: ['React', 'Node.js', 'MySQL', 'AWS']
         }
     ];
@@ -227,25 +262,48 @@ document.addEventListener("DOMContentLoaded", () => {
             card.className = 'project-card';
             card.setAttribute('data-category', project.category);
 
+            const roleBadge = project.role ? `<div class="badge-role"><i class=\"fas fa-bolt\"></i>${project.role}</div>` : '';
+            const companyChip = project.company ? `<div class=\"project-company\"><i class=\"fas fa-building\"></i>${project.company}</div>` : '';
+            const repoIcon = project.repo ? `<a class="action-icon" href="${project.repo}" target="_blank" aria-label="View Code"><i class="fab fa-github"></i></a>` : '';
+            const liveIcon = project.link ? `<a class="action-icon" href="${project.link}" target="_blank" aria-label="Open Live"><i class="fas fa-external-link-alt"></i></a>` : '';
+
             card.innerHTML = `
-                <div class="project-image" style="background-image: url('${project.image}')">
-                    <div class="project-overlay">View Project</div>
-                </div>
+                <div class="project-image" style="background-image: url('${project.image}')"></div>
                 <div class="project-content">
                     <div class="project-category">${project.category.toUpperCase()}</div>
+                    <div class="project-meta">${roleBadge}${companyChip}</div>
                     <h3 class="project-title">${project.title}</h3>
                     <p class="project-description">${project.description}</p>
                     <div class="project-tech">
                         ${project.tech.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
                     </div>
                     <div class="project-footer">
-                        <a href="${project.link}" target="_blank" class="project-link">
-                            View Project <i class="fas fa-external-link-alt"></i>
-                        </a>
+                        <div class="project-actions">${liveIcon}${repoIcon}</div>
                         <span class="project-year">${project.year}</span>
                     </div>
                 </div>
             `;
+
+            // Make whole card clickable to live link
+            if (project.link) {
+                card.setAttribute('role', 'link');
+                card.setAttribute('tabindex', '0');
+                card.addEventListener('click', () => {
+                    window.open(project.link, '_blank');
+                });
+                card.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        window.open(project.link, '_blank');
+                    }
+                });
+            }
+
+            // Prevent action icon clicks from bubbling to card
+            setTimeout(() => {
+                card.querySelectorAll('.action-icon').forEach(icon => {
+                    icon.addEventListener('click', (e) => e.stopPropagation());
+                });
+            }, 0);
 
             projectsGrid.appendChild(card);
         });
@@ -269,31 +327,34 @@ document.addEventListener("DOMContentLoaded", () => {
     // Initial render
     renderProjects();
 
+    // After rendering, enhance projects with tilt + reveal
+    enhanceInteractiveCards();
+
     // Career timeline content
     const careerData = [
         {
             img: "assets/career/sm.png",
-            title: "S&M Scholarly Solutions",
-            company: "Software Engineer",
+            title: "Software Engineer",
+            company: "S&M Scholarly Solutions",
             timeline: "Aug 2022 - Present",
-            description: `Leading full-stack development of educational platforms, crafting intuitive UI/UX designs, and building scalable web & mobile applications. Specialized in React, Node.js, and Flutter while driving SEO optimization strategies for enhanced digital presence.`,
-            skills: ["React", "Node.js", "Flutter", "UI/UX Design", "AWS", "MongoDB", "SEO"]
+            description: `Leading full‑stack delivery for a multi‑product EdTech suite. Shipped CMS, analytics, and parent portal across web/mobile. Focus on performance, UX, and DX.`,
+            skills: ["React", "Node.js", "Flutter", "UI/UX", "AWS", "MongoDB", "SEO"]
         },
         {
             img: "assets/career/fsa.png",
-            title: "FullStack Academy",
-            company: "Full-Stack Development Bootcamp",
+            title: "Full‑Stack Development Bootcamp",
+            company: "FullStack Academy",
             timeline: "Jan 2022 - May 2022",
-            description: `Intensive 4-month bootcamp mastering modern web technologies including React, Node.js, and MongoDB. Built multiple full-stack applications using agile methodologies, gaining hands-on experience in collaborative development and deployment.`,
-            skills: ["JavaScript", "React", "Node.js", "MongoDB", "Git", "Agile", "Team Collaboration"]
+            description: `Built production‑style apps with modern stacks and CI. Strong focus on collaboration, code quality, and shipping.`,
+            skills: ["JavaScript", "React", "Node.js", "MongoDB", "Git", "Agile"]
         },
         {
             img: "assets/career/vvit.png",
-            title: "Vasireddy Venkatadri Institute of Technology",
-            company: "Bachelor of Technology - Mechanical Engineering",
+            title: "B.Tech — Mechanical Engineering",
+            company: "Vasireddy Venkatadri Institute of Technology",
             timeline: "Jun 2017 - Jul 2021",
-            description: `Developed strong analytical and problem-solving foundation through mechanical engineering studies. Self-taught programming and web development, participating in tech workshops that sparked my transition into software engineering.`,
-            skills: ["Problem Solving", "Analytical Thinking", "Mathematics", "Physics", "Engineering Design"]
+            description: `Strong analytical foundation. Transitioned to software through self‑learning and hands‑on projects.`,
+            skills: ["Problem Solving", "Systems Thinking", "Mathematics", "Engineering"]
         }
     ];
 
@@ -301,7 +362,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     careerData.forEach((career, index) => {
         const entry = document.createElement('div');
-        entry.className = 'career-entry';
+        entry.className = 'career-entry reveal';
 
         entry.innerHTML = `
             <div class="career-card">
@@ -312,8 +373,10 @@ document.addEventListener("DOMContentLoaded", () => {
                         </div>
                         <div class="career-info">
                             <h3>${career.title}</h3>
-                            <div class="career-company">${career.company}</div>
-                            <div class="career-duration">${career.timeline}</div>
+                            <div class="career-meta">
+                                <div class="career-company">${career.company}</div>
+                                <div class="career-duration">${career.timeline}</div>
+                            </div>
                         </div>
                     </div>
                     <p class="career-description">${career.description}</p>
@@ -327,4 +390,80 @@ document.addEventListener("DOMContentLoaded", () => {
 
         careerTimeline.appendChild(entry);
     });
+
+    // Scroll reveal for sections and generated items
+    setupScrollReveal();
+
+    // Parallax effect for hero gradient blob
+    setupParallaxBlob();
+
+    // Magnetic hover for buttons/links
+    setupMagneticHover();
 });
+
+function setupScrollReveal() {
+    const revealables = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15, rootMargin: '0px 0px -5% 0px' });
+
+    revealables.forEach(el => observer.observe(el));
+}
+
+function enhanceInteractiveCards() {
+    // Add tilt class to service and project cards
+    document.querySelectorAll('.service-card, .project-card').forEach(card => {
+        card.classList.add('tilt', 'reveal');
+        addTilt(card);
+    });
+}
+
+function addTilt(card) {
+    let rect;
+    const damp = 20; // lower -> stronger tilt
+    const reset = () => {
+        card.style.transform = '';
+    };
+    card.addEventListener('mouseenter', () => { rect = card.getBoundingClientRect(); });
+    card.addEventListener('mousemove', (e) => {
+        if (!rect) rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width;
+        const y = (e.clientY - rect.top) / rect.height;
+        const rotX = (0.5 - y) * damp;
+        const rotY = (x - 0.5) * damp;
+        card.style.transform = `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateZ(0)`;
+    });
+    card.addEventListener('mouseleave', () => { reset(); });
+}
+
+function setupParallaxBlob() {
+    const blob = document.querySelector('.gradient-blob');
+    if (!blob) return;
+    let lastY = window.scrollY;
+    const onScroll = () => {
+        const y = window.scrollY;
+        const delta = (y - lastY) * 0.05;
+        blob.style.transform = `translate(-3vw, ${Math.max(-20, Math.min(20, delta))}px)`;
+        lastY = y;
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+}
+
+function setupMagneticHover() {
+    const magnets = document.querySelectorAll('.primary-btn, .secondary-btn, .filter-btn');
+    magnets.forEach(el => {
+        let rect;
+        el.addEventListener('mousemove', (e) => {
+            rect = rect || el.getBoundingClientRect();
+            const relX = e.clientX - rect.left - rect.width / 2;
+            const relY = e.clientY - rect.top - rect.height / 2;
+            el.style.transform = `translate(${relX * 0.05}px, ${relY * 0.05}px)`;
+        });
+        el.addEventListener('mouseleave', () => { el.style.transform = ''; rect = undefined; });
+    });
+}

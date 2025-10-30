@@ -6,12 +6,18 @@
 :root {
     --color-black: #161513;
     --color-grey: #222222;
-    --color-text: #fff;
+    --color-text: #ffffff;
     --color-secondary-text: #C5C5C5;
+    --color-surface: #1b1a19;
+    --color-border: rgba(255, 134, 96, 0.2);
+    --shadow-strong: 0 20px 40px rgba(255, 134, 96, 0.18);
+    --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.25);
     --color-gradient: linear-gradient(180deg, #FF8660 0%, #D5491D 100%);
     --color-blue-gradient: linear-gradient(180deg, #5BADFF 0%, #1373D1 100%);
     --color-icon-gradient: linear-gradient(to bottom, #FDFDFD 0%, rgba(255, 255, 255, 0.18) 100%);
 }
+
+/* Light theme removed; site locked to dark */
 
 /* --------------------------------------------------
     Base Reset & Scrollbar
@@ -39,7 +45,7 @@
     border-radius: 50%;
     pointer-events: none;
     z-index: 9999;
-    transition: all 0.1s ease;
+    transition: all 0.06s ease;
     transform: translate(-50%, -50%);
     background: transparent;
 }
@@ -223,6 +229,8 @@ body::-webkit-scrollbar {
     color: #FF8660;
     transform: scale(1.1);
 }
+
+/* Theme toggle removed */
 
 /* Mobile Menu Overlay */
 .mobile-menu-overlay {
@@ -417,6 +425,25 @@ body::-webkit-scrollbar {
     height: 100%;
     z-index: 1;
     pointer-events: none;
+}
+
+/* Animated gradient blob */
+.gradient-blob {
+    position: absolute;
+    top: -10vh;
+    right: -10vw;
+    width: 55vw;
+    height: 55vw;
+    background: radial-gradient(circle at 30% 30%, rgba(255,134,96,0.35), transparent 55%),
+                radial-gradient(circle at 70% 70%, rgba(91,173,255,0.28), transparent 55%);
+    filter: blur(60px) saturate(140%);
+    transform: translateZ(0);
+    animation: blobFloat 12s ease-in-out infinite alternate;
+}
+
+@keyframes blobFloat {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(-3vw, 2vh) scale(1.07); }
 }
 
 /* Animated Grid Pattern */
@@ -634,6 +661,23 @@ body::-webkit-scrollbar {
     text-align: center;
 }
 
+/* Micro-interactions for buttons */
+.primary-btn, .secondary-btn { position: relative; overflow: hidden; isolation: isolate; }
+.primary-btn::after, .secondary-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.4s ease;
+    z-index: -1;
+}
+.primary-btn:hover::after, .secondary-btn:hover::after { transform: translateX(100%); }
+
+/* Reveal animation */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
 .home-container .sub-heading {
     color: var(--color-text);
 }
@@ -700,7 +744,7 @@ body::-webkit-scrollbar {
 
 .service-card {
     background: linear-gradient(135deg, rgba(34, 34, 34, 0.8) 0%, rgba(22, 21, 19, 0.9) 100%);
-    border: 1px solid rgba(255, 134, 96, 0.2);
+    border: 1px solid var(--color-border);
     border-radius: 1.5vw;
     padding: 3vh 2vw;
     text-align: center;
@@ -727,7 +771,7 @@ body::-webkit-scrollbar {
 .service-card:hover {
     transform: translateY(-10px);
     border-color: rgba(255, 134, 96, 0.5);
-    box-shadow: 0 10px 30px rgba(255, 134, 96, 0.2);
+    box-shadow: var(--shadow-strong);
 }
 
 .service-icon {
@@ -879,7 +923,7 @@ body::-webkit-scrollbar {
 /* Projects Grid */
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: 1fr;
     gap: 3vw;
     margin-bottom: 4vh;
     opacity: 1;
@@ -887,20 +931,23 @@ body::-webkit-scrollbar {
 }
 
 .project-card {
-    background: linear-gradient(135deg, rgba(34, 34, 34, 0.9) 0%, rgba(22, 21, 19, 0.95) 100%);
-    border: 1px solid rgba(255, 134, 96, 0.2);
-    border-radius: 1.5vw;
+    background: linear-gradient(135deg, rgba(34, 34, 34, 0.92) 0%, rgba(22, 21, 19, 0.98) 100%);
+    border: 1px solid var(--color-border);
+    border-radius: 18px;
     overflow: hidden;
-    transition: all 0.4s ease;
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
     position: relative;
     cursor: pointer;
-    height: 400px;
     display: flex;
     flex-direction: column;
     opacity: 1;
     visibility: visible;
     z-index: 1;
 }
+
+/* Tilt base class for interactive cards */
+.tilt { transform-style: preserve-3d; will-change: transform; }
+.tilt .project-image, .tilt .project-content { transform: translateZ(0); }
 
 .project-card::before {
     content: '';
@@ -920,17 +967,18 @@ body::-webkit-scrollbar {
 }
 
 .project-card:hover {
-    transform: translateY(-10px) scale(1.02);
+    transform: translateY(-10px);
     border-color: rgba(255, 134, 96, 0.6);
-    box-shadow: 0 20px 40px rgba(255, 134, 96, 0.2);
+    box-shadow: 0 28px 60px rgba(255, 134, 96, 0.18);
 }
 
 .project-image {
-    height: 200px;
+    aspect-ratio: 16 / 9;
     background-size: cover;
     background-position: center;
     position: relative;
     overflow: hidden;
+    transition: transform 0.6s cubic-bezier(.2,.8,.2,1);
 }
 
 .project-image::after {
@@ -940,14 +988,16 @@ body::-webkit-scrollbar {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0, 0, 0, 0.55) 100%);
+    opacity: 0.35;
+    transition: opacity 0.35s ease;
 }
 
 .project-card:hover .project-image::after {
-    opacity: 1;
+    opacity: 0.6;
 }
+
+.project-card:hover .project-image { transform: scale(1.02); }
 
 .project-overlay {
     position: absolute;
@@ -971,7 +1021,7 @@ body::-webkit-scrollbar {
 }
 
 .project-content {
-    padding: 2vh 2vw;
+    padding: 2.2vh 2vw 2.2vh 2vw;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -996,20 +1046,20 @@ body::-webkit-scrollbar {
 }
 
 .project-title {
-    font-size: 1.5vw;
+    font-size: 1.4vw;
     font-weight: 600;
     color: var(--color-text);
-    margin-bottom: 1vh;
+    margin-bottom: 0.8vh;
     line-height: 1.3;
     opacity: 1;
     visibility: visible;
 }
 
 .project-description {
-    font-size: 1vw;
+    font-size: 0.95vw;
     color: var(--color-secondary-text);
     line-height: 1.5;
-    margin-bottom: 2vh;
+    margin-bottom: 1.6vh;
     flex: 1;
     opacity: 1;
     visibility: visible;
@@ -1037,6 +1087,37 @@ body::-webkit-scrollbar {
     justify-content: space-between;
     align-items: center;
     margin-top: auto;
+}
+
+/* Project actions and badges */
+.project-actions { display: flex; align-items: center; gap: 0.8vw; }
+.action-icon {
+    width: 40px; height: 40px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+    text-decoration: none;
+    transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+.action-icon:hover { transform: translateY(-2px); background: rgba(255, 255, 255, 0.12); color: #FF8660; }
+
+.badge-role {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 0.4vh 0.8vw; border-radius: 999px;
+    background: rgba(255, 134, 96, 0.16);
+    color: #FF9A7C; border: 1px solid rgba(255,134,96,0.35);
+    font-size: 0.75vw; font-weight: 600; letter-spacing: 0.02em;
+    width: fit-content; margin-bottom: 0.8vh;
+}
+
+.project-meta { display: flex; align-items: center; gap: 0.6vw; margin-bottom: 0.6vh; flex-wrap: wrap; }
+.project-company {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 0.4vh 0.8vw; border-radius: 999px;
+    background: rgba(91, 173, 255, 0.16);
+    color: #7EC0FF; border: 1px solid rgba(91,173,255,0.35);
+    font-size: 0.75vw; font-weight: 600; letter-spacing: 0.02em;
 }
 
 .project-link {
@@ -1115,14 +1196,15 @@ body::-webkit-scrollbar {
     top: 0;
     bottom: 0;
     width: 4px;
-    background: var(--color-gradient);
+    background: linear-gradient(180deg, rgba(255,134,96,0.9), rgba(91,173,255,0.9));
     transform: translateX(-50%);
     border-radius: 2px;
+    box-shadow: 0 0 24px rgba(255,134,96,0.25), 0 0 24px rgba(91,173,255,0.18);
 }
 
 .career-entry {
     position: relative;
-    margin-bottom: 6vh;
+    margin-bottom: 7vh;
     display: flex;
     align-items: center;
     opacity: 0;
@@ -1150,17 +1232,18 @@ body::-webkit-scrollbar {
 }
 
 .career-card {
-    background: linear-gradient(135deg, rgba(34, 34, 34, 0.9) 0%, rgba(22, 21, 19, 0.95) 100%);
-    border: 1px solid rgba(91, 173, 255, 0.2);
-    border-radius: 1.5vw;
-    padding: 3vh 2.5vw;
+    background: linear-gradient(135deg, rgba(34,34,34,0.72) 0%, rgba(22,21,19,0.78) 100%);
+    border: 1px solid rgba(91, 173, 255, 0.22);
+    border-radius: 18px;
+    padding: 2.2vh 2vw;
     width: 45%;
     position: relative;
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     cursor: pointer;
     opacity: 1;
     visibility: visible;
     z-index: 1;
+    backdrop-filter: blur(8px);
 }
 
 .career-card::before {
@@ -1184,7 +1267,7 @@ body::-webkit-scrollbar {
 .career-card:hover {
     transform: translateY(-5px) scale(1.02);
     border-color: rgba(91, 173, 255, 0.5);
-    box-shadow: 0 15px 35px rgba(91, 173, 255, 0.2);
+    box-shadow: 0 18px 44px rgba(91, 173, 255, 0.18);
 }
 
 .career-timeline-dot {
@@ -1194,11 +1277,12 @@ body::-webkit-scrollbar {
     transform: translate(-50%, -50%);
     width: 20px;
     height: 20px;
-    background: var(--color-blue-gradient);
+    background: radial-gradient(circle at 50% 50%, #fff, rgba(255,255,255,0.1)) padding-box;
     border: 4px solid var(--color-black);
     border-radius: 50%;
     z-index: 2;
     transition: all 0.3s ease;
+    box-shadow: 0 0 0 3px rgba(91,173,255,0.25), 0 0 18px rgba(255,134,96,0.25);
 }
 
 .career-card:hover + .career-timeline-dot,
@@ -1206,6 +1290,20 @@ body::-webkit-scrollbar {
     transform: translate(-50%, -50%) scale(1.3);
     box-shadow: 0 0 20px rgba(91, 173, 255, 0.5);
 }
+
+/* connector arms from card to center line */
+.career-entry:nth-child(odd) .career-card::after,
+.career-entry:nth-child(even) .career-card::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(91,173,255,0.6), rgba(255,134,96,0.6));
+}
+
+.career-entry:nth-child(odd) .career-card::after { right: -40px; }
+.career-entry:nth-child(even) .career-card::after { left: -40px; }
 
 .career-content {
     position: relative;
@@ -1222,15 +1320,17 @@ body::-webkit-scrollbar {
 }
 
 .career-logo {
-    width: 60px;
-    height: 60px;
+    width: 56px;
+    height: 56px;
     border-radius: 50%;
-    background: var(--color-blue-gradient);
+    background: linear-gradient(180deg, rgba(91,173,255,0.25), rgba(255,134,96,0.2));
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
     transition: transform 0.3s ease;
+    border: 1px solid rgba(91,173,255,0.35);
+    box-shadow: inset 0 0 24px rgba(91,173,255,0.2);
 }
 
 .career-card:hover .career-logo {
@@ -1238,8 +1338,8 @@ body::-webkit-scrollbar {
 }
 
 .career-logo img {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     object-fit: cover;
 }
@@ -1254,26 +1354,40 @@ body::-webkit-scrollbar {
     visibility: visible;
 }
 
+.career-meta { display: flex; flex-wrap: wrap; gap: 0.6vw; align-items: center; margin-bottom: 1vh; }
 .career-company {
-    font-size: 1vw;
-    color: var(--color-secondary-text);
-    opacity: 1;
-    margin-bottom: 0.5vh;
-    visibility: visible;
+    font-size: 0.9vw;
+    color: #5BADFF;
+    padding: 0.3vh 0.8vw;
+    border-radius: 12px;
+    background: rgba(91,173,255,0.12);
+    border: 1px solid rgba(91,173,255,0.28);
 }
 
 .career-duration {
-    font-size: 0.9vw;
-    color: #5BADFF;
-    font-weight: 500;
-    background: rgba(91, 173, 255, 0.1);
-    padding: 0.3vh 1vw;
-    border-radius: 1vw;
-    display: inline-block;
+    font-size: 0.85vw;
+    color: #FF9A7C;
+    font-weight: 600;
+    background: rgba(255,134,96,0.12);
+    padding: 0.3vh 0.8vw;
+    border-radius: 12px;
+    border: 1px solid rgba(255,134,96,0.28);
+}
+
+.career-step {
+    position: absolute;
+    top: -12px;
+    right: 12px;
+    font-size: 0.8vw;
+    color: var(--color-secondary-text);
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--color-border);
+    padding: 2px 8px;
+    border-radius: 999px;
 }
 
 .career-description {
-    font-size: 1vw;
+    font-size: 0.95vw;
     color: var(--color-secondary-text);
     line-height: 1.6;
     margin-bottom: 2vh;
@@ -1414,6 +1528,11 @@ body::-webkit-scrollbar {
     font-size: 2vw;
     margin-right: 1vw;
     text-decoration: none;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
 }
 
 /* ------------------ Mobile (up to 576px) ------------------ */
@@ -1725,11 +1844,11 @@ body::-webkit-scrollbar {
     }
 
     .project-card {
-        height: 350px;
+        height: auto;
     }
 
     .project-image {
-        height: 180px;
+        height: auto;
     }
 
     .project-overlay {
@@ -1829,6 +1948,18 @@ body::-webkit-scrollbar {
 
 /* ------------------ Laptop (769px - 1200px) ------------------ */
 @media (min-width: 769px) and (max-width: 1200px) {
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 3vh;
+    }
+
+    .project-card {
+        height: auto;
+    }
+
+    .project-image {
+        height: auto;
+    }
     .main-text {
         font-size: 6vw;
     }
@@ -1959,6 +2090,18 @@ body::-webkit-scrollbar {
 
 /* ------------------ Desktop (1201px and up) ------------------ */
 @media (min-width: 1201px) {
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2.2vw;
+    }
+
+    .project-card {
+        height: auto;
+    }
+
+    .project-image {
+        height: auto;
+    }
     .main-text {
         font-size: 3vw;
     }
