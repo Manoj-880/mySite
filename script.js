@@ -2,96 +2,96 @@ document.addEventListener("DOMContentLoaded", () => {
     // Custom Cursor Functionality (Desktop only)
     const cursor = document.querySelector('.custom-cursor');
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    
+
     if (isTouchDevice) {
-        cursor.style.display = 'none';
+        // On touch devices, hide custom cursor but continue initializing the site
+        if (cursor) cursor.style.display = 'none';
         document.body.style.cursor = 'auto';
-        return;
-    }
-    
-    let mouseX = 0;
-    let mouseY = 0;
-    let cursorX = 0;
-    let cursorY = 0;
-    let isHovering = false;
-    let isClicking = false;
+    } else {
+        let mouseX = 0;
+        let mouseY = 0;
+        let cursorX = 0;
+        let cursorY = 0;
+        let isHovering = false;
+        let isClicking = false;
 
-    // Smooth cursor movement
-    function animateCursor() {
-        const diffX = mouseX - cursorX;
-        const diffY = mouseY - cursorY;
-        
-        // Increase interpolation factor for faster catch-up
-        cursorX += diffX * 0.18;
-        cursorY += diffY * 0.18;
-        
-        cursor.style.left = cursorX + 'px';
-        cursor.style.top = cursorY + 'px';
-        
-        requestAnimationFrame(animateCursor);
-    }
-
-    // Mouse move event
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-        
-        // Create trail effect
-        if (Math.random() > 0.7) {
-            createTrail(e.clientX, e.clientY);
+        // Smooth cursor movement
+        function animateCursor() {
+            const diffX = mouseX - cursorX;
+            const diffY = mouseY - cursorY;
+            
+            // Increase interpolation factor for faster catch-up
+            cursorX += diffX * 0.18;
+            cursorY += diffY * 0.18;
+            
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+            
+            requestAnimationFrame(animateCursor);
         }
-    });
 
-    // Create cursor trail
-    function createTrail(x, y) {
-        const trail = document.createElement('div');
-        trail.className = 'cursor-trail';
-        trail.style.left = x + 'px';
-        trail.style.top = y + 'px';
-        document.body.appendChild(trail);
+        // Mouse move event
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            // Create trail effect
+            if (Math.random() > 0.7) {
+                createTrail(e.clientX, e.clientY);
+            }
+        });
+
+        // Create cursor trail
+        function createTrail(x, y) {
+            const trail = document.createElement('div');
+            trail.className = 'cursor-trail';
+            trail.style.left = x + 'px';
+            trail.style.top = y + 'px';
+            document.body.appendChild(trail);
+            
+            setTimeout(() => {
+                trail.remove();
+            }, 600);
+        }
+
+        // Mouse enter/leave for hoverable elements
+        const hoverableElements = document.querySelectorAll('a, button, .nav-item, .tech-item, .project-card, .icon-link, .menu-icon, .tech-icons i, .social-icons a, .hero-buttons button, .service-card, .mobile-nav-link, .mobile-social-link, .mobile-menu-close');
         
-        setTimeout(() => {
-            trail.remove();
-        }, 600);
+        hoverableElements.forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                isHovering = true;
+                cursor.classList.add('hover');
+            });
+            
+            element.addEventListener('mouseleave', () => {
+                isHovering = false;
+                cursor.classList.remove('hover');
+            });
+        });
+
+        // Click events
+        document.addEventListener('mousedown', () => {
+            isClicking = true;
+            cursor.classList.add('click');
+        });
+        
+        document.addEventListener('mouseup', () => {
+            isClicking = false;
+            cursor.classList.remove('click');
+        });
+
+        // Hide cursor when leaving window
+        document.addEventListener('mouseleave', () => {
+            cursor.classList.add('hidden');
+        });
+        
+        document.addEventListener('mouseenter', () => {
+            cursor.classList.remove('hidden');
+        });
+
+        // Start cursor animation
+        animateCursor();
     }
-
-    // Mouse enter/leave for hoverable elements
-    const hoverableElements = document.querySelectorAll('a, button, .nav-item, .tech-item, .project-card, .icon-link, .menu-icon, .tech-icons i, .social-icons a, .hero-buttons button, .service-card, .mobile-nav-link, .mobile-social-link, .mobile-menu-close');
-    
-    hoverableElements.forEach(element => {
-        element.addEventListener('mouseenter', () => {
-            isHovering = true;
-            cursor.classList.add('hover');
-        });
-        
-        element.addEventListener('mouseleave', () => {
-            isHovering = false;
-            cursor.classList.remove('hover');
-        });
-    });
-
-    // Click events
-    document.addEventListener('mousedown', () => {
-        isClicking = true;
-        cursor.classList.add('click');
-    });
-    
-    document.addEventListener('mouseup', () => {
-        isClicking = false;
-        cursor.classList.remove('click');
-    });
-
-    // Hide cursor when leaving window
-    document.addEventListener('mouseleave', () => {
-        cursor.classList.add('hidden');
-    });
-    
-    document.addEventListener('mouseenter', () => {
-        cursor.classList.remove('hidden');
-    });
-
-    // Start cursor animation
-    animateCursor();
 
     // Theme locked to dark. Remove any stored preference.
     try { localStorage.removeItem('theme-preference'); } catch (_) {}
