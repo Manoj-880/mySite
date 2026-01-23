@@ -102,6 +102,211 @@ html, body {
     background-color: var(--color-black) !important;
 }
 
+/* Scroll Progress Indicator */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: var(--color-gradient);
+    z-index: 10000;
+    transition: width 0.1s ease;
+    box-shadow: 0 0 10px rgba(255, 134, 96, 0.5);
+}
+
+/* Back to Top Button */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: var(--color-gradient);
+    border: none;
+    border-radius: 50%;
+    color: var(--color-text);
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px) scale(0.8);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 9998;
+    box-shadow: 0 4px 20px rgba(255, 134, 96, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+.back-to-top:hover {
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 8px 30px rgba(255, 134, 96, 0.6);
+}
+
+.back-to-top:active {
+    transform: translateY(-2px) scale(1.05);
+}
+
+/* Floating Social Icons */
+.floating-social {
+    position: fixed;
+    left: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 9997;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s ease;
+}
+
+.floating-social.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.floating-social-link {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, rgba(34, 34, 34, 0.9) 0%, rgba(22, 21, 19, 0.95) 100%);
+    border: 2px solid rgba(255, 134, 96, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text);
+    font-size: 20px;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.floating-social-link::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: var(--color-gradient);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.4s ease, height 0.4s ease;
+    z-index: -1;
+}
+
+.floating-social-link:hover::before {
+    width: 100%;
+    height: 100%;
+}
+
+.floating-social-link:hover {
+    transform: translateX(10px) scale(1.1);
+    border-color: #FF8660;
+    box-shadow: 0 8px 25px rgba(255, 134, 96, 0.4);
+    color: var(--color-text);
+}
+
+.floating-social-link:nth-child(1) { transition-delay: 0.1s; }
+.floating-social-link:nth-child(2) { transition-delay: 0.2s; }
+.floating-social-link:nth-child(3) { transition-delay: 0.3s; }
+.floating-social-link:nth-child(4) { transition-delay: 0.4s; }
+
+/* Mobile: Hide floating social on small screens */
+@media (max-width: 768px) {
+    .floating-social {
+        display: none;
+    }
+    
+    .back-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+    }
+}
+
+/* Smooth scroll behavior enhancement */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Section fade-in on scroll */
+section {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Parallax container */
+.parallax-container {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Enhanced hover effects for interactive elements */
+.tech-item,
+.service-card,
+.project-card,
+.career-card {
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Smooth section transitions */
+section {
+    position: relative;
+    overflow: hidden;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* Interactive card glow effect */
+.service-card:hover,
+.project-card:hover,
+.career-card:hover {
+    position: relative;
+}
+
+.service-card:hover::after,
+.project-card:hover::after,
+.career-card:hover::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: var(--color-gradient);
+    border-radius: inherit;
+    opacity: 0.3;
+    z-index: -1;
+    filter: blur(10px);
+    animation: glowPulse 2s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+    0%, 100% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(1.02);
+    }
+}
+
 html::-webkit-scrollbar,
 body::-webkit-scrollbar {
     display: none;                 /* Chrome, Safari, Opera */
@@ -186,12 +391,23 @@ body::-webkit-scrollbar {
 .nav-bar {
     width: 100vw;
     padding: 4vh 20vw 2vh 20vw;
-    background-color: var(--color-grey);
+    background-color: rgba(34, 34, 34, 0.8);
+    backdrop-filter: blur(10px);
     display: flex;
     align-items: center;
     justify-content: space-between;
     box-shadow: 0 4.364px 16px -2.182px rgba(0, 0, 0, 0.10);
     opacity: 0.7;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.nav-bar.scrolled {
+    opacity: 0.95;
+    background-color: rgba(34, 34, 34, 0.95);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
 .logo {
@@ -674,16 +890,80 @@ body::-webkit-scrollbar {
 }
 .primary-btn:hover::after, .secondary-btn:hover::after { transform: translateX(100%); }
 
-/* Reveal animation */
-.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
-.reveal.visible { opacity: 1; transform: translateY(0); }
+/* Enhanced Reveal animations */
+.reveal { 
+    opacity: 0; 
+    transform: translateY(30px); 
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
+                transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); 
+}
+
+.reveal.visible { 
+    opacity: 1; 
+    transform: translateY(0); 
+}
+
+/* Different reveal types */
+.reveal-fade { 
+    opacity: 0; 
+    transition: opacity 1s ease; 
+}
+.reveal-fade.visible { opacity: 1; }
+
+.reveal-slide-left { 
+    opacity: 0; 
+    transform: translateX(-50px); 
+    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); 
+}
+.reveal-slide-left.visible { 
+    opacity: 1; 
+    transform: translateX(0); 
+}
+
+.reveal-slide-right { 
+    opacity: 0; 
+    transform: translateX(50px); 
+    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); 
+}
+.reveal-slide-right.visible { 
+    opacity: 1; 
+    transform: translateX(0); 
+}
+
+.reveal-scale { 
+    opacity: 0; 
+    transform: scale(0.8); 
+    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); 
+}
+.reveal-scale.visible { 
+    opacity: 1; 
+    transform: scale(1); 
+}
+
+.reveal-rotate { 
+    opacity: 0; 
+    transform: rotate(-5deg) translateY(30px); 
+    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); 
+}
+.reveal-rotate.visible { 
+    opacity: 1; 
+    transform: rotate(0deg) translateY(0); 
+}
 
 .home-container .sub-heading {
     color: var(--color-text);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease 0.2s, transform 0.8s ease 0.2s;
+}
+
+.home-container .sub-heading.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* --------------------------------------------------
-    Tech Icons
+    Tech Icons - Interactive Section
 -------------------------------------------------- */
 .tech-icons {
     display: flex;
@@ -691,6 +971,7 @@ body::-webkit-scrollbar {
     gap: 2vw;
     justify-content: center;
     margin: 3vh 0 10vh;
+    position: relative;
 }
 
 .tech-item {
@@ -700,6 +981,35 @@ body::-webkit-scrollbar {
     font-size: 0.9vw;
     color: var(--color-text);
     min-width: 5vw;
+    opacity: 0;
+    transform: translateY(30px) scale(0.8);
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    cursor: pointer;
+}
+
+.tech-item.animate-in {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.tech-item::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(255, 134, 96, 0.3), transparent);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.4s ease, height 0.4s ease;
+    z-index: -1;
+}
+
+.tech-item:hover::before {
+    width: 120px;
+    height: 120px;
 }
 
 .tech-item span {
@@ -708,6 +1018,13 @@ body::-webkit-scrollbar {
     text-align: center;
     opacity: 0.8;
     font-weight: 300;
+    transition: all 0.3s ease;
+}
+
+.tech-item:hover span {
+    opacity: 1;
+    color: #FF8660;
+    transform: translateY(-2px);
 }
 
 .tech-icons i {
@@ -716,7 +1033,49 @@ body::-webkit-scrollbar {
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    transition: transform 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    display: block;
+    position: relative;
+}
+
+.tech-item:hover i {
+    transform: translateY(-8px) scale(1.15) rotate(5deg);
+    filter: drop-shadow(0 8px 16px rgba(255, 134, 96, 0.4));
+}
+
+/* Tech item pulse animation on hover */
+@keyframes techPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+.tech-item:hover {
+    animation: techPulse 2s ease-in-out infinite;
+}
+
+/* Tech stack container animation */
+.tech-icons-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.tech-icons-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: var(--color-gradient);
+    transition: left 1s ease;
+}
+
+.tech-icons-container.animate-in::after {
+    left: 100%;
 }
 
 /* --------------------------------------------------
@@ -733,6 +1092,14 @@ body::-webkit-scrollbar {
     background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 6vh;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.services-content .sub-heading.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .services-grid {
@@ -751,6 +1118,26 @@ body::-webkit-scrollbar {
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.service-card.animate-in {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    animation: serviceCardIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes serviceCardIn {
+    0% {
+        opacity: 0;
+        transform: translateY(40px) scale(0.95) rotateY(-5deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotateY(0deg);
+    }
 }
 
 .service-card::before {
@@ -862,6 +1249,14 @@ body::-webkit-scrollbar {
     background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 2vh;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.projects-content .sub-heading.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .projects-description {
@@ -940,9 +1335,28 @@ body::-webkit-scrollbar {
     cursor: pointer;
     display: flex;
     flex-direction: column;
-    opacity: 1;
+    opacity: 0;
     visibility: visible;
     z-index: 1;
+    transform: translateY(50px) scale(0.9);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project-card.animate-in {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    animation: projectSlideIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes projectSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(50px) scale(0.9) rotateX(10deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotateX(0deg);
+    }
 }
 
 /* Tilt base class for interactive cards */
@@ -1169,6 +1583,14 @@ body::-webkit-scrollbar {
     background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 2vh;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.experience-content .sub-heading.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .experience-description {
@@ -1208,20 +1630,28 @@ body::-webkit-scrollbar {
     display: flex;
     align-items: center;
     opacity: 0;
-    transform: translateY(30px);
-    animation: fadeInUp 0.6s ease forwards;
+    transform: translateY(50px) scale(0.95);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.career-entry:nth-child(1) { animation-delay: 0.1s; }
-.career-entry:nth-child(2) { animation-delay: 0.3s; }
-.career-entry:nth-child(3) { animation-delay: 0.5s; }
+.career-entry.animate-in {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    animation: careerEntryIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
 
-@keyframes fadeInUp {
-    to {
+@keyframes careerEntryIn {
+    0% {
+        opacity: 0;
+        transform: translateY(50px) scale(0.95);
+    }
+    100% {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0) scale(1);
     }
 }
+
+/* Staggered animation delays handled in JS */
 
 .career-entry:nth-child(odd) {
     flex-direction: row;
@@ -1530,9 +1960,55 @@ body::-webkit-scrollbar {
     text-decoration: none;
 }
 
+/* Ripple effect for interactive elements */
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(0);
+    animation: rippleAnimation 0.6s ease-out;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+@keyframes rippleAnimation {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* Smooth page load transition */
+body {
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
 /* Reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
-    * { animation: none !important; transition: none !important; }
+    * { 
+        animation: none !important; 
+        transition: none !important; 
+    }
+    .reveal,
+    .reveal-fade,
+    .reveal-slide-left,
+    .reveal-slide-right,
+    .reveal-scale,
+    .reveal-rotate {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+    .tech-item,
+    .service-card,
+    .project-card,
+    .career-entry {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+    .ripple {
+        display: none !important;
+    }
 }
 
 /* ------------------ Mobile (up to 576px) ------------------ */

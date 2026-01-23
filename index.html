@@ -17,8 +17,32 @@
     <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
 </head>
 <body data-theme="dark">
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-progress" id="scroll-progress"></div>
+    
     <!-- Custom Cursor -->
     <div class="custom-cursor"></div>
+    
+    <!-- Floating Back to Top Button -->
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <!-- Floating Social Icons -->
+    <div class="floating-social" id="floating-social">
+        <a href="https://www.linkedin.com/in/manoj-inamanamelluri-319852184/" target="_blank" class="floating-social-link" aria-label="LinkedIn">
+            <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/Manoj-880" target="_blank" class="floating-social-link" aria-label="GitHub">
+            <i class="fab fa-github"></i>
+        </a>
+        <a href="https://www.behance.net/manojmanoj61" target="_blank" class="floating-social-link" aria-label="Behance">
+            <i class="fab fa-behance"></i>
+        </a>
+        <a href="https://www.instagram.com/manoj_880/" target="_blank" class="floating-social-link" aria-label="Instagram">
+            <i class="fab fa-instagram"></i>
+        </a>
+    </div>
     
     <!-- nav bar -->
     <nav class="nav-bar col-sm-12">
@@ -148,10 +172,11 @@
                     Download CV
                 </button>
             </div>
-            <p class="sub-heading">
+            <p class="sub-heading reveal-fade">
                 Experience with
             </p>
-            <div class="tech-icons">
+            <div class="tech-icons-container">
+                <div class="tech-icons">
                 <div class="tech-item">
                     <i class="fab fa-figma"></i>
                     <span>Figma</span>
@@ -204,6 +229,7 @@
                     <i class="fab fa-android"></i>
                     <span>Flutter</span>
                 </div>
+            </div>
             </div>
         </div>
     </section>
