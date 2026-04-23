@@ -1,4 +1,23 @@
 document.addEventListener("DOMContentLoaded", () => {
+    /** Full years since 1 Aug 2022; show "N+" after the anniversary until the next integer (e.g. ~3.5y → "3+"). */
+    function professionalExperienceLabel() {
+        const start = new Date(2022, 7, 1);
+        const now = new Date();
+        let whole = now.getFullYear() - start.getFullYear();
+        if (now.getMonth() < start.getMonth() || (now.getMonth() === start.getMonth() && now.getDate() < start.getDate())) {
+            whole -= 1;
+        }
+        if (whole < 1) return '1+';
+        let anniv = new Date(now.getFullYear(), 7, 1);
+        if (now < anniv) anniv = new Date(now.getFullYear() - 1, 7, 1);
+        const daysSinceAnniv = (now - anniv) / 86400000;
+        return daysSinceAnniv >= 1 ? `${whole}+` : `${whole}`;
+    }
+
+    document.querySelectorAll('[data-career-years]').forEach((el) => {
+        el.textContent = professionalExperienceLabel();
+    });
+
     // Custom Cursor Functionality (Desktop only)
     const cursor = document.querySelector('.custom-cursor');
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
@@ -55,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // Mouse enter/leave for hoverable elements
-        const hoverableElements = document.querySelectorAll('a, button, .nav-item, .tech-item, .project-card, .icon-link, .menu-icon, .tech-icons i, .social-icons a, .hero-buttons button, .service-card, .mobile-nav-link, .mobile-social-link, .mobile-menu-close');
+        const hoverableElements = document.querySelectorAll('a, button, .nav-item, .tech-item, .project-card, .icon-link, .menu-icon, .tech-icons i, .tech-icons iconify-icon, .social-icons a, .hero-buttons button, .service-card, .mobile-nav-link, .mobile-social-link, .mobile-menu-close');
         
         hoverableElements.forEach(element => {
             element.addEventListener('mouseenter', () => {
@@ -218,12 +237,24 @@ document.addEventListener("DOMContentLoaded", () => {
             title: 'SecureUSDT',
             description: 'Full‑stack USDT investment platform with automated profits, secure wallets, and invoices.',
             link: 'https://secureusdt.com',
-            repo: 'https://github.com/Manoj-880/ustdCrypto',
+            repo: '',
             category: 'web',
             year: '2025',
             role: 'Full‑Stack',
             company: 'Freelance',
             tech: ['React', 'Node.js', 'MongoDB', 'AWS', 'TronWeb']
+        },
+        {
+            image: 'assets/projects/uktbc.png',
+            title: 'UKTBC',
+            description: 'Web application designed and developed for donations and event management at a UK temple.',
+            link: 'https://www.uktbc.org/',
+            category: 'web',
+            year: '2025',
+            role: 'Full‑Stack',
+            company: 'S&M Scholarly Solutions',
+            repo: '',
+            tech: ['Figma', 'Prototype', 'React', 'Express.js', 'MongoDB', 'Azure Cloud']
         },
         {
             image: 'assets/projects/jagbandhu.png',
@@ -241,7 +272,7 @@ document.addEventListener("DOMContentLoaded", () => {
             image: 'assets/projects/fcf.png',
             title: 'Feed Care Fear (UX)',
             description: 'Design system and flows for a healthcare app. Clean, legible, and patient‑centric.',
-            link: 'https://www.figma.com/design/vjrkcZ21wBSYECQb4EpP85/web-application--Copy-?node-id=0-1&m=dev',
+            link: 'https://www.figma.com/design/vjrkcZ21wBSYECQb4EpP85/web-application--Copy-?node-id=0-1&t=kQTwAIBqM0mEpc1f-1',
             category: 'design',
             year: '2023',
             role: 'Product Design',
@@ -253,7 +284,7 @@ document.addEventListener("DOMContentLoaded", () => {
             image: 'assets/projects/mason.png',
             title: 'Mason UPVC',
             description: 'E‑commerce storefront with conversion‑focused UI and super‑smooth interactions.',
-            link: 'https://www.figma.com/design/vjrkcZ21wBSYECQb4EpP85/web-application--Copy-?node-id=0-1&m=dev',
+            link: 'https://www.figma.com/design/HX24sA4jsXfXNySFTEoujW/Websie--Copy---Copy-?t=dksRZbh6WaWRPBfg-1',
             category: 'web',
             year: '2022',
             role: 'Frontend',
@@ -265,7 +296,7 @@ document.addEventListener("DOMContentLoaded", () => {
             image: 'assets/projects/nehwe.png',
             title: 'Nehwe (Mobile)',
             description: 'Social discovery app. Lightweight, responsive, and built for quick iteration.',
-            link: 'https://www.figma.com/design/vjrkcZ21wBSYECQb4EpP85/web-application--Copy-?node-id=0-1&m=dev',
+            link: 'https://www.figma.com/design/Hboll34gY6z43Bm7Gp0UpF/Nehwe--Copy-?t=dksRZbh6WaWRPBfg-1',
             category: 'mobile',
             year: '2023',
             role: 'Design + Flutter',
@@ -277,7 +308,7 @@ document.addEventListener("DOMContentLoaded", () => {
             image: 'assets/projects/srbs.png',
             title: "SRBS (EdTech)",
             description: 'Student success app with offline‑first flows and clear progress tracking.',
-            link: "https://www.figma.com/design/m6bOYNNibty89G1BHuSDqT/Mobile-App?node-id=0-1&t=JIlfm5Rw1G3KMUtK-1",
+            link: "https://www.figma.com/design/m6bOYNNibty89G1BHuSDqT/Mobile-App?t=dksRZbh6WaWRPBfg-1",
             category: 'mobile',
             year: '2022',
             role: 'Mobile',

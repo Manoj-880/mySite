@@ -1038,7 +1038,20 @@ body::-webkit-scrollbar {
     position: relative;
 }
 
+.tech-icons iconify-icon.tech-iconify {
+    display: block;
+    width: 2.3vw;
+    height: 2.3vw;
+    margin: 0 auto;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
 .tech-item:hover i {
+    transform: translateY(-8px) scale(1.15) rotate(5deg);
+    filter: drop-shadow(0 8px 16px rgba(255, 134, 96, 0.4));
+}
+
+.tech-item:hover iconify-icon.tech-iconify {
     transform: translateY(-8px) scale(1.15) rotate(5deg);
     filter: drop-shadow(0 8px 16px rgba(255, 134, 96, 0.4));
 }
@@ -2216,6 +2229,11 @@ body {
         font-size: 5vw;
     }
 
+    .tech-icons iconify-icon.tech-iconify {
+        width: 5vw;
+        height: 5vw;
+    }
+
     .project-icon {
         font-size: 5vw;
     }
@@ -2404,6 +2422,11 @@ body {
         font-size: 5vw;
     }
 
+    .tech-icons iconify-icon.tech-iconify {
+        width: 5vw;
+        height: 5vw;
+    }
+
     .project-icon {
         font-size: 5vw;
     }
@@ -2545,6 +2568,11 @@ body {
         font-size: 3vw;
     }
 
+    .tech-icons iconify-icon.tech-iconify {
+        width: 3vw;
+        height: 3vw;
+    }
+
     .project-icon {
         font-size: 2vw;
     }
@@ -2680,6 +2708,11 @@ body {
 
     .tech-icons i {
         font-size: 2vw;
+    }
+
+    .tech-icons iconify-icon.tech-iconify {
+        width: 2vw;
+        height: 2vw;
     }
 
     .project-icon {
