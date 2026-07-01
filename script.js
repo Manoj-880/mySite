@@ -1,295 +1,306 @@
-document.addEventListener("DOMContentLoaded", () => {
-    /** Full years since 1 Aug 2022; show "N+" after the anniversary until the next integer (e.g. ~3.5y → "3+"). */
+/* ================================================================
+   MANOJ PORTFOLIO — 2025 REDESIGN — script.js
+================================================================ */
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    /* ====================== YEAR COPYRIGHT ====================== */
+    const yearEl = document.getElementById('year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    /* ====================== CAREER YEARS ====================== */
     function professionalExperienceLabel() {
         const start = new Date(2022, 7, 1);
         const now = new Date();
         let whole = now.getFullYear() - start.getFullYear();
-        if (now.getMonth() < start.getMonth() || (now.getMonth() === start.getMonth() && now.getDate() < start.getDate())) {
+        if (now.getMonth() < start.getMonth() ||
+           (now.getMonth() === start.getMonth() && now.getDate() < start.getDate())) {
             whole -= 1;
         }
         if (whole < 1) return '1+';
-        let anniv = new Date(now.getFullYear(), 7, 1);
-        if (now < anniv) anniv = new Date(now.getFullYear() - 1, 7, 1);
-        const daysSinceAnniv = (now - anniv) / 86400000;
-        return daysSinceAnniv >= 1 ? `${whole}+` : `${whole}`;
+        const annivThisYear = new Date(now.getFullYear(), 7, 1);
+        const anniv = now >= annivThisYear ? annivThisYear : new Date(now.getFullYear() - 1, 7, 1);
+        return (now - anniv) / 86400000 >= 1 ? `${whole}+` : `${whole}`;
     }
 
-    document.querySelectorAll('[data-career-years]').forEach((el) => {
+    document.querySelectorAll('[data-career-years]').forEach(el => {
         el.textContent = professionalExperienceLabel();
     });
 
-    // Custom Cursor Functionality (Desktop only)
-    const cursor = document.querySelector('.custom-cursor');
+    /* ====================== PAGE LOADER ====================== */
+    const loader = document.getElementById('loader');
+    if (loader) {
+        const hide = () => loader.classList.add('hidden');
+        if (document.readyState === 'complete') {
+            setTimeout(hide, 600);
+        } else {
+            window.addEventListener('load', () => setTimeout(hide, 600));
+        }
+    }
+
+    /* ====================== FADE IN BODY ====================== */
+    document.body.style.opacity = '0';
+    document.body.style.transition = 'opacity 0.4s ease';
+    window.addEventListener('load', () => {
+        requestAnimationFrame(() => { document.body.style.opacity = '1'; });
+    });
+
+    /* ====================== CUSTOM CURSOR ====================== */
+    const cursor = document.getElementById('cursor');
+    const follower = document.getElementById('cursor-follower');
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
     if (isTouchDevice) {
-        // On touch devices, hide custom cursor but continue initializing the site
         if (cursor) cursor.style.display = 'none';
-        document.body.style.cursor = 'auto';
-    } else {
-        let mouseX = 0;
-        let mouseY = 0;
-        let cursorX = 0;
-        let cursorY = 0;
-        let isHovering = false;
-        let isClicking = false;
+        if (follower) follower.style.display = 'none';
+    } else if (cursor && follower) {
+        let mx = 0, my = 0;
+        let fx = 0, fy = 0;
 
-        // Smooth cursor movement
-        function animateCursor() {
-            const diffX = mouseX - cursorX;
-            const diffY = mouseY - cursorY;
-            
-            // Increase interpolation factor for faster catch-up
-            cursorX += diffX * 0.18;
-            cursorY += diffY * 0.18;
-            
-            cursor.style.left = cursorX + 'px';
-            cursor.style.top = cursorY + 'px';
-            
-            requestAnimationFrame(animateCursor);
-        }
-
-        // Mouse move event
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-            
-            // Create trail effect
-            if (Math.random() > 0.7) {
-                createTrail(e.clientX, e.clientY);
-            }
+        document.addEventListener('mousemove', e => {
+            mx = e.clientX;
+            my = e.clientY;
+            cursor.style.left = mx + 'px';
+            cursor.style.top  = my + 'px';
         });
 
-        // Create cursor trail
-        function createTrail(x, y) {
-            const trail = document.createElement('div');
-            trail.className = 'cursor-trail';
-            trail.style.left = x + 'px';
-            trail.style.top = y + 'px';
-            document.body.appendChild(trail);
-            
-            setTimeout(() => {
-                trail.remove();
-            }, 600);
+        function animateFollower() {
+            fx += (mx - fx) * 0.12;
+            fy += (my - fy) * 0.12;
+            follower.style.left = fx + 'px';
+            follower.style.top  = fy + 'px';
+            requestAnimationFrame(animateFollower);
         }
+        animateFollower();
 
-        // Mouse enter/leave for hoverable elements
-        const hoverableElements = document.querySelectorAll('a, button, .nav-item, .tech-item, .project-card, .icon-link, .menu-icon, .tech-icons i, .tech-icons iconify-icon, .social-icons a, .hero-buttons button, .service-card, .mobile-nav-link, .mobile-social-link, .mobile-menu-close');
-        
-        hoverableElements.forEach(element => {
-            element.addEventListener('mouseenter', () => {
-                isHovering = true;
-                cursor.classList.add('hover');
+        const hoverTargets = 'a, button, .bento-card, .project-card, .timeline-card, .filter-pill, .social-btn, .proj-link-btn, .contact-email, .back-to-top';
+        document.querySelectorAll(hoverTargets).forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.classList.add('hovered');
+                follower.classList.add('hovered');
             });
-            
-            element.addEventListener('mouseleave', () => {
-                isHovering = false;
-                cursor.classList.remove('hover');
+            el.addEventListener('mouseleave', () => {
+                cursor.classList.remove('hovered');
+                follower.classList.remove('hovered');
             });
         });
 
-        // Click events
-        document.addEventListener('mousedown', () => {
-            isClicking = true;
-            cursor.classList.add('click');
-        });
-        
-        document.addEventListener('mouseup', () => {
-            isClicking = false;
-            cursor.classList.remove('click');
-        });
-
-        // Hide cursor when leaving window
         document.addEventListener('mouseleave', () => {
             cursor.classList.add('hidden');
+            follower.classList.add('hidden');
         });
-        
         document.addEventListener('mouseenter', () => {
             cursor.classList.remove('hidden');
+            follower.classList.remove('hidden');
         });
-
-        // Start cursor animation
-        animateCursor();
     }
 
-    // Theme locked to dark. Remove any stored preference.
-    try { localStorage.removeItem('theme-preference'); } catch (_) {}
-    document.body.setAttribute('data-theme', 'dark');
+    /* ====================== SCROLL PROGRESS ====================== */
+    const progressBar = document.getElementById('scroll-progress');
+    if (progressBar) {
+        window.addEventListener('scroll', () => {
+            const total = document.documentElement.scrollHeight - window.innerHeight;
+            progressBar.style.width = (total > 0 ? (window.scrollY / total) * 100 : 0) + '%';
+        }, { passive: true });
+    }
 
-    // Mobile Menu Functionality
-    const menuBtn = document.querySelector('.menu-icon');
-    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
-    const mobileMenuClose = document.getElementById('mobile-menu-close');
+    /* ====================== NAVBAR SCROLL / ACTIVE LINKS ====================== */
+    const navWrap = document.getElementById('nav-wrap');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('section[id], footer[id]');
+
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+        const scroll = window.scrollY;
+
+        if (navWrap) {
+            navWrap.classList.toggle('scrolled', scroll > 40);
+        }
+
+        // Active nav link based on section in view
+        let current = '';
+        sections.forEach(sec => {
+            if (scroll >= sec.offsetTop - 120) current = sec.id;
+        });
+
+        navLinks.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+        });
+
+        lastScroll = scroll;
+    }, { passive: true });
+
+    /* ====================== MOBILE MENU ====================== */
+    const hamburger = document.getElementById('nav-hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
     const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
 
-    // Open mobile menu
-    menuBtn.addEventListener('click', () => {
-        mobileMenuOverlay.classList.add('active');
-        document.body.style.overflow = 'hidden'; // Prevent background scrolling
-    });
-
-    // Close mobile menu
-    mobileMenuClose.addEventListener('click', () => {
-        closeMobileMenu();
-    });
-
-    // Close mobile menu when clicking overlay
-    mobileMenuOverlay.addEventListener('click', (e) => {
-        if (e.target === mobileMenuOverlay) {
-            closeMobileMenu();
-        }
-    });
-
-    // Close mobile menu function
-    function closeMobileMenu() {
-        mobileMenuOverlay.classList.remove('active');
-        document.body.style.overflow = 'auto'; // Restore scrolling
+    function openMenu() {
+        hamburger.classList.add('open');
+        mobileMenu.classList.add('open');
+        mobileMenu.setAttribute('aria-hidden', 'false');
+        hamburger.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
     }
 
-    // Handle mobile navigation links
-    mobileNavLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            
-            const targetId = link.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
+    function closeMenu() {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        hamburger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+    }
 
-            if (targetElement) {
-                closeMobileMenu(); // Close the menu
-                setTimeout(() => {
-                    targetElement.scrollIntoView({ behavior: 'smooth' });
-                }, 300); // Wait for menu close animation
-            }
+    if (hamburger) hamburger.addEventListener('click', () => {
+        mobileMenu.classList.contains('open') ? closeMenu() : openMenu();
+    });
+
+    mobileNavLinks.forEach(link => {
+        link.addEventListener('click', e => {
+            e.preventDefault();
+            const target = document.querySelector(link.getAttribute('href'));
+            closeMenu();
+            setTimeout(() => {
+                if (target) {
+                    const offset = target.getBoundingClientRect().top + window.scrollY - 90;
+                    window.scrollTo({ top: offset, behavior: 'smooth' });
+                }
+            }, 300);
         });
     });
 
-    // Close mobile menu on escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && mobileMenuOverlay.classList.contains('active')) {
-            closeMobileMenu();
-        }
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('open')) closeMenu();
     });
 
-    // Download CV from Google Docs
-    document.getElementById('dnlbtn').addEventListener('click', () => {
-        const googleDocId = '1aZjV6kCcsA1GVBkwuqPRmdDH9U589G4V_SPKU_ZI6s0';
-        const exportUrl = `https://docs.google.com/document/d/${googleDocId}/export?format=pdf`;
-        
-        // Show loading state
-        const btn = document.getElementById('dnlbtn');
-        const originalText = btn.innerHTML;
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Opening...';
-        btn.disabled = true;
-        
-        // Method 1: Try direct download using hidden iframe (works in most browsers)
-        // This bypasses CORS issues by letting the browser handle the download
-        const iframe = document.createElement('iframe');
-        iframe.style.display = 'none';
-        iframe.style.width = '0';
-        iframe.style.height = '0';
-        iframe.src = exportUrl;
-        document.body.appendChild(iframe);
-        
-        // Method 2: Also create a direct download link as backup
-        // This will trigger download in browsers that support it
-        const downloadLink = document.createElement('a');
-        downloadLink.href = exportUrl;
-        downloadLink.download = 'Manoj Inamanamelluri CV.pdf';
-        downloadLink.style.display = 'none';
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
-        
-        // Reset button after a short delay
-        setTimeout(() => {
-            btn.innerHTML = originalText;
-            btn.disabled = false;
-            
-            // Cleanup
+    /* ====================== SMOOTH SCROLL (desktop nav) ====================== */
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href === '#' || !href.startsWith('#')) return;
+            const target = document.querySelector(href);
+            if (!target) return;
+            e.preventDefault();
+            const offset = target.getBoundingClientRect().top + window.scrollY - 90;
+            window.scrollTo({ top: offset, behavior: 'smooth' });
+        });
+    });
+
+    /* ====================== BACK TO TOP ====================== */
+    const backToTop = document.getElementById('back-to-top');
+    if (backToTop) {
+        window.addEventListener('scroll', () => {
+            backToTop.classList.toggle('visible', window.scrollY > 400);
+        }, { passive: true });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    /* ====================== DOWNLOAD CV ====================== */
+    const dnlBtn = document.getElementById('dnlbtn');
+    if (dnlBtn) {
+        dnlBtn.addEventListener('click', () => {
+            const googleDocId = '1aZjV6kCcsA1GVBkwuqPRmdDH9U589G4V_SPKU_ZI6s0';
+            const exportUrl = `https://docs.google.com/document/d/${googleDocId}/export?format=pdf`;
+
+            const orig = dnlBtn.innerHTML;
+            dnlBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+            dnlBtn.disabled = true;
+
+            const a = document.createElement('a');
+            a.href = exportUrl;
+            a.download = 'Manoj_Inamanamelluri_CV.pdf';
+            a.style.display = 'none';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+
             setTimeout(() => {
-                if (iframe.parentNode) {
-                    document.body.removeChild(iframe);
-                }
-                if (downloadLink.parentNode) {
-                    document.body.removeChild(downloadLink);
-                }
-            }, 2000);
-        }, 500);
-        
-        // If iframe method doesn't work, open in new tab as final fallback
-        setTimeout(() => {
-            // Check if download started (this is a simple check)
-            // If user needs to manually download, they can use the new tab
-            const fallbackWindow = window.open(exportUrl, '_blank');
-            
-            // If popup was blocked, show message
-            if (!fallbackWindow || fallbackWindow.closed || typeof fallbackWindow.closed === 'undefined') {
-                // Popup blocked, show user-friendly message
-                console.log('If download didn\'t start, the PDF should open in a new tab. Right-click and select "Save As" if needed.');
-            }
-        }, 1000);
-    });
+                dnlBtn.innerHTML = orig;
+                dnlBtn.disabled = false;
+            }, 600);
 
+            setTimeout(() => window.open(exportUrl, '_blank'), 800);
+        });
+    }
 
-    // Projects Data with enhanced information (rewritten for trendy UI)
+    /* ====================== REVEAL ANIMATIONS ====================== */
+    function setupReveal() {
+        const els = document.querySelectorAll('.reveal-up');
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        els.forEach(el => obs.observe(el));
+    }
+    setupReveal();
+
+    /* ====================== PROJECTS DATA ====================== */
     const projectsData = [
         {
             image: 'assets/projects/secureusdt.png',
             title: 'SecureUSDT',
-            description: 'Full‑stack USDT investment platform with automated profits, secure wallets, and invoices.',
+            description: 'Full-stack USDT investment platform with automated profits, secure wallets, and invoices.',
             link: 'https://secureusdt.com',
             repo: '',
             category: 'web',
             year: '2025',
-            role: 'Full‑Stack',
+            role: 'Full-Stack',
             company: 'Freelance',
             tech: ['React', 'Node.js', 'MongoDB', 'AWS', 'TronWeb']
         },
         {
             image: 'assets/projects/uktbc.png',
             title: 'UKTBC',
-            description: 'Web application designed and developed for donations and event management at a UK temple.',
+            description: 'Web application for donations and event management at a UK temple.',
             link: 'https://www.uktbc.org/',
+            repo: '',
             category: 'web',
             year: '2025',
-            role: 'Full‑Stack',
-            company: 'S&M Scholarly Solutions',
-            repo: '',
-            tech: ['Figma', 'Prototype', 'React', 'Express.js', 'MongoDB', 'Azure Cloud']
+            role: 'Full-Stack',
+            company: 'S&M Scholarly',
+            tech: ['Figma', 'React', 'Express.js', 'MongoDB', 'Azure']
         },
         {
             image: 'assets/projects/jagbandhu.png',
             title: 'Jagbandhu Platform',
             description: 'Community-first platform connecting people with services. Modern stack, fast, and accessible.',
             link: 'https://www.jagbandhu.com',
+            repo: '',
             category: 'web',
             year: '2023',
-            role: 'Full‑Stack',
-            company: 'S&M Scholarly Solutions',
-            repo: '',
+            role: 'Full-Stack',
+            company: 'S&M Scholarly',
             tech: ['React', 'Node.js', 'MongoDB', 'AWS']
         },
         {
             image: 'assets/projects/fcf.png',
             title: 'Feed Care Fear (UX)',
-            description: 'Design system and flows for a healthcare app. Clean, legible, and patient‑centric.',
+            description: 'Design system and user flows for a healthcare app. Clean, legible, and patient-centric.',
             link: 'https://www.figma.com/design/vjrkcZ21wBSYECQb4EpP85/web-application--Copy-?node-id=0-1&t=kQTwAIBqM0mEpc1f-1',
+            repo: '',
             category: 'design',
             year: '2023',
             role: 'Product Design',
-            company: 'S&M Scholarly Solutions',
-            repo: '',
-            tech: ['Figma', 'Proto', 'Design Tokens']
+            company: 'S&M Scholarly',
+            tech: ['Figma', 'Prototype', 'Design Tokens']
         },
         {
             image: 'assets/projects/mason.png',
             title: 'Mason UPVC',
-            description: 'E‑commerce storefront with conversion‑focused UI and super‑smooth interactions.',
+            description: 'E-commerce storefront with conversion-focused UI and smooth interactions.',
             link: 'https://www.figma.com/design/HX24sA4jsXfXNySFTEoujW/Websie--Copy---Copy-?t=dksRZbh6WaWRPBfg-1',
+            repo: '',
             category: 'web',
             year: '2022',
             role: 'Frontend',
-            company: 'S&M Scholarly Solutions',
-            repo: '',
+            company: 'S&M Scholarly',
             tech: ['HTML', 'CSS', 'JavaScript', 'Bootstrap']
         },
         {
@@ -297,626 +308,337 @@ document.addEventListener("DOMContentLoaded", () => {
             title: 'Nehwe (Mobile)',
             description: 'Social discovery app. Lightweight, responsive, and built for quick iteration.',
             link: 'https://www.figma.com/design/Hboll34gY6z43Bm7Gp0UpF/Nehwe--Copy-?t=dksRZbh6WaWRPBfg-1',
+            repo: '',
             category: 'mobile',
             year: '2023',
             role: 'Design + Flutter',
-            company: 'S&M Scholarly Solutions',
-            repo: '',
+            company: 'S&M Scholarly',
             tech: ['Flutter', 'Firebase', 'UI/UX']
         },
         {
             image: 'assets/projects/srbs.png',
-            title: "SRBS (EdTech)",
-            description: 'Student success app with offline‑first flows and clear progress tracking.',
-            link: "https://www.figma.com/design/m6bOYNNibty89G1BHuSDqT/Mobile-App?t=dksRZbh6WaWRPBfg-1",
+            title: 'SRBS (EdTech)',
+            description: 'Student success app with offline-first flows and clear progress tracking.',
+            link: 'https://www.figma.com/design/m6bOYNNibty89G1BHuSDqT/Mobile-App?t=dksRZbh6WaWRPBfg-1',
+            repo: '',
             category: 'mobile',
             year: '2022',
             role: 'Mobile',
-            company: 'S&M Scholarly Solutions',
-            repo: '',
+            company: 'S&M Scholarly',
             tech: ['Flutter', 'SQLite', 'REST']
         },
         {
-            image: "assets/projects/smscholarly.png",
-            title: "S&M Scholarly",
-            description: 'Full‑stack suite for schools: CMS, analytics, and parent portal—deployed on AWS.',
-            link: "https://www.smscholarly.com//",
+            image: 'assets/projects/smscholarly.png',
+            title: 'S&M Scholarly',
+            description: 'Full-stack suite for schools: CMS, analytics, and parent portal deployed on AWS.',
+            link: 'https://www.smscholarly.com/',
+            repo: '',
             category: 'web',
             year: '2022',
-            role: 'Full‑Stack',
-            company: 'S&M Scholarly Solutions',
-            repo: '',
+            role: 'Full-Stack',
+            company: 'S&M Scholarly',
             tech: ['React', 'Node.js', 'MySQL', 'AWS']
         }
     ];
 
-    // Project filtering functionality
-    const filterButtons = document.querySelectorAll('.filter-btn');
+    /* ====================== RENDER PROJECTS ====================== */
     const projectsGrid = document.getElementById('projects-grid');
-    let currentFilter = 'all';
 
     function renderProjects(filter = 'all') {
+        if (!projectsGrid) return;
         projectsGrid.innerHTML = '';
-        
-        const filteredProjects = filter === 'all' 
-            ? projectsData 
-            : projectsData.filter(project => project.category === filter);
 
-        filteredProjects.forEach((project) => {
+        const list = filter === 'all'
+            ? projectsData
+            : projectsData.filter(p => p.category === filter);
+
+        list.forEach((project, i) => {
             const card = document.createElement('div');
-            card.className = 'project-card';
-            card.setAttribute('data-category', project.category);
+            card.className = 'project-card' + (i % 2 === 1 ? ' reverse' : '');
+            card.style.setProperty('--delay', `${i * 0.08}s`);
+            card.setAttribute('role', 'link');
+            card.setAttribute('tabindex', '0');
+            card.setAttribute('aria-label', `${project.title} — ${project.description}`);
 
-            const roleBadge = project.role ? `<div class="badge-role"><i class=\"fas fa-bolt\"></i>${project.role}</div>` : '';
-            const companyChip = project.company ? `<div class=\"project-company\"><i class=\"fas fa-building\"></i>${project.company}</div>` : '';
-            const repoIcon = project.repo ? `<a class="action-icon" href="${project.repo}" target="_blank" aria-label="View Code"><i class="fab fa-github"></i></a>` : '';
-            const liveIcon = project.link ? `<a class="action-icon" href="${project.link}" target="_blank" aria-label="Open Live"><i class="fas fa-external-link-alt"></i></a>` : '';
+            const repoBtn = project.repo
+                ? `<a class="proj-link-btn" href="${project.repo}" target="_blank" aria-label="View code on GitHub" title="GitHub"><i class="fab fa-github"></i></a>`
+                : '';
+            const liveBtn = project.link
+                ? `<a class="proj-link-btn" href="${project.link}" target="_blank" aria-label="View live site" title="Live Site"><i class="fas fa-arrow-up-right-from-square"></i></a>`
+                : '';
 
             card.innerHTML = `
-                <div class="project-image" style="background-image: url('${project.image}')"></div>
-                <div class="project-content">
-                    <div class="project-category">${project.category.toUpperCase()}</div>
-                    <div class="project-meta">${roleBadge}${companyChip}</div>
+                <span class="project-index">${String(i + 1).padStart(2, '0')}</span>
+                <div class="project-media">
+                    <div class="project-image">
+                        <div class="project-image-inner" style="background-image:url('${project.image}');width:100%;height:100%;"></div>
+                    </div>
+                </div>
+                <div class="project-body">
+                    <div class="project-head">
+                        <span class="project-cat">${project.category}</span>
+                        <span class="project-year">${project.year}</span>
+                    </div>
+                    <div class="project-badges">
+                        ${project.role ? `<span class="badge badge-role-item"><i class="fas fa-bolt"></i>${project.role}</span>` : ''}
+                        ${project.company ? `<span class="badge badge-company"><i class="fas fa-building"></i>${project.company}</span>` : ''}
+                    </div>
                     <h3 class="project-title">${project.title}</h3>
-                    <p class="project-description">${project.description}</p>
+                    <p class="project-desc">${project.description}</p>
                     <div class="project-tech">
-                        ${project.tech.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
+                        ${project.tech.map(t => `<span class="tech-pill">${t}</span>`).join('')}
                     </div>
                     <div class="project-footer">
-                        <div class="project-actions">${liveIcon}${repoIcon}</div>
-                        <span class="project-year">${project.year}</span>
+                        <div class="project-links">${liveBtn}${repoBtn}</div>
+                        <span class="proj-view-more">View Project <i class="fas fa-arrow-right"></i></span>
                     </div>
                 </div>
             `;
 
-            // Make whole card clickable to live link
+            // Click to open live link
             if (project.link) {
-                card.setAttribute('role', 'link');
-                card.setAttribute('tabindex', '0');
-                card.addEventListener('click', () => {
-                    window.open(project.link, '_blank');
-                });
-                card.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter') {
-                        window.open(project.link, '_blank');
-                    }
-                });
+                const openLink = () => window.open(project.link, '_blank');
+                card.addEventListener('click', openLink);
+                card.addEventListener('keydown', e => { if (e.key === 'Enter') openLink(); });
             }
 
-            // Prevent action icon clicks from bubbling to card
-            setTimeout(() => {
-                card.querySelectorAll('.action-icon').forEach(icon => {
-                    icon.addEventListener('click', (e) => e.stopPropagation());
-                });
-            }, 0);
+            // Prevent inner link clicks from bubbling to card
+            card.querySelectorAll('.proj-link-btn').forEach(btn => {
+                btn.addEventListener('click', e => e.stopPropagation());
+            });
+
+            // Ripple on click
+            card.addEventListener('click', function(e) {
+                addRipple(this, e);
+            });
 
             projectsGrid.appendChild(card);
         });
+
+        // Trigger reveal for new cards
+        requestAnimationFrame(() => {
+            const cards = projectsGrid.querySelectorAll('.project-card');
+            const obs = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in-view');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.05 });
+            cards.forEach(c => obs.observe(c));
+        });
     }
 
-    // Filter button event listeners
-    filterButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            // Remove active class from all buttons
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            // Add active class to clicked button
-            button.classList.add('active');
-            
-            // Get filter value and render projects
-            currentFilter = button.getAttribute('data-filter');
-            renderProjects(currentFilter);
-            
-            // Re-animate projects after filter
-            setTimeout(() => {
-                const projectCards = document.querySelectorAll('.project-card');
-                projectCards.forEach((card, index) => {
-                    card.classList.remove('animate-in');
-                    setTimeout(() => {
-                        card.classList.add('animate-in');
-                    }, index * 100);
-                });
-            }, 50);
+    // Filter pills
+    const filterPills = document.querySelectorAll('.filter-pill');
+    filterPills.forEach(pill => {
+        pill.addEventListener('click', () => {
+            filterPills.forEach(p => p.classList.remove('active'));
+            pill.classList.add('active');
+            renderProjects(pill.dataset.filter);
         });
     });
 
-
-    // Initial render
     renderProjects();
 
-    // After rendering, enhance projects with tilt + reveal
-    enhanceInteractiveCards();
-
-    // Setup animations for newly rendered projects
-    setTimeout(() => {
-        setupSectionAnimations();
-    }, 100);
-
-    // Career timeline content
+    /* ====================== CAREER DATA & TIMELINE ====================== */
     const careerData = [
         {
-            img: "assets/career/sm.png",
-            title: "Software Engineer",
-            company: "S&M Scholarly Solutions",
-            timeline: "Aug 2022 - Present",
-            description: `Leading full‑stack delivery for a multi‑product EdTech suite. Shipped CMS, analytics, and parent portal across web/mobile. Focus on performance, UX, and DX.`,
-            skills: ["React", "Node.js", "Flutter", "UI/UX", "AWS", "MongoDB", "SEO"]
+            img: 'assets/career/speshway.jpg',
+            title: 'Senior UI/UX Designer',
+            company: 'Speshway Solutions',
+            timeline: 'Jul 2026 – Present',
+            description: 'Designing intuitive, user-centered digital experiences across web and mobile products. Leading UI/UX strategy, wireframing, prototyping, and design systems while collaborating closely with engineering and product teams.',
+            skills: ['UI/UX', 'Figma', 'Wireframing', 'Prototyping', 'Design Systems', 'User Research']
         },
         {
-            img: "assets/career/fsa.png",
-            title: "Full‑Stack Development Bootcamp",
-            company: "FullStack Academy",
-            timeline: "Jan 2022 - May 2022",
-            description: `Built production‑style apps with modern stacks and CI. Strong focus on collaboration, code quality, and shipping.`,
-            skills: ["JavaScript", "React", "Node.js", "MongoDB", "Git", "Agile"]
+            img: 'assets/career/sm.png',
+            title: 'UI/UX Designer',
+            company: 'S&M Scholarly Solutions',
+            timeline: 'Aug 2022 – Jul 2026',
+            description: 'Leading full-stack delivery for a multi-product EdTech suite. Shipped CMS, analytics dashboard, and parent portal across web and mobile. Focus on performance, UX, and DX.',
+            skills: ['React', 'Node.js', 'Flutter', 'UI/UX', 'AWS', 'MongoDB', 'SEO']
         },
         {
-            img: "assets/career/vvit.png",
-            title: "B.Tech — Mechanical Engineering",
-            company: "Vasireddy Venkatadri Institute of Technology",
-            timeline: "Jun 2017 - Jul 2021",
-            description: `Strong analytical foundation. Transitioned to software through self‑learning and hands‑on projects.`,
-            skills: ["Problem Solving", "Systems Thinking", "Mathematics", "Engineering"]
+            img: 'assets/career/fsa.png',
+            title: 'Full-Stack Development Bootcamp',
+            company: 'FullStack Academy',
+            timeline: 'Jan 2022 – May 2022',
+            description: 'Built production-style applications with modern stacks and CI/CD pipelines. Strong focus on collaboration, code quality, and shipping.',
+            skills: ['JavaScript', 'React', 'Node.js', 'MongoDB', 'Git', 'Agile']
+        },
+        {
+            img: 'assets/career/vvit.png',
+            title: 'B.Tech — Mechanical Engineering',
+            company: 'Vasireddy Venkatadri Institute of Technology',
+            timeline: 'Jun 2017 – Jul 2021',
+            description: 'Strong analytical foundation. Transitioned to software through self-learning and hands-on projects during and after graduation.',
+            skills: ['Problem Solving', 'Systems Thinking', 'Mathematics', 'Engineering']
         }
     ];
 
     const careerTimeline = document.getElementById('career-timeline');
+    if (careerTimeline) {
+        careerData.forEach((item, i) => {
+            const entry = document.createElement('div');
+            entry.className = 'timeline-entry';
+            entry.style.setProperty('--delay', `${i * 0.15}s`);
 
-    careerData.forEach((career, index) => {
-        const entry = document.createElement('div');
-        entry.className = 'career-entry reveal';
-
-        entry.innerHTML = `
-            <div class="career-card">
-                <div class="career-content">
-                    <div class="career-header">
-                        <div class="career-logo">
-                            <img src="${career.img}" alt="${career.title}">
+            entry.innerHTML = `
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <div class="timeline-head">
+                        <div class="timeline-logo">
+                            <img src="${item.img}" alt="${item.company}" loading="lazy">
                         </div>
-                        <div class="career-info">
-                            <h3>${career.title}</h3>
-                            <div class="career-meta">
-                                <div class="career-company">${career.company}</div>
-                                <div class="career-duration">${career.timeline}</div>
+                        <div class="timeline-meta">
+                            <h3 class="timeline-role">${item.title}</h3>
+                            <div class="timeline-tags">
+                                <span class="tl-company">${item.company}</span>
+                                <span class="tl-duration">${item.timeline}</span>
                             </div>
                         </div>
                     </div>
-                    <p class="career-description">${career.description}</p>
-                    <div class="career-skills">
-                        ${career.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+                    <p class="timeline-desc">${item.description}</p>
+                    <div class="timeline-skills">
+                        ${item.skills.map(s => `<span class="skill-pill">${s}</span>`).join('')}
                     </div>
                 </div>
-            </div>
-            <div class="career-timeline-dot"></div>
-        `;
+            `;
 
-        careerTimeline.appendChild(entry);
-    });
-
-    // Enhanced scroll reveal for sections and generated items
-    setupScrollReveal();
-
-    // Parallax effect for hero gradient blob
-    setupParallaxBlob();
-
-    // Magnetic hover for buttons/links
-    setupMagneticHover();
-
-    // Scroll progress indicator
-    setupScrollProgress();
-
-    // Interactive tech stack animations
-    setupTechStackAnimations();
-
-    // Enhanced section animations
-    setupSectionAnimations();
-
-    // Add smooth scroll to navigation links
-    setupSmoothScroll();
-
-    // Add scroll-triggered animations for descriptions
-    setupTextAnimations();
-
-    // Setup floating UI elements
-    setupFloatingUI();
-
-    // Add page transition effects
-    setupPageTransitions();
-
-    // Navbar scroll effect
-    setupNavbarScroll();
-});
-
-function setupScrollReveal() {
-    const revealables = document.querySelectorAll('.reveal, .reveal-fade, .reveal-slide-left, .reveal-slide-right, .reveal-scale, .reveal-rotate');
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
-            }
+            careerTimeline.appendChild(entry);
         });
-    }, { threshold: 0.1, rootMargin: '0px 0px -10% 0px' });
 
-    revealables.forEach(el => observer.observe(el));
-}
-
-function setupScrollProgress() {
-    const progressBar = document.getElementById('scroll-progress');
-    if (!progressBar) return;
-
-    function updateProgress() {
-        const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrolled = (window.scrollY / windowHeight) * 100;
-        progressBar.style.width = scrolled + '%';
-    }
-
-    window.addEventListener('scroll', updateProgress, { passive: true });
-    updateProgress();
-}
-
-function setupTechStackAnimations() {
-    const techItems = document.querySelectorAll('.tech-item');
-    const techContainer = document.querySelector('.tech-icons-container');
-    const subHeading = document.querySelector('.home-container .sub-heading');
-
-    if (techItems.length === 0) return;
-
-    // Animate sub-heading first
-    const headingObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                headingObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.5 });
-
-    if (subHeading) {
-        headingObserver.observe(subHeading);
-    }
-
-    // Animate tech container line
-    const containerObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('animate-in');
-                containerObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.3 });
-
-    if (techContainer) {
-        containerObserver.observe(techContainer);
-    }
-
-    // Animate tech items with stagger
-    const techObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                techItems.forEach((item, index) => {
-                    setTimeout(() => {
-                        item.classList.add('animate-in');
-                    }, index * 80); // Stagger delay
-                });
-                techObserver.disconnect();
-            }
-        });
-    }, { threshold: 0.2, rootMargin: '0px 0px -100px 0px' });
-
-    if (techItems.length > 0) {
-        techObserver.observe(techItems[0].closest('.tech-icons-container') || techItems[0]);
-    }
-}
-
-function setupSectionAnimations() {
-    // Animate section headings
-    const sectionHeadings = document.querySelectorAll('.services-content .sub-heading, .projects-content .sub-heading, .experience-content .sub-heading');
-    const headingObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                headingObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.3 });
-    sectionHeadings.forEach(heading => headingObserver.observe(heading));
-
-    // Animate service cards
-    const serviceCards = document.querySelectorAll('.service-card');
-    if (serviceCards.length > 0) {
-        const serviceObserver = new IntersectionObserver((entries) => {
+        // Animate timeline entries
+        const tlObs = new IntersectionObserver(entries => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    serviceCards.forEach((card, index) => {
-                        setTimeout(() => {
-                            card.classList.add('animate-in');
-                        }, index * 150);
-                    });
-                    serviceObserver.disconnect();
+                    entry.target.classList.add('in-view');
+                    tlObs.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-        serviceObserver.observe(serviceCards[0].closest('.services-grid'));
+        }, { threshold: 0.15, rootMargin: '0px 0px -30px 0px' });
+
+        careerTimeline.querySelectorAll('.timeline-entry').forEach(el => tlObs.observe(el));
     }
 
-    // Animate project cards
-    const projectObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const projectCards = document.querySelectorAll('.project-card');
-                projectCards.forEach((card, index) => {
-                    setTimeout(() => {
-                        card.classList.add('animate-in');
-                    }, index * 100);
-                });
-            }
-        });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-    const projectsGrid = document.getElementById('projects-grid');
-    if (projectsGrid) {
-        projectObserver.observe(projectsGrid);
-    }
-
-    // Animate career entries
-    const careerObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const careerEntries = document.querySelectorAll('.career-entry');
-                careerEntries.forEach((entry, index) => {
-                    setTimeout(() => {
-                        entry.classList.add('animate-in');
-                    }, index * 200);
-                });
-                careerObserver.disconnect();
-            }
-        });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-    const careerTimeline = document.getElementById('career-timeline');
-    if (careerTimeline) {
-        careerObserver.observe(careerTimeline);
-    }
-}
-
-function enhanceInteractiveCards() {
-    // Add tilt class to service and project cards
-    document.querySelectorAll('.service-card, .project-card').forEach(card => {
-        card.classList.add('tilt', 'reveal');
-        addTilt(card);
-    });
-}
-
-function addTilt(card) {
-    let rect;
-    const damp = 20; // lower -> stronger tilt
-    const reset = () => {
-        card.style.transform = '';
-    };
-    card.addEventListener('mouseenter', () => { rect = card.getBoundingClientRect(); });
-    card.addEventListener('mousemove', (e) => {
-        if (!rect) rect = card.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width;
-        const y = (e.clientY - rect.top) / rect.height;
-        const rotX = (0.5 - y) * damp;
-        const rotY = (x - 0.5) * damp;
-        card.style.transform = `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateZ(0)`;
-    });
-    card.addEventListener('mouseleave', () => { reset(); });
-}
-
-function setupParallaxBlob() {
-    const blob = document.querySelector('.gradient-blob');
-    if (!blob) return;
-    
-    let ticking = false;
-    
-    const onScroll = () => {
-        if (!ticking) {
-            window.requestAnimationFrame(() => {
-                const scrolled = window.scrollY;
-                const parallaxSpeed = 0.2;
-                const yPos = scrolled * parallaxSpeed;
-                const scale = 1 + (scrolled * 0.0001);
-                blob.style.transform = `translate(-3vw, ${yPos}px) scale(${Math.min(scale, 1.1)})`;
-                ticking = false;
+    /* ====================== 3D CARD TILT ====================== */
+    function initTilt(selector) {
+        document.querySelectorAll(selector).forEach(card => {
+            let rect;
+            card.addEventListener('mouseenter', () => { rect = card.getBoundingClientRect(); });
+            card.addEventListener('mousemove', e => {
+                if (!rect) return;
+                const x = (e.clientX - rect.left) / rect.width;
+                const y = (e.clientY - rect.top) / rect.height;
+                const rotX = (0.5 - y) * 10;
+                const rotY = (x - 0.5) * 10;
+                card.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-4px)`;
             });
-            ticking = true;
-        }
-    };
-    
-    window.addEventListener('scroll', onScroll, { passive: true });
-    
-    // Also add parallax to floating elements
-    const floatingCodes = document.querySelectorAll('.floating-code');
-    const particles = document.querySelectorAll('.particle');
-    
-    const updateParallax = () => {
-        if (!ticking) {
-            window.requestAnimationFrame(() => {
-                const scrolled = window.scrollY;
-                
-                floatingCodes.forEach((code, index) => {
-                    const speed = 0.05 + (index * 0.02);
-                    const currentTransform = code.style.transform || '';
-                    const baseTransform = currentTransform.includes('translateY') 
-                        ? currentTransform.split('translateY')[0] 
-                        : '';
-                    code.style.transform = `${baseTransform} translateY(${scrolled * speed}px)`;
-                });
-                
-                particles.forEach((particle, index) => {
-                    const speed = 0.03 + (index * 0.01);
-                    particle.style.transform = `translateY(${scrolled * speed}px)`;
-                });
-                
-                ticking = false;
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+                rect = null;
             });
-            ticking = true;
-        }
-    };
-    
-    window.addEventListener('scroll', updateParallax, { passive: true });
-}
+        });
+    }
 
-function setupMagneticHover() {
-    const magnets = document.querySelectorAll('.primary-btn, .secondary-btn, .filter-btn, .tech-item');
-    magnets.forEach(el => {
-        let rect;
-        el.addEventListener('mousemove', (e) => {
-            rect = rect || el.getBoundingClientRect();
-            const relX = e.clientX - rect.left - rect.width / 2;
-            const relY = e.clientY - rect.top - rect.height / 2;
-            const distance = Math.sqrt(relX * relX + relY * relY);
-            const maxDistance = Math.max(rect.width, rect.height);
-            
-            if (distance < maxDistance) {
-                const strength = (1 - distance / maxDistance) * 0.15;
-                el.style.transform = `translate(${relX * strength}px, ${relY * strength}px)`;
-            }
-        });
-        el.addEventListener('mouseleave', () => { 
-            el.style.transform = ''; 
-            rect = undefined; 
-        });
+    initTilt('.bento-card');
+
+    /* ====================== RIPPLE EFFECT ====================== */
+    function addRipple(el, e) {
+        const rect = el.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height) * 2;
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple';
+        ripple.style.width  = size + 'px';
+        ripple.style.height = size + 'px';
+        ripple.style.left   = x + 'px';
+        ripple.style.top    = y + 'px';
+        el.appendChild(ripple);
+
+        setTimeout(() => ripple.remove(), 700);
+    }
+
+    document.querySelectorAll('.btn').forEach(btn => {
+        btn.addEventListener('click', function(e) { addRipple(this, e); });
     });
-}
 
-function setupSmoothScroll() {
-    // Smooth scroll for all anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            const href = this.getAttribute('href');
-            if (href === '#' || href === '') return;
-            
-            e.preventDefault();
-            const target = document.querySelector(href);
-            if (target) {
-                const offsetTop = target.offsetTop - 80; // Account for fixed nav
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
+    /* ====================== MAGNETIC HOVER (buttons) ====================== */
+    function initMagnetic(selector, strength = 0.3) {
+        if (window.matchMedia('(hover: hover)').matches) {
+            document.querySelectorAll(selector).forEach(el => {
+                let rect;
+                el.addEventListener('mouseenter', () => { rect = el.getBoundingClientRect(); });
+                el.addEventListener('mousemove', e => {
+                    if (!rect) return;
+                    const dx = e.clientX - rect.left - rect.width / 2;
+                    const dy = e.clientY - rect.top - rect.height / 2;
+                    el.style.transform = `translate(${dx * strength}px, ${dy * strength}px)`;
                 });
-            }
-        });
-    });
-}
+                el.addEventListener('mouseleave', () => {
+                    el.style.transform = '';
+                    rect = null;
+                });
+            });
+        }
+    }
 
-function setupTextAnimations() {
-    // Animate paragraph text on scroll
-    const paragraphs = document.querySelectorAll('.paragraph, .projects-description, .experience-description');
-    const textObserver = new IntersectionObserver((entries) => {
+    initMagnetic('.btn, .nav-cta, .social-btn, .back-to-top', 0.15);
+
+    /* ====================== MARQUEE PAUSE ON HOVER ====================== */
+    const marqueeInners = document.querySelectorAll('.marquee-inner');
+    const marqueeTrack = document.querySelector('.marquee-track');
+    if (marqueeTrack) {
+        marqueeTrack.addEventListener('mouseenter', () => {
+            marqueeInners.forEach(m => m.style.animationPlayState = 'paused');
+        });
+        marqueeTrack.addEventListener('mouseleave', () => {
+            marqueeInners.forEach(m => m.style.animationPlayState = '');
+        });
+    }
+
+    /* ====================== BENTO CARD STAGGER ====================== */
+    const bentoObs = new IntersectionObserver(entries => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.opacity = '0';
-                entry.target.style.transform = 'translateY(20px)';
-                
-                setTimeout(() => {
-                    entry.target.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }, 100);
-                
-                textObserver.unobserve(entry.target);
+                document.querySelectorAll('.bento-card').forEach((c, i) => {
+                    setTimeout(() => c.classList.add('in-view'), i * 80);
+                });
+                bentoObs.disconnect();
             }
         });
-    }, { threshold: 0.2, rootMargin: '0px 0px -50px 0px' });
-    
-    paragraphs.forEach(para => textObserver.observe(para));
-}
+    }, { threshold: 0.1 });
 
-function setupFloatingUI() {
-    // Back to top button
-    const backToTop = document.getElementById('back-to-top');
-    if (backToTop) {
+    const bentoGrid = document.querySelector('.bento-grid');
+    if (bentoGrid) {
+        // Add initial hidden state handled by reveal-up via JS stagger
+        document.querySelectorAll('.bento-card:not(.reveal-up)').forEach(c => {
+            c.classList.add('reveal-up');
+        });
+        setupReveal();
+    }
+
+    /* ====================== AURORA PARALLAX ====================== */
+    const auroras = document.querySelectorAll('.aurora');
+    if (auroras.length && !isTouchDevice) {
+        let ticking = false;
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                backToTop.classList.add('visible');
-            } else {
-                backToTop.classList.remove('visible');
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    const s = window.scrollY;
+                    auroras.forEach((a, i) => {
+                        const speed = 0.06 + i * 0.03;
+                        a.style.transform = `translateY(${s * speed}px)`;
+                    });
+                    ticking = false;
+                });
+                ticking = true;
             }
         }, { passive: true });
-
-        backToTop.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
     }
 
-    // Floating social icons
-    const floatingSocial = document.getElementById('floating-social');
-    if (floatingSocial) {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 200) {
-                floatingSocial.classList.add('visible');
-            } else {
-                floatingSocial.classList.remove('visible');
-            }
-        }, { passive: true });
-
-        // Stagger animation for social links
-        const socialLinks = floatingSocial.querySelectorAll('.floating-social-link');
-        socialLinks.forEach((link, index) => {
-            link.style.opacity = '0';
-            link.style.transform = 'translateX(-20px)';
-            
-            setTimeout(() => {
-                link.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-                link.style.opacity = '1';
-                link.style.transform = 'translateX(0)';
-            }, index * 100 + 500);
-        });
-    }
-}
-
-function setupPageTransitions() {
-    // Add smooth fade-in on page load
-    document.body.style.opacity = '0';
-    window.addEventListener('load', () => {
-        document.body.style.transition = 'opacity 0.5s ease';
-        document.body.style.opacity = '1';
-    });
-
-    // Add ripple effect on button clicks
-    const buttons = document.querySelectorAll('button, .project-card, .service-card');
-    buttons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            const ripple = document.createElement('span');
-            const rect = this.getBoundingClientRect();
-            const size = Math.max(rect.width, rect.height);
-            const x = e.clientX - rect.left - size / 2;
-            const y = e.clientY - rect.top - size / 2;
-            
-            ripple.style.width = ripple.style.height = size + 'px';
-            ripple.style.left = x + 'px';
-            ripple.style.top = y + 'px';
-            ripple.classList.add('ripple');
-            
-            this.appendChild(ripple);
-            
-            setTimeout(() => {
-                ripple.remove();
-            }, 600);
-        });
-    });
-}
-
-function setupNavbarScroll() {
-    const navbar = document.querySelector('.nav-bar');
-    if (!navbar) return;
-
-    let lastScroll = 0;
-    window.addEventListener('scroll', () => {
-        const currentScroll = window.scrollY;
-        
-        if (currentScroll > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-        
-        lastScroll = currentScroll;
-    }, { passive: true });
-}
+});

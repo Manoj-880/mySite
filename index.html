@@ -3,379 +3,341 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manoj Inamanamelluri - Full-Stack Developer & UI/UX Designer</title>
+    <title>Manoj Inamanamelluri — Full-Stack Developer & UI/UX Designer</title>
+    <meta name="description" content="Full-Stack Developer and UI/UX Designer with 3+ years building scalable SaaS on AWS. React, Node.js, Flutter, Figma.">
     <link rel="shortcut icon" href="assets/logo.svg" type="image/x-icon">
-    <link rel="stylesheet" href="style.css">
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-    >
-    <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body data-theme="dark">
-    <!-- Scroll Progress Indicator -->
+<body>
+
+    <!-- Page Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-line"></div>
+        <span class="loader-text">Loading<span class="loader-dots">...</span></span>
+    </div>
+
+    <!-- Scroll Progress -->
     <div class="scroll-progress" id="scroll-progress"></div>
-    
+
     <!-- Custom Cursor -->
-    <div class="custom-cursor"></div>
-    
-    <!-- Floating Back to Top Button -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-follower" id="cursor-follower"></div>
+
+    <!-- Floating Back to Top -->
     <button class="back-to-top" id="back-to-top" aria-label="Back to top">
         <i class="fas fa-arrow-up"></i>
     </button>
-    
-    <!-- Floating Social Icons -->
-    <div class="floating-social" id="floating-social">
-        <a href="https://www.linkedin.com/in/manoj-inamanamelluri-319852184/" target="_blank" class="floating-social-link" aria-label="LinkedIn">
-            <i class="fab fa-linkedin"></i>
-        </a>
-        <a href="https://github.com/Manoj-880" target="_blank" class="floating-social-link" aria-label="GitHub">
-            <i class="fab fa-github"></i>
-        </a>
-        <a href="https://www.behance.net/manojmanoj61" target="_blank" class="floating-social-link" aria-label="Behance">
-            <i class="fab fa-behance"></i>
-        </a>
-        <a href="https://www.instagram.com/manoj_880/" target="_blank" class="floating-social-link" aria-label="Instagram">
-            <i class="fab fa-instagram"></i>
-        </a>
-    </div>
-    
-    <!-- nav bar -->
-    <nav class="nav-bar col-sm-12">
-        <img src="assets/logo.svg" alt="manoj logo" class="logo">
-        <ul class="nav-list">
-            <li><a class="nav-item" href="#">Home</a></li>
-            <li><a class="nav-item" href="#services">Services</a></li>
-            <li><a class="nav-item" href="#projects">Projects</a></li>
-            <li><a class="nav-item" href="#experience">Experience</a></li>
-            <li><a class="nav-item" href="#contact">Contact</a></li>
-        </ul>
-        <i class="fa-solid fa-bars menu-icon"></i>
-    </nav>
 
-    <!-- Mobile Menu Overlay -->
-    <div class="mobile-menu-overlay" id="mobile-menu-overlay">
-        <div class="mobile-menu-content">
-            <div class="mobile-menu-header">
-                <img src="assets/logo.svg" alt="manoj logo" class="mobile-menu-logo">
-                <button class="mobile-menu-close" id="mobile-menu-close">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <nav class="mobile-menu-nav">
-                <ul class="mobile-nav-list">
-                    <li class="mobile-nav-item">
-                        <a href="#" class="mobile-nav-link">
-                            <i class="fas fa-home"></i>
-                            <span>Home</span>
-                        </a>
-                    </li>
-                    <li class="mobile-nav-item">
-                        <a href="#services" class="mobile-nav-link">
-                            <i class="fas fa-cogs"></i>
-                            <span>Services</span>
-                        </a>
-                    </li>
-                    <li class="mobile-nav-item">
-                        <a href="#projects" class="mobile-nav-link">
-                            <i class="fas fa-folder-open"></i>
-                            <span>Projects</span>
-                        </a>
-                    </li>
-                    <li class="mobile-nav-item">
-                        <a href="#experience" class="mobile-nav-link">
-                            <i class="fas fa-briefcase"></i>
-                            <span>Experience</span>
-                        </a>
-                    </li>
-                    <li class="mobile-nav-item">
-                        <a href="#contact" class="mobile-nav-link">
-                            <i class="fas fa-envelope"></i>
-                            <span>Contact</span>
-                        </a>
-                    </li>
-                </ul>
+    <!-- ====================== NAV ====================== -->
+    <header class="nav-wrap" id="nav-wrap">
+        <nav class="nav" id="nav">
+            <a href="#" class="nav-logo" aria-label="Home">
+                <img src="assets/logo.svg" alt="Manoj Logo">
+            </a>
+            <ul class="nav-links" role="list">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#experience" class="nav-link">Experience</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+                Hire Me
+            </button>
+            <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+        <div class="mobile-menu-inner">
+            <nav class="mobile-nav" aria-label="Mobile navigation">
+                <a href="#home" class="mobile-nav-link"><span>01</span>Home</a>
+                <a href="#services" class="mobile-nav-link"><span>02</span>Services</a>
+                <a href="#projects" class="mobile-nav-link"><span>03</span>Projects</a>
+                <a href="#experience" class="mobile-nav-link"><span>04</span>Experience</a>
+                <a href="#contact" class="mobile-nav-link"><span>05</span>Contact</a>
             </nav>
             <div class="mobile-menu-footer">
-                <div class="mobile-social-links">
-                    <a href="https://www.instagram.com/manoj_880/" class="mobile-social-link" target="_blank">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/manoj-inamanamelluri-319852184/" class="mobile-social-link" target="_blank">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                    <a href="https://www.behance.net/manojmanoj61" class="mobile-social-link" target="_blank">
-                        <i class="fab fa-behance"></i>
-                    </a>
-                    <a href="https://github.com/Manoj-880" class="mobile-social-link" target="_blank">
-                        <i class="fab fa-github"></i>
-                    </a>
+                <div class="mobile-socials">
+                    <a href="https://www.linkedin.com/in/manoj-inamanamelluri-319852184/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/Manoj-880" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://www.behance.net/manojmanoj61" target="_blank" aria-label="Behance"><i class="fab fa-behance"></i></a>
+                    <a href="https://www.instagram.com/manoj_880/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                 </div>
+                <p class="mobile-email">manoj.inamanamelluri123@gmail.com</p>
             </div>
         </div>
     </div>
 
-    <!-- home -->
-    <section class="home" id="home">
-        <!-- Tech Animation Background -->
-        <div class="tech-bg">
-            <div class="tech-grid"></div>
-            <div class="gradient-blob" aria-hidden="true"></div>
-            <div class="floating-code">const developer = {</div>
-            <div class="floating-code">skills: ['React', 'Node.js'],</div>
-            <div class="floating-code">passion: 'coding'</div>
-            <div class="floating-code">};</div>
-            <div class="floating-code">function create() {</div>
-            <div class="floating-particles">
-                <div class="particle"></div>
-                <div class="particle"></div>
-                <div class="particle"></div>
-                <div class="particle"></div>
-                <div class="particle"></div>
-                <div class="particle"></div>
-                <div class="particle"></div>
-                <div class="particle"></div>
-            </div>
-            <div class="floating-symbols">
-                <div class="symbol"></div>
-                <div class="symbol"></div>
-                <div class="symbol"></div>
-                <div class="symbol"></div>
-                <div class="symbol"></div>
-                <div class="symbol"></div>
-                <div class="symbol"></div>
-                <div class="symbol"></div>
+    <!-- ====================== HERO ====================== -->
+    <section class="hero" id="home">
+        <!-- Aurora Background -->
+        <div class="hero-bg" aria-hidden="true">
+            <div class="aurora aurora-1"></div>
+            <div class="aurora aurora-2"></div>
+            <div class="aurora aurora-3"></div>
+            <div class="hero-noise"></div>
+            <div class="hero-grid-overlay"></div>
+        </div>
+
+        <div class="container">
+            <div class="hero-grid">
+                <!-- Left: Content -->
+                <div class="hero-content reveal-up">
+                    <div class="hero-badge">
+                        <span class="badge-pulse"></span>
+                        Available for freelance
+                    </div>
+                    <h1 class="hero-title">
+                        I <em>design</em> digital<br>products &amp; make<br>it work by <em>code</em>
+                    </h1>
+                    <p class="hero-desc">
+                        Full-Stack Developer &amp; UI/UX Designer with <strong><span data-career-years>3+</span> years</strong> of experience crafting intuitive interfaces and scalable SaaS solutions on AWS.
+                    </p>
+                    <div class="hero-actions">
+                        <button class="btn btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+                            Get In Touch <i class="fas fa-arrow-right"></i>
+                        </button>
+                        <button class="btn btn-ghost" id="dnlbtn">
+                            Download CV <i class="fas fa-download"></i>
+                        </button>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-val"><span data-career-years>3+</span></span>
+                            <span class="stat-key">Years Exp.</span>
+                        </div>
+                        <div class="stat-sep"></div>
+                        <div class="stat-item">
+                            <span class="stat-val">8+</span>
+                            <span class="stat-key">Projects</span>
+                        </div>
+                        <div class="stat-sep"></div>
+                        <div class="stat-item">
+                            <span class="stat-val">4</span>
+                            <span class="stat-key">Services</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Visual -->
+                <div class="hero-visual reveal-up" style="--delay: 0.2s">
+                    <div class="avatar-wrap">
+                        <img src="assets/avathar.svg" alt="Manoj Inamanamelluri" class="avatar">
+                        <div class="avatar-ring ring-1"></div>
+                        <div class="avatar-ring ring-2"></div>
+                        <div class="avatar-glow"></div>
+                        <!-- Floating tech badges -->
+                        <div class="float-badge fb-react">
+                            <iconify-icon icon="logos:react" style="width:1em;height:1em;vertical-align:middle;margin-right:6px;"></iconify-icon><span>React</span>
+                        </div>
+                        <div class="float-badge fb-node">
+                            <iconify-icon icon="logos:nodejs-icon" style="width:1em;height:1em;vertical-align:middle;margin-right:6px;"></iconify-icon><span>Node.js</span>
+                        </div>
+                        <div class="float-badge fb-figma">
+                            <iconify-icon icon="logos:figma" style="width:1em;height:1em;vertical-align:middle;margin-right:6px;"></iconify-icon><span>Figma</span>
+                        </div>
+                        <div class="float-badge fb-aws">
+                            <iconify-icon icon="logos:aws" style="width:1em;height:1em;vertical-align:middle;margin-right:6px;"></iconify-icon><span>AWS</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="home-container col-sm-12 reveal">
-            <div class="avathar col-sm-12">
-                <img src="assets/avathar.svg" alt="my avathar" class="col-2 col-sm-4 col-md-2">
-            </div>
-            <h1 class="main-text">
-                I <span class="spl">design</span> digital products and make it work by <span class="spl">code!</span>
-            </h1>
-            <p class="paragraph">
-                I am a seasoned full-stack software engineer with over 
-                <span data-career-years>3+</span> years of professional experience, specializing in UI/UX design & Full-Stack Development. 
-                My expertise lies in crafting robust and scalable SaaS-based 
-                architectures on the Amazon AWS platform.
-            </p>
-            <div class="hero-buttons col-sm-12">
-                <button class="primary-btn col-4 col-sm-5 col-xl-3" onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })">
-                    Get In Touch
-                </button>
-                <button id="dnlbtn" class="secondary-btn col-4 col-sm-5 col-xl-3">
-                    Download CV
-                </button>
-            </div>
-            <p class="sub-heading reveal-fade">
-                Experience with
-            </p>
-            <div class="tech-icons-container">
-                <div class="tech-icons">
-                <div class="tech-item">
-                    <i class="fab fa-figma"></i>
-                    <span>Figma</span>
+
+        <!-- Tech Marquee -->
+        <div class="marquee-section" aria-hidden="true">
+            <div class="marquee-label">Experience with</div>
+            <div class="marquee-track">
+                <div class="marquee-inner">
+                    <span class="marquee-item"><iconify-icon icon="logos:figma" style="width:1em;height:1em;vertical-align:middle;margin-right:6px;"></iconify-icon> Figma</span>
+                    <span class="marquee-item"><iconify-icon icon="logos:html-5" style="width:1em;height:1em;vertical-align:middle;margin-right:6px;"></iconify-icon> HTML</span>
+                    <span class="marquee-item"><iconify-icon icon="logos:css-3" style="width:1em;height:1em;vertical-align:middle;margin-right:6px;"></iconify-icon> CSS</span>
+                    <span class="marquee-item"><iconify-icon icon="logos:javascript" style="width:1em;height:1em;vertical-align:middle;margin-right:6px;"></iconify-icon> JavaScript</span>
+                    <span class="marquee-item"><iconify-icon icon="logos:react" style="width:1em;height:1em;vertical-align:middle;margin-right:6px;"></iconify-icon> React</span>
+                    <span class="marquee-item"><iconify-icon icon="devicon:nextjs" style="width:1em;height:1em;vertical-align:middle;margin-right:6px;"></iconify-icon> Next.js</span>
+                    <span class="marquee-item"><iconify-icon icon="logos:nodejs-icon" style="width:1em;height:1em;vertical-align:middle;margin-right:6px;"></iconify-icon> Node.js</span>
+                    <span class="marquee-item"><iconify-icon icon="skill-icons:expressjs-dark" style="width:1em;height:1em;vertical-align:middle;margin-right:6px;"></iconify-icon> Express</span>
+                    <span class="marquee-item"><iconify-icon icon="logos:mysql-icon" style="width:1em;height:1em;vertical-align:middle;margin-right:6px;"></iconify-icon> MySQL</span>
+                    <span class="marquee-item"><iconify-icon icon="logos:mongodb-icon" style="width:1em;height:1em;vertical-align:middle;margin-right:6px;"></iconify-icon> MongoDB</span>
+                    <span class="marquee-item"><iconify-icon icon="logos:aws" style="width:1em;height:1em;vertical-align:middle;margin-right:6px;"></iconify-icon> AWS</span>
+                    <span class="marquee-item"><iconify-icon icon="logos:google-cloud" style="width:1em;height:1em;vertical-align:middle;margin-right:6px;"></iconify-icon> GCP</span>
+                    <span class="marquee-item"><iconify-icon icon="logos:microsoft-azure" style="width:1em;height:1em;vertical-align:middle;margin-right:6px;"></iconify-icon> Azure</span>
+                    <span class="marquee-item"><iconify-icon icon="devicon:flutter" style="width:1em;height:1em;vertical-align:middle;margin-right:6px;"></iconify-icon> Flutter</span>
+                    <span class="marquee-sep">✦</span>
                 </div>
-                <div class="tech-item">
-                    <i class="fas fa-pencil-ruler"></i>
-                    <span>Adobe XD</span>
+                <!-- Duplicate for seamless loop -->
+                <div class="marquee-inner" aria-hidden="true">
+                    <span class="marquee-item"><iconify-icon icon="logos:figma" style="width:1em;height:1em;vertical-align:middle;margin-right:6px;"></iconify-icon> Figma</span>
+                    <span class="marquee-item"><iconify-icon icon="logos:html-5" style="width:1em;height:1em;vertical-align:middle;margin-right:6px;"></iconify-icon> HTML</span>
+                    <span class="marquee-item"><iconify-icon icon="logos:css-3" style="width:1em;height:1em;vertical-align:middle;margin-right:6px;"></iconify-icon> CSS</span>
+                    <span class="marquee-item"><iconify-icon icon="logos:javascript" style="width:1em;height:1em;vertical-align:middle;margin-right:6px;"></iconify-icon> JavaScript</span>
+                    <span class="marquee-item"><iconify-icon icon="logos:react" style="width:1em;height:1em;vertical-align:middle;margin-right:6px;"></iconify-icon> React</span>
+                    <span class="marquee-item"><iconify-icon icon="devicon:nextjs" style="width:1em;height:1em;vertical-align:middle;margin-right:6px;"></iconify-icon> Next.js</span>
+                    <span class="marquee-item"><iconify-icon icon="logos:nodejs-icon" style="width:1em;height:1em;vertical-align:middle;margin-right:6px;"></iconify-icon> Node.js</span>
+                    <span class="marquee-item"><iconify-icon icon="skill-icons:expressjs-dark" style="width:1em;height:1em;vertical-align:middle;margin-right:6px;"></iconify-icon> Express</span>
+                    <span class="marquee-item"><iconify-icon icon="logos:mysql-icon" style="width:1em;height:1em;vertical-align:middle;margin-right:6px;"></iconify-icon> MySQL</span>
+                    <span class="marquee-item"><iconify-icon icon="logos:mongodb-icon" style="width:1em;height:1em;vertical-align:middle;margin-right:6px;"></iconify-icon> MongoDB</span>
+                    <span class="marquee-item"><iconify-icon icon="logos:aws" style="width:1em;height:1em;vertical-align:middle;margin-right:6px;"></iconify-icon> AWS</span>
+                    <span class="marquee-item"><iconify-icon icon="logos:google-cloud" style="width:1em;height:1em;vertical-align:middle;margin-right:6px;"></iconify-icon> GCP</span>
+                    <span class="marquee-item"><iconify-icon icon="logos:microsoft-azure" style="width:1em;height:1em;vertical-align:middle;margin-right:6px;"></iconify-icon> Azure</span>
+                    <span class="marquee-item"><iconify-icon icon="devicon:flutter" style="width:1em;height:1em;vertical-align:middle;margin-right:6px;"></iconify-icon> Flutter</span>
+                    <span class="marquee-sep">✦</span>
                 </div>
-                <div class="tech-item">
-                    <i class="fab fa-html5"></i>
-                    <span>HTML</span>
-                </div>
-                <div class="tech-item">
-                    <i class="fab fa-css3-alt"></i>
-                    <span>CSS</span>
-                </div>
-                <div class="tech-item">
-                    <i class="fab fa-js"></i>
-                    <span>JavaScript</span>
-                </div>
-                <div class="tech-item">
-                    <i class="fab fa-react"></i>
-                    <span>React</span>
-                </div>
-                <div class="tech-item">
-                    <iconify-icon class="tech-iconify" icon="devicon:nextjs" aria-hidden="true"></iconify-icon>
-                    <span>Next.js</span>
-                </div>
-                <div class="tech-item">
-                    <i class="fab fa-node-js"></i>
-                    <span>Node.js</span>
-                </div>
-                <div class="tech-item">
-                    <i class="fas fa-server"></i>
-                    <span>Express</span>
-                </div>
-                <div class="tech-item">
-                    <i class="fas fa-database"></i>
-                    <span>MySQL</span>
-                </div>
-                <div class="tech-item">
-                    <i class="fas fa-leaf"></i>
-                    <span>MongoDB</span>
-                </div>
-                <div class="tech-item">
-                    <i class="fab fa-aws"></i>
-                    <span>AWS</span>
-                </div>
-                <div class="tech-item">
-                    <i class="fab fa-google"></i>
-                    <span>GCP</span>
-                </div>
-                <div class="tech-item">
-                    <i class="fab fa-microsoft"></i>
-                    <span>Azure</span>
-                </div>
-                <div class="tech-item">
-                    <iconify-icon class="tech-iconify" icon="devicon:flutter" aria-hidden="true"></iconify-icon>
-                    <span>Flutter</span>
-                </div>
-            </div>
             </div>
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section class="services" id="services">
-        <div class="services-content col-sm-12 reveal">
-            <p class="sub-heading">
-                Services
-            </p>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-palette"></i>
-                    </div>
-                    <h3 class="service-title">UI/UX Design</h3>
-                    <p class="service-description">
-                        Creating intuitive and visually appealing user interfaces that enhance user experience and drive engagement across all platforms.
-                    </p>
-                    <ul class="service-features">
-                        <li>User Research & Analysis</li>
-                        <li>Wireframing & Prototyping</li>
-                        <li>Visual Design & Branding</li>
+    <!-- ====================== SERVICES ====================== -->
+    <section class="section services" id="services">
+        <div class="container">
+            <div class="section-header reveal-up">
+                <p class="section-eyebrow">What I do</p>
+                <h2 class="section-title">Services</h2>
+            </div>
+
+            <div class="bento-grid">
+                <!-- Card 1: UI/UX (large) -->
+                <div class="bento-card bento-large reveal-up" style="--delay:0.05s">
+                    <div class="bento-num">01</div>
+                    <div class="bento-icon"><i class="fas fa-palette"></i></div>
+                    <h3 class="bento-title">UI/UX Design</h3>
+                    <p class="bento-desc">Creating intuitive, visually stunning interfaces that enhance experience and drive engagement across all platforms.</p>
+                    <ul class="bento-list">
+                        <li>User Research &amp; Analysis</li>
+                        <li>Wireframing &amp; Prototyping</li>
+                        <li>Visual Design &amp; Branding</li>
                         <li>Usability Testing</li>
                     </ul>
+                    <div class="bento-glow"></div>
                 </div>
 
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-paint-brush"></i>
-                    </div>
-                    <h3 class="service-title">Graphic Design</h3>
-                    <p class="service-description">
-                        Crafting compelling visual identities and marketing materials that communicate your brand's message effectively.
-                    </p>
-                    <ul class="service-features">
-                        <li>Logo Design & Brand Identity</li>
-                        <li>Print & Digital Marketing</li>
+                <!-- Card 2: Graphic Design -->
+                <div class="bento-card reveal-up" style="--delay:0.1s">
+                    <div class="bento-num">02</div>
+                    <div class="bento-icon"><i class="fas fa-paint-brush"></i></div>
+                    <h3 class="bento-title">Graphic Design</h3>
+                    <p class="bento-desc">Compelling visual identities that communicate your brand effectively.</p>
+                    <ul class="bento-list">
+                        <li>Logo &amp; Brand Identity</li>
+                        <li>Print &amp; Digital Marketing</li>
                         <li>Social Media Graphics</li>
-                        <li>Illustration & Icons</li>
                     </ul>
+                    <div class="bento-glow"></div>
                 </div>
 
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <h3 class="service-title">Fullstack Web Development</h3>
-                    <p class="service-description">
-                        Building robust, scalable web applications from frontend to backend, ensuring optimal performance and security.
-                    </p>
-                    <ul class="service-features">
-                        <li>Frontend Development (React, HTML, CSS)</li>
-                        <li>Backend Development (Node.js, Express)</li>
-                        <li>Database Design & Management</li>
-                        <li>Cloud Deployment & DevOps</li>
-                    </ul>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3 class="service-title">Mobile Application Development</h3>
-                    <p class="service-description">
-                        Developing cross-platform mobile applications that deliver native performance and seamless user experience.
-                    </p>
-                    <ul class="service-features">
-                        <li>Cross-Platform Development (Flutter)</li>
-                        <li>Native iOS & Android Apps</li>
+                <!-- Card 3: Mobile -->
+                <div class="bento-card reveal-up" style="--delay:0.15s">
+                    <div class="bento-num">03</div>
+                    <div class="bento-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <h3 class="bento-title">Mobile Development</h3>
+                    <p class="bento-desc">Cross-platform mobile apps with native performance and seamless UX.</p>
+                    <ul class="bento-list">
+                        <li>Flutter Cross-Platform</li>
+                        <li>Push Notifications</li>
                         <li>App Store Optimization</li>
-                        <li>Push Notifications & Analytics</li>
                     </ul>
+                    <div class="bento-glow"></div>
+                </div>
+
+                <!-- Card 4: Fullstack (large) -->
+                <div class="bento-card bento-large reveal-up" style="--delay:0.2s">
+                    <div class="bento-num">04</div>
+                    <div class="bento-icon"><i class="fas fa-code"></i></div>
+                    <h3 class="bento-title">Fullstack Web Development</h3>
+                    <p class="bento-desc">Robust, scalable web applications from frontend to backend with optimal performance and security.</p>
+                    <ul class="bento-list">
+                        <li>Frontend (React, Next.js)</li>
+                        <li>Backend (Node.js, Express)</li>
+                        <li>Database Design &amp; Management</li>
+                        <li>Cloud Deployment &amp; DevOps</li>
+                    </ul>
+                    <div class="bento-glow"></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="projects" id="projects">
-        <div class="projects-content col-sm-12 reveal">
-            <div class="projects-header">
-                <p class="sub-heading">
-                    Featured Projects
-                </p>
-                <p class="projects-description">
-                    Explore my portfolio of creative and technical projects that showcase my skills in design and development.
-                </p>
-            </div>
-            
-            <!-- Project Filter Tabs -->
-            <div class="project-filters">
-                <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="web">Web Development</button>
-                <button class="filter-btn" data-filter="mobile">Mobile Apps</button>
-                <button class="filter-btn" data-filter="design">UI/UX Design</button>
+    <!-- ====================== PROJECTS ====================== -->
+    <section class="section projects" id="projects">
+        <div class="container">
+            <div class="section-header reveal-up">
+                <p class="section-eyebrow">Portfolio</p>
+                <h2 class="section-title">Featured Projects</h2>
+                <p class="section-desc">Explore my portfolio of creative and technical projects that showcase my skills in design and development.</p>
             </div>
 
-            <!-- Projects Grid -->
-            <div class="projects-grid" id="projects-grid">
-                <!-- Projects will be dynamically loaded here -->
+            <div class="filter-pills reveal-up" style="--delay:0.1s">
+                <button class="filter-pill active" data-filter="all">All</button>
+                <button class="filter-pill" data-filter="web">Web Dev</button>
+                <button class="filter-pill" data-filter="mobile">Mobile</button>
+                <button class="filter-pill" data-filter="design">Design</button>
             </div>
+
+            <div class="projects-grid" id="projects-grid"></div>
         </div>
     </section>
-    <section class="experience" id="experience">
-        <div class="experience-content col-sm-12 reveal">
-            <div class="experience-header">
-                <p class="sub-heading">
-                    Career Journey
-                </p>
-                <p class="experience-description">
-                    My professional growth and achievements in the world of technology and design.
-                </p>
+
+    <!-- ====================== EXPERIENCE ====================== -->
+    <section class="section experience" id="experience">
+        <div class="container">
+            <div class="section-header reveal-up">
+                <p class="section-eyebrow">Background</p>
+                <h2 class="section-title">Career Journey</h2>
+                <p class="section-desc">My professional growth and achievements in the world of technology and design.</p>
             </div>
-            
-            <!-- Career Timeline -->
-            <div class="career-timeline" id="career-timeline">
-                <!-- Career entries will be dynamically loaded here -->
-            </div>
+            <div class="timeline" id="career-timeline"></div>
         </div>
     </section>
-    <footer id="contact" class="contact">
-        <div class="contact-content">
-            <p class="big-text">Contact</p>
-            <p class="paragraph">
-                Versatile UI/UX Designer and Full-Stack Developer with over <span data-career-years>3+</span> years of experience in crafting intuitive user interfaces, developing responsive web applications, and building cross-platform mobile solutions. Adept at bridging design and development to deliver seamless user experiences across platforms. Continuously expanding expertise in SEO optimization and backend development to drive impactful, user-centric solutions that align with business goals.
-            </p>
-            <p class="email paragraph">
-                <i class="fas fa-envelope" style="margin-right: 8px;"></i><a href="mailto:manoj.inamanamelluri123@gmail.com" style="color: var(--color-text); text-decoration: none;">manoj.inamanamelluri123@gmail.com</a>
-            </p>
-            <div class="social-icons">
-                <a href="https://www.instagram.com/manoj_880/" class="icon-link" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.linkedin.com/in/manoj-inamanamelluri-319852184/" class="icon-link" target="_blank"><i class="fab fa-linkedin"></i></a>
-                <a href="https://www.behance.net/manojmanoj61" class="icon-link" target="_blank"><i class="fab fa-behance"></i></a>
-                <a href="https://github.com/Manoj-880" class="icon-link" target="_blank"><i class="fab fa-github"></i></a>
+
+    <!-- ====================== CONTACT / FOOTER ====================== -->
+    <footer class="contact" id="contact">
+        <div class="contact-aurora" aria-hidden="true">
+            <div class="contact-blob b1"></div>
+            <div class="contact-blob b2"></div>
+        </div>
+        <div class="container">
+            <div class="contact-inner reveal-up">
+                <p class="contact-eyebrow">Get in touch</p>
+                <h2 class="contact-title">Let's work<br><em>together.</em></h2>
+                <p class="contact-desc">
+                    Versatile UI/UX Designer and Full-Stack Developer with over <span data-career-years>3+</span> years of experience. Open to freelance projects, collaborations, and full-time opportunities.
+                </p>
+                <a href="mailto:manoj.inamanamelluri123@gmail.com" class="contact-email">
+                    manoj.inamanamelluri123@gmail.com
+                    <i class="fas fa-arrow-up-right-from-square"></i>
+                </a>
+                <div class="contact-socials">
+                    <a href="https://www.linkedin.com/in/manoj-inamanamelluri-319852184/" target="_blank" class="social-btn" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://github.com/Manoj-880" target="_blank" class="social-btn" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.behance.net/manojmanoj61" target="_blank" class="social-btn" aria-label="Behance">
+                        <i class="fab fa-behance"></i>
+                    </a>
+                    <a href="https://www.instagram.com/manoj_880/" target="_blank" class="social-btn" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+                <div class="contact-bottom">
+                    <p class="contact-copy">© <span id="year">2025</span> Manoj Inamanamelluri. Designed &amp; Built with ♥</p>
+                </div>
             </div>
         </div>
     </footer>
+
     <script src="script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
