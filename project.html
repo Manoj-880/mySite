@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project — Manoj Inamanamelluri</title>
+    <meta name="description" content="Project overview — Manoj Inamanamelluri's portfolio.">
+    <link rel="shortcut icon" href="assets/logo.svg" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="loader" id="loader">
+        <div class="loader-line"></div>
+        <span class="loader-text">Loading<span class="loader-dots">...</span></span>
+    </div>
+
+    <div class="scroll-progress" id="scroll-progress"></div>
+
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-follower" id="cursor-follower"></div>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- ====================== NAV ====================== -->
+    <header class="nav-wrap scrolled" id="nav-wrap">
+        <nav class="nav" id="nav">
+            <a href="index.html" class="nav-logo" aria-label="Home">
+                <img src="assets/logo.svg" alt="Manoj Logo">
+            </a>
+            <ul class="nav-links" role="list">
+                <li><a href="index.html#home" class="nav-link">Home</a></li>
+                <li><a href="index.html#services" class="nav-link">Services</a></li>
+                <li><a href="index.html#projects" class="nav-link">Projects</a></li>
+                <li><a href="index.html#experience" class="nav-link">Experience</a></li>
+                <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <a class="nav-cta" href="index.html#contact">Hire Me</a>
+            <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </nav>
+    </header>
+
+    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+        <div class="mobile-menu-inner">
+            <nav class="mobile-nav" aria-label="Mobile navigation">
+                <a href="index.html#home" class="mobile-nav-link"><span>01</span>Home</a>
+                <a href="index.html#services" class="mobile-nav-link"><span>02</span>Services</a>
+                <a href="index.html#projects" class="mobile-nav-link"><span>03</span>Projects</a>
+                <a href="index.html#experience" class="mobile-nav-link"><span>04</span>Experience</a>
+                <a href="index.html#contact" class="mobile-nav-link"><span>05</span>Contact</a>
+            </nav>
+            <div class="mobile-menu-footer">
+                <p class="mobile-email">manoj.inamanamelluri123@gmail.com</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====================== PROJECT ====================== -->
+    <main class="project-page">
+        <div class="container" id="project-root"></div>
+    </main>
+
+    <!-- ====================== FOOTER ====================== -->
+    <footer class="contact" id="contact">
+        <div class="container">
+            <div class="contact-inner">
+                <p class="contact-eyebrow">Get in touch</p>
+                <h2 class="contact-title">Let's work<br><em>together.</em></h2>
+                <a href="mailto:manoj.inamanamelluri123@gmail.com" class="contact-email">
+                    manoj.inamanamelluri123@gmail.com
+                    <i class="fas fa-arrow-up-right-from-square"></i>
+                </a>
+                <div class="contact-socials">
+                    <a href="https://www.linkedin.com/in/manoj-inamanamelluri-319852184/" target="_blank" class="social-btn" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/Manoj-880" target="_blank" class="social-btn" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://www.behance.net/manojmanoj61" target="_blank" class="social-btn" aria-label="Behance"><i class="fab fa-behance"></i></a>
+                    <a href="https://www.instagram.com/manoj_880/" target="_blank" class="social-btn" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+                <div class="contact-bottom">
+                    <p class="contact-copy">© <span id="year">2025</span> Manoj Inamanamelluri. Designed &amp; Built with ♥</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="projects-data.js"></script>
+    <script src="project-page.js"></script>
+</body>
+</html>
