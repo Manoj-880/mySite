@@ -8,6 +8,40 @@ document.addEventListener('DOMContentLoaded', () => {
     const yearEl = document.getElementById('year');
     if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+    /* ====================== HERO TITLE: PER-LETTER HOVER ====================== */
+    const heroTitle = document.getElementById('heroTitle');
+    if (heroTitle) {
+        heroTitle.setAttribute('aria-label', heroTitle.textContent.trim().replace(/\s+/g, ' '));
+        const walker = document.createTreeWalker(heroTitle, NodeFilter.SHOW_TEXT);
+        const textNodes = [];
+        let node;
+        while ((node = walker.nextNode())) textNodes.push(node);
+
+        textNodes.forEach(textNode => {
+            const frag = document.createDocumentFragment();
+            // Split into whitespace / word tokens so words still wrap normally —
+            // only the letters inside a word become individually hoverable.
+            const tokens = textNode.textContent.match(/\s+|\S+/g) || [];
+            tokens.forEach(token => {
+                if (/^\s+$/.test(token)) {
+                    frag.appendChild(document.createTextNode(token));
+                    return;
+                }
+                const word = document.createElement('span');
+                word.className = 'word';
+                token.split('').forEach(ch => {
+                    const letter = document.createElement('span');
+                    letter.className = 'letter';
+                    letter.setAttribute('aria-hidden', 'true');
+                    letter.textContent = ch;
+                    word.appendChild(letter);
+                });
+                frag.appendChild(word);
+            });
+            textNode.parentNode.replaceChild(frag, textNode);
+        });
+    }
+
     /* ====================== CAREER YEARS ====================== */
     function professionalExperienceLabel() {
         const start = new Date(2022, 7, 1);
@@ -23,9 +57,86 @@ document.addEventListener('DOMContentLoaded', () => {
         return (now - anniv) / 86400000 >= 1 ? `${whole}+` : `${whole}`;
     }
 
-    document.querySelectorAll('[data-career-years]').forEach(el => {
+    document.querySelectorAll('[data-career-years]:not(.count-target)').forEach(el => {
         el.textContent = professionalExperienceLabel();
     });
+
+    /* ====================== HERO: STAT COUNT-UP ====================== */
+    const countPrefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function animateCount(el, target, suffix, delay = 0) {
+        const duration = 1200;
+        const start = performance.now() + delay;
+        function tick(now) {
+            const elapsed = now - start;
+            if (elapsed < 0) { requestAnimationFrame(tick); return; }
+            const t = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - t, 3); // easeOutCubic
+            el.textContent = Math.round(eased * target) + suffix;
+            if (t < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+    }
+
+    const countTargets = document.querySelectorAll('.count-target');
+    countTargets.forEach((el, i) => {
+        let target, suffix;
+        if (el.hasAttribute('data-career-years')) {
+            const label = professionalExperienceLabel();
+            target = parseInt(label, 10) || 0;
+            suffix = label.replace(/^\d+/, '');
+        } else {
+            target = parseInt(el.dataset.countTo, 10) || 0;
+            suffix = el.dataset.suffix || '';
+        }
+        if (countPrefersReducedMotion) {
+            el.textContent = target + suffix;
+        } else {
+            animateCount(el, target, suffix, i * 150);
+        }
+    });
+
+    /* ====================== HERO: ROLE CYCLE ====================== */
+    const roleCycleEl = document.getElementById('roleCycle');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (roleCycleEl && !prefersReducedMotion) {
+        const roles = ['Full-Stack Developer', 'UI/UX Designer', 'Mobile App Developer', 'Freelance Engineer'];
+        let roleIndex = 0;
+        setInterval(() => {
+            roleCycleEl.classList.add('swap');
+            setTimeout(() => {
+                roleIndex = (roleIndex + 1) % roles.length;
+                roleCycleEl.textContent = roles[roleIndex];
+                roleCycleEl.classList.remove('swap');
+            }, 350);
+        }, 2600);
+    }
+
+    /* ====================== HERO: AVATAR TILT (pointer parallax) ====================== */
+    const heroVisual = document.querySelector('.hero-visual');
+    const avatarWrap = document.querySelector('.avatar-wrap');
+    const heroIsTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    if (heroVisual && avatarWrap && !heroIsTouch && !prefersReducedMotion) {
+        let rect = null;
+        let targetX = 0, targetY = 0, curX = 0, curY = 0;
+
+        heroVisual.addEventListener('mouseenter', () => { rect = heroVisual.getBoundingClientRect(); });
+        heroVisual.addEventListener('mousemove', e => {
+            if (!rect) rect = heroVisual.getBoundingClientRect();
+            const px = (e.clientX - rect.left) / rect.width;
+            const py = (e.clientY - rect.top) / rect.height;
+            targetY = (px - 0.5) * 16;
+            targetX = (0.5 - py) * 16;
+        });
+        heroVisual.addEventListener('mouseleave', () => { targetX = 0; targetY = 0; rect = null; });
+
+        (function tiltLoop() {
+            curX += (targetX - curX) * 0.1;
+            curY += (targetY - curY) * 0.1;
+            avatarWrap.style.transform = `rotateX(${curX}deg) rotateY(${curY}deg)`;
+            requestAnimationFrame(tiltLoop);
+        })();
+    }
 
     /* ====================== PAGE LOADER ====================== */
     const loader = document.getElementById('loader');

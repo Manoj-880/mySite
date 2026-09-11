@@ -79,6 +79,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!project) {
         document.title = 'Project not found — Manoj Inamanamelluri';
+        const robots = document.querySelector('meta[name="robots"]');
+        if (robots) robots.setAttribute('content', 'noindex, follow');
         root.innerHTML = `
             <div class="pp-missing">
                 <h1>Project not found</h1>
@@ -88,9 +90,40 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    document.title = `${project.title} — Manoj Inamanamelluri`;
-    const md = document.querySelector('meta[name="description"]');
-    if (md) md.setAttribute('content', project.overview || project.description);
+    /* ---- SEO: title, meta description, canonical, Open Graph ---- */
+    const pageUrl = `https://www.craftbymanoj.in/project.html?p=${encodeURIComponent(project.slug)}`;
+    const seoDesc = `${project.title} by Manoj Inamanamelluri — full-stack developer & UI/UX designer in Hyderabad, India. ${project.overview || project.description}`;
+    const seoTitle = `${project.title} — Case Study | Manoj Inamanamelluri, Full-Stack Developer in Hyderabad`;
+
+    document.title = seoTitle;
+    const setMeta = (id, attr, value) => {
+        const el = document.getElementById(id);
+        if (el) el.setAttribute(attr, value);
+    };
+    setMeta('pp-meta-desc', 'content', seoDesc);
+    setMeta('pp-canonical', 'href', pageUrl);
+    setMeta('pp-og-title2', 'content', seoTitle);
+    setMeta('pp-og-desc', 'content', seoDesc);
+    setMeta('pp-og-url', 'content', pageUrl);
+    setMeta('pp-og-image', 'content', `https://www.craftbymanoj.in/${project.image}`);
+
+    const ld = document.createElement('script');
+    ld.type = 'application/ld+json';
+    ld.textContent = JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'CreativeWork',
+        name: project.title,
+        description: project.overview || project.description,
+        url: pageUrl,
+        image: `https://www.craftbymanoj.in/${project.image}`,
+        creator: {
+            '@type': 'Person',
+            name: 'Manoj Inamanamelluri',
+            url: 'https://www.craftbymanoj.in/'
+        },
+        keywords: project.tech.join(', ')
+    });
+    document.head.appendChild(ld);
 
     const links = (project.links && project.links.length)
         ? project.links

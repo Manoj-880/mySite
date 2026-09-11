@@ -728,14 +728,15 @@ ul { list-style: none; }
 
 .hero-title {
     font-family: var(--font-heading);
-    font-size: clamp(2.4rem, 5.5vw, 5.5rem);
+    font-size: clamp(2rem, 4vw, 3.6rem);
     font-weight: 700;
-    line-height: 1.08;
-    letter-spacing: -0.04em;
+    line-height: 1.12;
+    letter-spacing: -0.03em;
     color: var(--text);
 }
 
-.hero-title em {
+.hero-title em,
+.hero-title em .letter {
     font-style: normal;
     background: var(--grad-accent);
     -webkit-background-clip: text;
@@ -743,11 +744,53 @@ ul { list-style: none; }
     -webkit-text-fill-color: transparent;
 }
 
+/* Per-letter bouncy hover (letters injected by script.js) */
+.hero-title .word {
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.hero-title .letter {
+    display: inline-block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .hero-title .letter {
+        transform-origin: bottom center;
+        transition: transform 0.45s var(--ease-spring);
+    }
+
+    .hero-title .letter:hover {
+        transform: scaleY(1.5);
+    }
+}
+
+.hero-role {
+    min-height: 1.5em;
+    margin-top: -0.4rem;
+}
+
+.role-cycle {
+    display: inline-block;
+    line-height: 1.4;
+    font-family: var(--font-body);
+    font-size: clamp(0.9rem, 1.3vw, 1.15rem);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--accent-2);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.role-cycle.swap {
+    opacity: 0;
+    transform: translateY(10px);
+}
+
 .hero-desc {
-    font-size: clamp(0.9rem, 1.3vw, 1.1rem);
+    font-size: clamp(0.88rem, 1.15vw, 1rem);
     color: var(--text-dim);
-    line-height: 1.7;
-    max-width: 520px;
+    line-height: 1.65;
+    max-width: 440px;
 }
 
 .hero-desc strong {
@@ -808,15 +851,19 @@ ul { list-style: none; }
     align-items: center;
     justify-content: center;
     position: relative;
+    perspective: 1000px;
 }
 
 .avatar-wrap {
     position: relative;
-    width: clamp(260px, 35vw, 480px);
+    width: clamp(210px, 26vw, 360px);
     aspect-ratio: 1;
     display: flex;
     align-items: center;
     justify-content: center;
+    transform-style: preserve-3d;
+    will-change: transform;
+    transition: transform 0.2s ease-out;
 }
 
 .avatar {
@@ -894,14 +941,14 @@ ul { list-style: none; }
 .float-badge i { color: var(--accent); font-size: 0.9em; }
 .float-badge span { color: var(--text-dim); }
 
-.fb-react { top: 8%; right: 5%; animation-delay: 0s; }
-.fb-node  { bottom: 20%; right: -2%; animation-delay: 1.5s; }
-.fb-figma { top: 25%; left: -5%; animation-delay: 0.8s; }
-.fb-aws   { bottom: 5%; left: 10%; animation-delay: 2.2s; }
+.fb-react { --depth: 55px; top: 8%; right: 5%; animation-delay: 0s; }
+.fb-node  { --depth: 35px; bottom: 20%; right: -2%; animation-delay: 1.5s; }
+.fb-figma { --depth: 65px; top: 25%; left: -5%; animation-delay: 0.8s; }
+.fb-aws   { --depth: 25px; bottom: 5%; left: 10%; animation-delay: 2.2s; }
 
 @keyframes badgeFloat {
-    0%, 100% { transform: translateY(0); }
-    50%       { transform: translateY(-6px); }
+    0%, 100% { transform: translateZ(var(--depth, 30px)) translateY(0); }
+    50%       { transform: translateZ(var(--depth, 30px)) translateY(-6px); }
 }
 
 /* ====================== MARQUEE ====================== */
