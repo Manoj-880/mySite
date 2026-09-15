@@ -5,9 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- ====================== PRIMARY SEO ====================== -->
-    <title>Manoj Inamanamelluri | Full-Stack Developer & UI/UX Designer in Hyderabad</title>
-    <meta name="description" content="Manoj Inamanamelluri (Manoj I) is a full-stack developer & UI/UX designer in Hyderabad, India, building web apps, mobile apps, and desktop applications with React, Next.js, Flutter, Node.js, and Electron.js. Open to full-time roles and freelance/IT project work.">
-    <meta name="keywords" content="Manoj Inamanamelluri, Manoj I, Manoj, full-stack developer Hyderabad, software engineer Hyderabad, software developer Hyderabad, UI UX designer Hyderabad, React developer Hyderabad, Flutter developer Hyderabad, Node.js developer Hyderabad, Electron.js developer, web application development Hyderabad, web app developer Hyderabad, mobile app development Hyderabad, mobile app developer Hyderabad India, desktop application development Hyderabad, IT works Hyderabad, hire developer Hyderabad, freelancer in Hyderabad, software freelancer Hyderabad, freelance developer Hyderabad, freelance web developer India, freelance app developer India">
+    <title>Manoj Inamanamelluri — Full-Stack Developer, Hyderabad</title>
+    <meta name="description" content="Full-stack developer & UI/UX designer in Hyderabad. I build web, mobile & desktop apps with React, Flutter, and Node.js. Open to freelance & full-time work.">
     <meta name="author" content="Manoj Inamanamelluri">
     <meta name="robots" content="index, follow, max-image-preview:large">
     <link rel="canonical" href="https://www.craftbymanoj.in/">
@@ -21,15 +20,17 @@
     <!-- ====================== OPEN GRAPH / SOCIAL ====================== -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Manoj Inamanamelluri — Full-Stack Developer & UI/UX Designer">
-    <meta property="og:title" content="Manoj Inamanamelluri | Full-Stack Developer & UI/UX Designer in Hyderabad">
-    <meta property="og:description" content="Full-stack developer & UI/UX designer in Hyderabad, India. Web apps, mobile apps, and desktop applications with React, Flutter, Node.js, and Electron.js. Open to full-time roles and freelance work.">
+    <meta property="og:title" content="Manoj Inamanamelluri — Full-Stack Developer, Hyderabad">
+    <meta property="og:description" content="Full-stack developer & UI/UX designer in Hyderabad. I build web, mobile & desktop apps with React, Flutter, and Node.js. Open to freelance & full-time work.">
     <meta property="og:url" content="https://www.craftbymanoj.in/">
-    <meta property="og:image" content="https://www.craftbymanoj.in/assets/avathar.svg">
+    <meta property="og:image" content="https://www.craftbymanoj.in/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_IN">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Manoj Inamanamelluri | Full-Stack Developer & UI/UX Designer in Hyderabad">
-    <meta name="twitter:description" content="Full-stack developer & UI/UX designer in Hyderabad, India — web, mobile, and desktop applications.">
-    <meta name="twitter:image" content="https://www.craftbymanoj.in/assets/avathar.svg">
+    <meta name="twitter:title" content="Manoj Inamanamelluri — Full-Stack Developer, Hyderabad">
+    <meta name="twitter:description" content="Full-stack developer & UI/UX designer in Hyderabad — web, mobile, and desktop applications.">
+    <meta name="twitter:image" content="https://www.craftbymanoj.in/assets/og-image.png">
 
     <link rel="shortcut icon" href="assets/logo.svg" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -96,13 +97,48 @@
         ]
     }
     </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Are you available for freelance work in Hyderabad?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Yes — I take on freelance web application, mobile app, and desktop application projects for clients in Hyderabad, across India, and remotely. I'm also open to full-time roles." }
+            },
+            {
+                "@type": "Question",
+                "name": "What kind of apps do you build?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Web applications, cross-platform mobile apps, and desktop applications — plus the UI/UX and graphic design behind them. Recent examples include a vehicle-services platform, a donation platform for a UK charity, and an offline-first Windows desktop app." }
+            },
+            {
+                "@type": "Question",
+                "name": "What technologies do you work with?",
+                "acceptedAnswer": { "@type": "Answer", "text": "React, Next.js, and Flutter on the front end; Node.js and Express on the back end; MongoDB, MySQL, and PostgreSQL for data; Electron.js for desktop apps; and Figma for design — deployed on AWS or Azure." }
+            },
+            {
+                "@type": "Question",
+                "name": "Are you open to full-time roles as well as freelance?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Yes. I'm currently open to both full-time opportunities and freelance/IT project work — whichever fits what you're hiring for." }
+            },
+            {
+                "@type": "Question",
+                "name": "Where are you based, and do you work remotely?",
+                "acceptedAnswer": { "@type": "Answer", "text": "I'm based in Hyderabad, Telangana, India, and work with clients and teams both locally and remotely across India." }
+            }
+        ]
+    }
+    </script>
 </head>
 <body>
 
-    <!-- Page Loader -->
-    <div class="loader" id="loader">
-        <div class="loader-line"></div>
-        <span class="loader-text">Loading<span class="loader-dots">...</span></span>
+    <!-- Page transition curtain — covers on load, wipes away when ready;
+         also used as the leave-transition for internal navigation. -->
+    <div class="page-wipe" id="pageWipe">
+        <div class="page-wipe-panel">
+            <div class="loader-line"></div>
+        </div>
     </div>
 
     <!-- Scroll Progress -->
@@ -408,6 +444,65 @@
         </div>
     </section>
 
+    <!-- ====================== FAQ ====================== -->
+    <section class="section faq" id="faq">
+        <div class="container">
+            <div class="section-header reveal-up">
+                <p class="section-eyebrow">FAQ</p>
+                <h2 class="section-title">Common Questions</h2>
+                <p class="section-desc">A few things people usually ask before reaching out.</p>
+            </div>
+
+            <div class="faq-list reveal-up" style="--delay:0.1s">
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>Are you available for freelance work in Hyderabad?</span>
+                        <i class="fas fa-plus faq-icon"></i>
+                    </button>
+                    <div class="faq-a">
+                        <p>Yes — I take on freelance web application, mobile app, and desktop application projects for clients in Hyderabad, across India, and remotely. I'm also open to full-time roles.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>What kind of apps do you build?</span>
+                        <i class="fas fa-plus faq-icon"></i>
+                    </button>
+                    <div class="faq-a">
+                        <p>Web applications, cross-platform mobile apps, and desktop applications — plus the UI/UX and graphic design behind them. Recent examples include a vehicle-services platform, a donation platform for a UK charity, and an offline-first Windows desktop app.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>What technologies do you work with?</span>
+                        <i class="fas fa-plus faq-icon"></i>
+                    </button>
+                    <div class="faq-a">
+                        <p>React, Next.js, and Flutter on the front end; Node.js and Express on the back end; MongoDB, MySQL, and PostgreSQL for data; Electron.js for desktop apps; and Figma for design — deployed on AWS or Azure.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>Are you open to full-time roles as well as freelance?</span>
+                        <i class="fas fa-plus faq-icon"></i>
+                    </button>
+                    <div class="faq-a">
+                        <p>Yes. I'm currently open to both full-time opportunities and freelance/IT project work — whichever fits what you're hiring for.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" aria-expanded="false">
+                        <span>Where are you based, and do you work remotely?</span>
+                        <i class="fas fa-plus faq-icon"></i>
+                    </button>
+                    <div class="faq-a">
+                        <p>I'm based in Hyderabad, Telangana, India, and work with clients and teams both locally and remotely across India.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- ====================== CONTACT / FOOTER ====================== -->
     <footer class="contact" id="contact">
         <div class="contact-aurora" aria-hidden="true">
@@ -446,6 +541,7 @@
         </div>
     </footer>
 
+    <script src="motion.js"></script>
     <script src="projects-data.js"></script>
     <script src="script.js"></script>
 </body>

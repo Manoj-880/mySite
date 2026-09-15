@@ -8,6 +8,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const yearEl = document.getElementById('year');
     if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+    /* ====================== FAQ ACCORDION ====================== */
+    document.querySelectorAll('.faq-q').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const isOpen = btn.getAttribute('aria-expanded') === 'true';
+            document.querySelectorAll('.faq-q').forEach(b => b.setAttribute('aria-expanded', 'false'));
+            btn.setAttribute('aria-expanded', String(!isOpen));
+        });
+    });
+
     /* ====================== HERO TITLE: PER-LETTER HOVER ====================== */
     const heroTitle = document.getElementById('heroTitle');
     if (heroTitle) {
@@ -138,23 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })();
     }
 
-    /* ====================== PAGE LOADER ====================== */
-    const loader = document.getElementById('loader');
-    if (loader) {
-        const hide = () => loader.classList.add('hidden');
-        if (document.readyState === 'complete') {
-            setTimeout(hide, 600);
-        } else {
-            window.addEventListener('load', () => setTimeout(hide, 600));
-        }
-    }
-
-    /* ====================== FADE IN BODY ====================== */
-    document.body.style.opacity = '0';
-    document.body.style.transition = 'opacity 0.4s ease';
-    window.addEventListener('load', () => {
-        requestAnimationFrame(() => { document.body.style.opacity = '1'; });
-    });
+    /* Page load/reveal is now handled by the .page-wipe curtain — see motion.js */
 
     /* ====================== CUSTOM CURSOR ====================== */
     const cursor = document.getElementById('cursor');
@@ -370,7 +363,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const card = document.createElement('a');
             card.className = 'project-card' + (i === 0 ? ' featured' : '');
             card.style.setProperty('--delay', `${i * 0.08}s`);
-            card.href = `project.html?p=${encodeURIComponent(project.slug)}`;
+            card.href = `projects/${project.slug}/`;
             card.setAttribute('aria-label', `${project.title} — open project overview`);
 
             card.innerHTML = `
