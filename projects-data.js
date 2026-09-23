@@ -7,7 +7,7 @@ window.PROJECTS = [
         image: 'assets/projects/carzzi.png',
         title: 'Carzzi',
         description: 'Vehicle-services platform with Flutter mobile apps and a React web interface. Customer communication via MSG91; shipped to both the App Store and Play Store.',
-        link: '',
+        link: 'https://www.crazzi.com',
         repo: '',
         category: 'mobile',
         year: '2026',
@@ -22,7 +22,9 @@ window.PROJECTS = [
             'Developed the React web interface for the operations/admin side and the Node.js + Express REST API backing all clients.',
             'Integrated MSG91 for OTP login and transactional notifications, and prepared and released the apps to both the App Store and Play Store.'
         ],
-        links: []
+        links: [
+            { label: 'www.crazzi.com', url: 'https://www.crazzi.com', icon: 'fa-arrow-up-right-from-square' }
+        ]
     },
     {
         slug: 'jsr',
@@ -37,7 +39,7 @@ window.PROJECTS = [
         role: 'Full-Stack',
         company: 'Speshway Solutions',
         tech: ['Electron.js', 'React', 'Node.js', 'SQLite', 'Cloud Backup'],
-        overview: 'JSR is a Windows desktop application for an agricultural trading business, used to manage daily purchases, sales, stock, and party ledgers. It is built to keep working with no internet connection and to sync a backup to the cloud whenever a connection is available.',
+        overview: 'JSR is a Windows desktop application for an agricultural trading business, used to manage daily purchases, sales, stock, and party ledgers. It is built to keep working with no internet connection and to sync a backup to the cloud whenever a connection is available. It ships as a desktop installer, not a website — there is no public URL, and the executable is not offered for download here.',
         contributions: [
             'Architected the app on Electron.js with a multi-document (MDI) interface so operators can work across several ledgers and entries at once.',
             'Implemented an offline-first local data layer on SQLite with a background cloud-backup and restore routine.',
@@ -67,7 +69,7 @@ window.PROJECTS = [
             'Set up media storage and delivery on AWS and handled the production deployment.'
         ],
         links: [
-            { label: 'Live site', url: 'https://www.jagbandhu.com', icon: 'fa-arrow-up-right-from-square' }
+            { label: 'www.jagbandhu.com', url: 'https://www.jagbandhu.com', icon: 'fa-arrow-up-right-from-square' }
         ]
     },
     {
@@ -75,7 +77,7 @@ window.PROJECTS = [
         image: 'assets/projects/uktbc.png',
         title: 'UKTBC',
         description: 'Donation platform built to UK Gift Aid regulations, with donor and member interfaces and government-compliant reporting.',
-        link: 'https://www.uktbc.org/',
+        link: 'https://uktbc.org',
         repo: '',
         category: 'web',
         year: '2025',
@@ -91,7 +93,7 @@ window.PROJECTS = [
             'Deployed and configured the application on Azure.'
         ],
         links: [
-            { label: 'Live site', url: 'https://www.uktbc.org/', icon: 'fa-arrow-up-right-from-square' }
+            { label: 'uktbc.org', url: 'https://uktbc.org', icon: 'fa-arrow-up-right-from-square' }
         ]
     },
     {
@@ -99,7 +101,7 @@ window.PROJECTS = [
         image: 'assets/projects/nehwe.png',
         title: 'Nehwe',
         description: 'Gamified e-learning app — end-to-end UI/UX design with custom graphics and a comprehensive design system.',
-        link: 'https://www.figma.com/design/Hboll34gY6z43Bm7Gp0UpF/Nehwe--Copy-?t=dksRZbh6WaWRPBfg-1',
+        link: '',
         repo: '',
         category: 'design',
         year: '2022',
@@ -107,7 +109,7 @@ window.PROJECTS = [
         role: 'Product Design',
         company: 'S&M Scholarly',
         tech: ['Figma', 'Design System', 'Illustration', 'Prototyping'],
-        overview: 'Nehwe is a gamified e-learning app that turns lessons into levels, streaks, and rewards to keep learners engaged. The engagement was a ground-up UI/UX project: research, information architecture, custom illustration, and a full design system handed off to development.',
+        overview: 'Nehwe is a gamified e-learning app that turns lessons into levels, streaks, and rewards to keep learners engaged. The engagement was a ground-up UI/UX project: research, information architecture, custom illustration, and a full design system handed off to development. There is no public website for Nehwe.',
         contributions: [
             'Led the full UI/UX process — user research, flows, wireframes, and high-fidelity screens.',
             'Created the custom graphics, mascot, and gamification elements (badges, progress, rewards).',
@@ -123,7 +125,7 @@ window.PROJECTS = [
         image: 'assets/projects/secureusdt.png',
         title: 'SecureUSDT',
         description: 'Full-stack USDT investment platform with automated profits, secure wallets, and invoices.',
-        link: 'https://secureusdt.com',
+        link: 'https://www.secureusdt.com',
         repo: '',
         category: 'web',
         year: '2025',
@@ -139,7 +141,7 @@ window.PROJECTS = [
             'Added invoice generation and deployed the platform on AWS.'
         ],
         links: [
-            { label: 'Live site', url: 'https://secureusdt.com', icon: 'fa-arrow-up-right-from-square' }
+            { label: 'www.secureusdt.com', url: 'https://www.secureusdt.com', icon: 'fa-arrow-up-right-from-square' }
         ]
     },
     {
@@ -163,7 +165,7 @@ window.PROJECTS = [
             'Supported releases and AWS deployment.'
         ],
         links: [
-            { label: 'Company site', url: 'https://www.smscholarly.com/', icon: 'fa-arrow-up-right-from-square' }
+            { label: 'www.smscholarly.com', url: 'https://www.smscholarly.com/', icon: 'fa-arrow-up-right-from-square' }
         ]
     }
 ];

@@ -360,38 +360,44 @@ document.addEventListener('DOMContentLoaded', () => {
             : projectsData.filter(p => p.category === filter);
 
         list.forEach((project, i) => {
-            const card = document.createElement('a');
+            const card = document.createElement('article');
             card.className = 'project-card' + (i === 0 ? ' featured' : '');
             card.style.setProperty('--delay', `${i * 0.08}s`);
-            card.href = `projects/${project.slug}/`;
-            card.setAttribute('aria-label', `${project.title} — open project overview`);
+
+            const live = project.link
+                ? `<a class="pc-live" href="${project.link}" target="_blank" rel="noopener noreferrer">Live site <i class="fas fa-arrow-up-right-from-square"></i></a>`
+                : '';
 
             card.innerHTML = `
-                <div class="pc-media">
-                    <div class="pc-img" style="background-image:url('${project.image}')"></div>
-                    <div class="pc-scrim"></div>
-                    <div class="pc-top">
-                        <span class="pc-cat">${project.category}</span>
-                        <span class="pc-year">${project.year}</span>
+                <a class="pc-hit" href="projects/${project.slug}.html" aria-label="${project.title} — open project overview">
+                    <div class="pc-media">
+                        <div class="pc-img" style="background-image:url('${project.image}')"></div>
+                        <div class="pc-scrim"></div>
+                        <div class="pc-top">
+                            <span class="pc-cat">${project.category}</span>
+                            <span class="pc-year">${project.year}</span>
+                        </div>
+                        <span class="pc-num">${String(i + 1).padStart(2, '0')}</span>
+                        <span class="pc-arrow" aria-hidden="true"><i class="fas fa-arrow-right"></i></span>
                     </div>
-                    <span class="pc-num">${String(i + 1).padStart(2, '0')}</span>
-                    <span class="pc-arrow" aria-hidden="true"><i class="fas fa-arrow-right"></i></span>
-                </div>
-                <div class="pc-body">
-                    <div class="pc-meta">
-                        ${project.company ? `<span class="pc-company">${project.company}</span>` : ''}
-                        ${project.role ? `<span class="pc-role">${project.role}</span>` : ''}
+                    <div class="pc-body">
+                        <div class="pc-meta">
+                            ${project.company ? `<span class="pc-company">${project.company}</span>` : ''}
+                            ${project.role ? `<span class="pc-role">${project.role}</span>` : ''}
+                        </div>
+                        <h3 class="pc-title">${project.title}</h3>
+                        <p class="pc-desc">${project.description}</p>
+                        <div class="pc-tech">
+                            ${project.tech.slice(0, 5).map(t => `<span class="tech-pill">${t}</span>`).join('')}
+                        </div>
+                        <span class="pc-view">View overview <i class="fas fa-arrow-right"></i></span>
                     </div>
-                    <h3 class="pc-title">${project.title}</h3>
-                    <p class="pc-desc">${project.description}</p>
-                    <div class="pc-tech">
-                        ${project.tech.slice(0, 5).map(t => `<span class="tech-pill">${t}</span>`).join('')}
-                    </div>
-                    <span class="pc-view">View overview <i class="fas fa-arrow-right"></i></span>
-                </div>
+                </a>
+                ${live}
             `;
 
-            card.addEventListener('click', function (e) { addRipple(this, e); });
+            const hit = card.querySelector('.pc-hit');
+            if (hit) hit.addEventListener('click', function (e) { addRipple(card, e); });
 
             projectsGrid.appendChild(card);
         });
@@ -427,11 +433,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const careerData = [
         {
             img: 'assets/career/speshway.jpg',
-            title: 'Senior UI/UX Designer',
+            title: 'Sr UI/UX Designer',
             company: 'Speshway Solutions',
             timeline: 'Jul 2026 – Present',
-            description: 'Directs end-to-end design processes — user research, prototyping, and design systems — and mentors junior designers while collaborating closely with engineering and product teams.',
-            skills: ['UI/UX', 'Figma', 'User Research', 'Prototyping', 'Design Systems', 'Mentoring']
+            description: 'Designs applications, develops Flutter mobile apps and MERN stack applications, and deploys mobile releases to the Play Store and the App Store.',
+            skills: ['Figma', 'Flutter', 'React', 'Node.js', 'Express.js', 'MongoDB']
         },
         {
             img: 'assets/career/sm.png',
@@ -459,6 +465,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     ];
 
+    /* Brand marks from https://svgl.app/ — dark-background variants where they exist. */
+    const skillIcons = {
+        'Figma': 'assets/icons/svgl/figma.svg',
+        'React': 'assets/icons/svgl/react.svg',
+        'Node.js': 'assets/icons/svgl/nodejs.svg',
+        'Express.js': 'assets/icons/svgl/express.svg',
+        'Flutter': 'assets/icons/svgl/flutter.svg',
+        'Electron.js': 'assets/icons/svgl/electron.svg',
+        'MongoDB': 'assets/icons/svgl/mongodb.svg',
+        'MySQL': 'assets/icons/svgl/mysql.svg',
+        'AWS': 'assets/icons/svgl/aws.svg',
+        'JavaScript': 'assets/icons/svgl/javascript.svg',
+        'Git': 'assets/icons/svgl/git.svg'
+    };
+
     const careerTimeline = document.getElementById('career-timeline');
     if (careerTimeline) {
         careerData.forEach((item, i) => {
@@ -483,7 +504,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                     <p class="timeline-desc">${item.description}</p>
                     <div class="timeline-skills">
-                        ${item.skills.map(s => `<span class="skill-pill">${s}</span>`).join('')}
+                        ${item.skills.map(s => {
+                            const icon = skillIcons[s];
+                            const mark = icon ? `<img class="skill-icon" src="${icon}" alt="" width="14" height="14">` : '';
+                            return `<span class="skill-pill">${mark}${s}</span>`;
+                        }).join('')}
                     </div>
                 </div>
             `;

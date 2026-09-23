@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ---- SEO: title, meta description, canonical, Open Graph ---- */
-    const pageUrl = `https://www.craftbymanoj.in/project.html?p=${encodeURIComponent(project.slug)}`;
+    const pageUrl = `https://www.craftbymanoj.in/projects/${encodeURIComponent(project.slug)}.html`;
     const seoDesc = `${project.title} by Manoj Inamanamelluri — full-stack developer & UI/UX designer in Hyderabad, India. ${project.overview || project.description}`;
     const seoTitle = `${project.title} — Case Study | Manoj Inamanamelluri, Full-Stack Developer in Hyderabad`;
 
@@ -141,8 +141,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const next = projects[idx + 1];
     const nav = `
         <div class="pp-nextprev">
-            ${prev ? `<a class="prev" href="project.html?p=${encodeURIComponent(prev.slug)}"><span>← Previous</span>${esc(prev.title)}</a>` : ''}
-            ${next ? `<a class="next" href="project.html?p=${encodeURIComponent(next.slug)}"><span>Next →</span>${esc(next.title)}</a>` : ''}
+            ${prev ? `<a class="prev" href="projects/${encodeURIComponent(prev.slug)}.html"><span>← Previous</span>${esc(prev.title)}</a>` : ''}
+            ${next ? `<a class="next" href="projects/${encodeURIComponent(next.slug)}.html"><span>Next →</span>${esc(next.title)}</a>` : ''}
         </div>`;
 
     root.innerHTML = `

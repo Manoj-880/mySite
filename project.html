@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="pp-title">Redirecting… — Manoj Inamanamelluri</title>
     <meta id="pp-meta-desc" name="description" content="A project by Manoj Inamanamelluri — full-stack developer & UI/UX designer in Hyderabad, India.">
-    <!-- Legacy ?p=slug shell — superseded by static /projects/<slug>/ pages (see scripts/build-projects.mjs).
+    <!-- Legacy ?p=slug shell — superseded by projects/<slug>.html (see scripts/build-projects.mjs).
          Kept only so old bookmarks/links still resolve; always noindex, and redirects below. -->
     <meta name="robots" content="noindex, follow">
     <meta name="author" content="Manoj Inamanamelluri">
@@ -13,7 +13,7 @@
     <script>
         (function () {
             var slug = new URLSearchParams(location.search).get('p');
-            location.replace(slug ? 'projects/' + encodeURIComponent(slug) + '/' : 'index.html#projects');
+            location.replace(slug ? 'projects/' + encodeURIComponent(slug) + '.html' : 'index.html#projects');
         })();
     </script>
     <meta id="pp-og-title" property="og:type" content="article">

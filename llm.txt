@@ -1,0 +1,33 @@
+# Manoj Inamanamelluri
+
+> Full-stack developer and UI/UX designer in Hyderabad, India. Builds web, mobile, and desktop applications with React, Flutter, and Node.js. Open to full-time roles and freelance work.
+
+Manoj Inamanamelluri is based in Hyderabad, Telangana, India, and works with clients locally and remotely. Current role: Sr UI/UX Designer at Speshway Solutions (Jul 2026 – Present) — designs applications, develops Flutter mobile apps and MERN stack applications, and deploys mobile releases to the Play Store and the App Store. Previously UI/UX Designer & Developer at S&M Scholarly Solutions (Aug 2022 – Jul 2026). B.Tech in Mechanical Engineering, Vasireddy Venkatadri Institute of Technology (2017 – 2021). UI/UX Design Certification, Fullstack Academy (2022).
+
+Services: web application development, mobile app development, desktop application development, UI/UX design, and graphic design.
+
+Stack: Figma, React, Next.js, Flutter, Node.js, Express.js, MongoDB, MySQL, PostgreSQL, Electron.js, AWS, Azure, Git.
+
+Email: manoj.inamanamelluri123@gmail.com
+
+## Site
+
+- [Home](https://www.craftbymanoj.in/): Portfolio, services, featured projects, career, FAQ, and contact
+- [Sitemap](https://www.craftbymanoj.in/sitemap.xml): Index of public pages
+
+## Projects
+
+- [Carzzi](https://www.craftbymanoj.in/projects/carzzi.html): Vehicle-services platform with Flutter mobile apps and a React web interface. Live at https://www.crazzi.com
+- [JSR](https://www.craftbymanoj.in/projects/jsr.html): Windows desktop app for agricultural trading (Electron.js). Offline-first installer. No public website and no download offered
+- [JagBandhu](https://www.craftbymanoj.in/projects/jagbandhu.html): Family platform with a Flutter mobile app and user/admin web apps. Live at https://www.jagbandhu.com
+- [UKTBC](https://www.craftbymanoj.in/projects/uktbc.html): UK donation and membership platform built for HMRC Gift Aid. Live at https://uktbc.org
+- [Nehwe](https://www.craftbymanoj.in/projects/nehwe.html): Gamified e-learning app. UI/UX and design system only. No public website. Figma file linked on the project page
+- [SecureUSDT](https://www.craftbymanoj.in/projects/secureusdt.html): USDT (TRC-20) investment platform. Live at https://www.secureusdt.com
+- [S&M Scholarly](https://www.craftbymanoj.in/projects/sm-scholarly.html): EdTech suite for schools — CMS, analytics, and parent portal. Live at https://www.smscholarly.com/
+
+## Profiles
+
+- [LinkedIn](https://www.linkedin.com/in/manoj-inamanamelluri-319852184/): Manoj Inamanamelluri
+- [GitHub](https://github.com/Manoj-880): Manoj-880
+- [Behance](https://www.behance.net/manojmanoj61): Design work
+- [Instagram](https://www.instagram.com/manoj_880/): manoj_880
