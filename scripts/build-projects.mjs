@@ -342,6 +342,14 @@ function renderProject(project, index) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JXWGFTYDS7"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-JXWGFTYDS7');
+    </script>
     <title>${esc(seoTitle)}</title>
     <meta name="description" content="${esc(seoDesc)}">
     <meta name="robots" content="index, follow, max-image-preview:large">
