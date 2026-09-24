@@ -306,6 +306,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const dnlBtn = document.getElementById('dnlbtn');
     if (dnlBtn) {
         dnlBtn.addEventListener('click', () => {
+            if (typeof gtag === 'function') gtag('event', 'cv_download');
             const googleDocId = '1aZjV6kCcsA1GVBkwuqPRmdDH9U589G4V_SPKU_ZI6s0';
             const exportUrl = `https://docs.google.com/document/d/${googleDocId}/export?format=pdf`;
 
@@ -329,6 +330,29 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => window.open(exportUrl, '_blank'), 800);
         });
     }
+
+    /* ====================== ANALYTICS EVENTS ====================== */
+    document.addEventListener('click', (e) => {
+        if (typeof gtag !== 'function') return;
+        const el = e.target.closest('a, button');
+        if (!el || el.id === 'dnlbtn') return;
+        if (el.classList.contains('nav-cta')) {
+            gtag('event', 'contact_click', { method: 'hire_me' });
+        } else if (el.classList.contains('btn-primary')) {
+            gtag('event', 'contact_click', { method: 'get_in_touch' });
+        }
+        if (el.matches('a[href^="mailto:"]')) gtag('event', 'email_click');
+        if (el.classList.contains('pc-hit')) {
+            gtag('event', 'project_click', { page_path: el.getAttribute('href') });
+        }
+        if (el.classList.contains('pc-live')) {
+            gtag('event', 'outbound_click', { link_url: el.href });
+        }
+        const network = el.getAttribute('aria-label');
+        if (network && /^(LinkedIn|GitHub|Behance|Instagram)$/.test(network)) {
+            gtag('event', 'social_click', { network });
+        }
+    });
 
     /* ====================== REVEAL ANIMATIONS ====================== */
     function setupReveal() {
@@ -371,7 +395,7 @@ document.addEventListener('DOMContentLoaded', () => {
             card.innerHTML = `
                 <a class="pc-hit" href="projects/${project.slug}.html" aria-label="${project.title} — open project overview">
                     <div class="pc-media">
-                        <div class="pc-img" style="background-image:url('${project.image}')"></div>
+                        <div class="pc-img" style="background-image:url('${project.image}')" role="img" aria-label="${project.imageAlt || project.title}"></div>
                         <div class="pc-scrim"></div>
                         <div class="pc-top">
                             <span class="pc-cat">${project.category}</span>

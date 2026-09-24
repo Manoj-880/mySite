@@ -95,6 +95,7 @@ function renderBody(project) {
     const work = plainWork(project.contributions);
     const facts = factRows(project);
     const img = `../${esc(project.image)}`;
+    const imageLabel = esc(project.imageAlt || `${project.title} screenshot`);
     const eyebrow = `${esc(project.category)} · ${esc(project.year)}`;
     const lead = esc(project.overview || project.description);
 
@@ -112,7 +113,7 @@ function renderBody(project) {
                     ${buttons ? `<div class="pp-links">${buttons}</div>` : ''}
                 </div>
                 <div class="stage-frame">
-                    <div class="stage-img" style="background-image:url('${img}')" role="img" aria-label="${esc(project.title)} screenshot"></div>
+                    <div class="stage-img" style="background-image:url('${img}')" role="img" aria-label="${imageLabel}"></div>
                 </div>
             </div>
             <ul class="pp-rail">${rail}</ul>
@@ -133,7 +134,7 @@ function renderBody(project) {
                     <span class="win-name">JSR.exe — Agricultural trading</span>
                     <span class="win-badge">Windows</span>
                 </div>
-                <div class="win-canvas" style="background-image:url('${img}')" role="img" aria-label="JSR application"></div>
+                <div class="win-canvas" style="background-image:url('${img}')" role="img" aria-label="${imageLabel}"></div>
                 <div class="win-status">
                     <span>Windows installer</span>
                     <span>Offline-first</span>
@@ -174,7 +175,7 @@ function renderBody(project) {
                 ${buttons ? `<div class="pp-links">${buttons}</div>` : ''}
             </header>
             <p class="ed-dek">${esc(project.description)}</p>
-            <div class="ed-hero" style="background-image:url('${img}')" role="img" aria-label="${esc(project.title)}"></div>
+            <div class="ed-hero" style="background-image:url('${img}')" role="img" aria-label="${imageLabel}"></div>
             <div class="ed-grid">
                 <div class="ed-story">
                     <section class="pp-section">
@@ -208,7 +209,7 @@ function renderBody(project) {
                 </header>
                 <dl class="dos-meta">${meta}</dl>
                 <figure class="dos-figure">
-                    <div class="dos-img" style="background-image:url('${img}')" role="img" aria-label="${esc(project.title)}"></div>
+                    <div class="dos-img" style="background-image:url('${img}')" role="img" aria-label="${imageLabel}"></div>
                     <figcaption>${esc(project.description)}</figcaption>
                 </figure>
                 <div class="dos-prose">
@@ -236,7 +237,7 @@ function renderBody(project) {
                     <p class="pp-lead">${lead}</p>
                     ${figma ? `<div class="pp-links">${figma}</div>` : ''}
                 </div>
-                <div class="stu-art" style="background-image:url('${img}')" role="img" aria-label="${esc(project.title)} design"></div>
+                <div class="stu-art" style="background-image:url('${img}')" role="img" aria-label="${imageLabel}"></div>
             </div>
             <ol class="stu-grid">${steps}</ol>
             <ul class="pp-rail">${rail}</ul>
@@ -257,7 +258,7 @@ function renderBody(project) {
                     ${live ? `<a class="led-url" href="${urlHref}" target="_blank" rel="noopener noreferrer">${urlLabel}</a>` : ''}
                     <span class="led-live"><i></i> Live</span>
                 </div>
-                <div class="led-shot" style="background-image:url('${img}')" role="img" aria-label="${esc(project.title)}"></div>
+                <div class="led-shot" style="background-image:url('${img}')" role="img" aria-label="${imageLabel}"></div>
                 <div class="led-stats">${stats}</div>
             </div>
             <div class="led-cols">
@@ -281,7 +282,7 @@ function renderBody(project) {
     const live = links[0];
     return `
         <div class="suite">
-            <div class="suite-poster" style="background-image:url('${img}')" role="img" aria-label="${esc(project.title)}"></div>
+            <div class="suite-poster" style="background-image:url('${img}')" role="img" aria-label="${imageLabel}"></div>
             <div class="suite-copy">
                 <span class="pp-eyebrow">${eyebrow}</span>
                 <h1 class="pp-title">${esc(project.title)}</h1>

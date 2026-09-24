@@ -5,6 +5,7 @@ window.PROJECTS = [
     {
         slug: 'carzzi',
         image: 'assets/projects/carzzi.png',
+        imageAlt: 'Carzzi vehicle service booking app',
         title: 'Carzzi',
         description: 'Vehicle-services platform with Flutter mobile apps and a React web interface. Customer communication via MSG91; shipped to both the App Store and Play Store.',
         link: 'https://www.crazzi.com',
@@ -29,6 +30,7 @@ window.PROJECTS = [
     {
         slug: 'jsr',
         image: 'assets/projects/jsr.png',
+        imageAlt: 'JSR Windows desktop application for agricultural trading',
         title: 'JSR',
         description: 'Windows desktop application for agricultural trading built with Electron.js — offline-first, an MDI interface, and cloud backup.',
         link: '',
@@ -51,6 +53,7 @@ window.PROJECTS = [
     {
         slug: 'jagbandhu',
         image: 'assets/projects/jagbandhu.png',
+        imageAlt: 'JagBandhu family and events app',
         title: 'JagBandhu',
         description: 'Family platform spanning a Flutter mobile app and user/admin web apps — Family Tree, Events, Event Gallery, Circles, and User Storage.',
         link: 'https://www.jagbandhu.com',
@@ -75,6 +78,7 @@ window.PROJECTS = [
     {
         slug: 'uktbc',
         image: 'assets/projects/uktbc.png',
+        imageAlt: 'UKTBC donation and membership platform',
         title: 'UKTBC',
         description: 'Donation platform built to UK Gift Aid regulations, with donor and member interfaces and government-compliant reporting.',
         link: 'https://uktbc.org',
@@ -99,6 +103,7 @@ window.PROJECTS = [
     {
         slug: 'nehwe',
         image: 'assets/projects/nehwe.png',
+        imageAlt: 'Nehwe gamified e-learning app design',
         title: 'Nehwe',
         description: 'Gamified e-learning app — end-to-end UI/UX design with custom graphics and a comprehensive design system.',
         link: '',
@@ -123,6 +128,7 @@ window.PROJECTS = [
     {
         slug: 'secureusdt',
         image: 'assets/projects/secureusdt.png',
+        imageAlt: 'SecureUSDT investment platform',
         title: 'SecureUSDT',
         description: 'Full-stack USDT investment platform with automated profits, secure wallets, and invoices.',
         link: 'https://www.secureusdt.com',
@@ -147,6 +153,7 @@ window.PROJECTS = [
     {
         slug: 'sm-scholarly',
         image: 'assets/projects/smscholarly.png',
+        imageAlt: 'S&M Scholarly school platform',
         title: 'S&M Scholarly',
         description: 'Full-stack suite for schools: CMS, analytics, and parent portal deployed on AWS.',
         link: 'https://www.smscholarly.com/',
