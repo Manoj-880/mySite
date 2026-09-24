@@ -389,7 +389,7 @@ document.addEventListener('DOMContentLoaded', () => {
             card.style.setProperty('--delay', `${i * 0.08}s`);
 
             const live = project.link
-                ? `<a class="pc-live" href="${project.link}" target="_blank" rel="noopener noreferrer">Live site <i class="fas fa-arrow-up-right-from-square"></i></a>`
+                ? `<a class="pc-live" href="${project.link}" target="_blank" rel="noopener noreferrer" aria-label="${project.title} live site">Live site <i class="fas fa-arrow-up-right-from-square"></i></a>`
                 : '';
 
             card.innerHTML = `

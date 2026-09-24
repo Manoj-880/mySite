@@ -45,8 +45,12 @@
     <link rel="shortcut icon" href="assets/logo.svg" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    </noscript>
     <link rel="stylesheet" href="style.css">
 
     <!-- ====================== STRUCTURED DATA ====================== -->
@@ -195,8 +199,8 @@
     <!-- ====================== NAV ====================== -->
     <header class="nav-wrap" id="nav-wrap">
         <nav class="nav" id="nav">
-            <a href="#" class="nav-logo" aria-label="Home">
-                <img src="assets/logo.svg" alt="Manoj Inamanamelluri — Full-Stack Developer & UI/UX Designer in Hyderabad">
+            <a href="#home" class="nav-logo" aria-label="Manoj Inamanamelluri, home">
+                <img src="assets/logo.svg" alt="" width="471" height="206">
             </a>
             <ul class="nav-links" role="list">
                 <li><a href="#home" class="nav-link">Home</a></li>
@@ -238,6 +242,7 @@
         </div>
     </div>
 
+    <main>
     <!-- ====================== HERO ====================== -->
     <section class="hero" id="home">
         <!-- Aurora Background -->
@@ -296,7 +301,7 @@
                 <!-- Right: Visual -->
                 <div class="hero-visual reveal-up" style="--delay: 0.2s">
                     <div class="avatar-wrap">
-                        <img src="assets/avathar.svg" alt="Manoj Inamanamelluri, full-stack developer and UI/UX designer in Hyderabad" class="avatar">
+                        <img src="assets/avathar.svg" alt="Manoj Inamanamelluri, full-stack developer and UI/UX designer in Hyderabad" class="avatar" width="1341" height="1341">
                         <div class="avatar-ring ring-1"></div>
                         <div class="avatar-ring ring-2"></div>
                         <div class="avatar-glow"></div>
@@ -578,6 +583,7 @@
             </div>
         </div>
     </section>
+    </main>
 
     <!-- ====================== CONTACT / FOOTER ====================== -->
     <footer class="contact" id="contact">
