@@ -8,7 +8,7 @@ window.PROJECTS = [
         imageAlt: 'Carzzi vehicle service booking app',
         title: 'Carzzi',
         description: 'Vehicle-services platform with Flutter mobile apps and a React web interface. Customer communication via MSG91; shipped to both the App Store and Play Store.',
-        link: 'https://www.crazzi.com',
+        link: 'https://www.carzzi.com',
         repo: '',
         category: 'mobile',
         year: '2026',
@@ -24,7 +24,7 @@ window.PROJECTS = [
             'Integrated MSG91 for OTP login and transactional notifications, and prepared and released the apps to both the App Store and Play Store.'
         ],
         links: [
-            { label: 'www.crazzi.com', url: 'https://www.crazzi.com', icon: 'fa-arrow-up-right-from-square' }
+            { label: 'www.crazzi.com', url: 'https://www.carzzi.com', icon: 'fa-arrow-up-right-from-square' }
         ]
     },
     {

@@ -17,7 +17,7 @@ Email: manoj.inamanamelluri123@gmail.com
 
 ## Projects
 
-- [Carzzi](https://www.craftbymanoj.in/projects/carzzi.html): Vehicle-services platform with Flutter mobile apps and a React web interface. Live at https://www.crazzi.com
+- [Carzzi](https://www.craftbymanoj.in/projects/carzzi.html): Vehicle-services platform with Flutter mobile apps and a React web interface. Live at https://www.carzzi.com
 - [JSR](https://www.craftbymanoj.in/projects/jsr.html): Windows desktop app for agricultural trading (Electron.js). Offline-first installer. No public website and no download offered
 - [JagBandhu](https://www.craftbymanoj.in/projects/jagbandhu.html): Family platform with a Flutter mobile app and user/admin web apps. Live at https://www.jagbandhu.com
 - [UKTBC](https://www.craftbymanoj.in/projects/uktbc.html): UK donation and membership platform built for HMRC Gift Aid. Live at https://uktbc.org
