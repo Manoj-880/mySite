@@ -12,7 +12,7 @@ permissions:
 env:
   AWS_REGION: ap-south-1
   S3_BUCKET: craftbymanoj.in
-  CLOUDFRONT_DISTRIBUTION_ID: E3SYHPH1KSKYZl
+  CLOUDFRONT_DISTRIBUTION_ID: E3SYHPH1KSKYZI
 
 jobs:
   deploy:
