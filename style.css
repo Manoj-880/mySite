@@ -689,6 +689,23 @@ ul { list-style: none; }
     mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%);
 }
 
+.hero-grid-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0;
+}
+
+.hero.has-live-grid .hero-grid-overlay { opacity: 0; }
+.hero.has-live-grid .hero-grid-canvas { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-grid-canvas { display: none; }
+    .hero.has-live-grid .hero-grid-overlay { opacity: 1; }
+}
+
 /* Hero Content Grid */
 .hero .container {
     flex: 1;

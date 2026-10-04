@@ -671,4 +671,175 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { passive: true });
     }
 
+    /* ====================== HERO GRID INTERACTION ====================== */
+    (function initHeroGrid() {
+        const hero = document.querySelector('.hero');
+        const canvas = document.getElementById('heroGridCanvas');
+        if (!hero || !canvas || prefersReducedMotion) return;
+
+        const ctx = canvas.getContext('2d', { alpha: true });
+        if (!ctx) return;
+
+        const CELL = 60;
+        const accent = { r: 255, g: 107, b: 53 };
+        const cool = { r: 91, g: 143, b: 255 };
+        const ripples = [];
+        let width = 0, height = 0, dpr = 1;
+        let running = false, visible = true;
+        let mx = 0.62, my = 0.42;
+        let tx = mx, ty = my;
+        let drift = 0;
+        let last = 0;
+
+        function resize() {
+            const rect = hero.getBoundingClientRect();
+            dpr = Math.min(window.devicePixelRatio || 1, 2);
+            width = Math.max(1, Math.round(rect.width));
+            height = Math.max(1, Math.round(rect.height));
+            canvas.width = Math.round(width * dpr);
+            canvas.height = Math.round(height * dpr);
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        }
+
+        function pointerFromEvent(e) {
+            const rect = hero.getBoundingClientRect();
+            tx = (e.clientX - rect.left) / rect.width;
+            ty = (e.clientY - rect.top) / rect.height;
+        }
+
+        hero.addEventListener('pointermove', pointerFromEvent, { passive: true });
+        hero.addEventListener('pointerdown', e => {
+            pointerFromEvent(e);
+            ripples.push({ x: tx * width, y: ty * height, t: 0, life: 900 });
+        }, { passive: true });
+        hero.addEventListener('pointerleave', () => {
+            tx = 0.62;
+            ty = 0.42;
+        });
+
+        const vis = new IntersectionObserver(entries => {
+            visible = entries[0].isIntersecting;
+            if (visible && !running) {
+                running = true;
+                last = performance.now();
+                requestAnimationFrame(tick);
+            }
+        }, { threshold: 0.05 });
+        vis.observe(hero);
+
+        window.addEventListener('resize', resize, { passive: true });
+        resize();
+        hero.classList.add('has-live-grid');
+
+        function tick(now) {
+            if (!visible) {
+                running = false;
+                return;
+            }
+            const dt = Math.min(32, now - last);
+            last = now;
+            drift += dt * 0.012;
+            mx += (tx - mx) * 0.12;
+            my += (ty - my) * 0.12;
+
+            if (isTouchDevice) {
+                const t = now * 0.00018;
+                tx = 0.5 + Math.cos(t) * 0.22;
+                ty = 0.42 + Math.sin(t * 0.85) * 0.18;
+            }
+
+            draw(now, dt);
+            requestAnimationFrame(tick);
+        }
+
+        function draw(now, dt) {
+            ctx.clearRect(0, 0, width, height);
+            const px = mx * width;
+            const py = my * height;
+            const glowR = Math.max(width, height) * 0.38;
+            const origin = drift % CELL;
+            const warp = 14;
+
+            ctx.save();
+            ctx.strokeStyle = 'rgba(255,255,255,0.045)';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            for (let x = -CELL; x <= width + CELL; x += CELL) {
+                const gx = x + origin;
+                const dx = (gx - px) / glowR;
+                const shift = dx * warp * (1 - Math.min(1, Math.abs(dx)));
+                ctx.moveTo(gx + shift, 0);
+                ctx.lineTo(gx - shift, height);
+            }
+            for (let y = -CELL; y <= height + CELL; y += CELL) {
+                const gy = y + origin * 0.55;
+                const dy = (gy - py) / glowR;
+                const shift = dy * warp * (1 - Math.min(1, Math.abs(dy)));
+                ctx.moveTo(0, gy + shift);
+                ctx.lineTo(width, gy - shift);
+            }
+            ctx.stroke();
+
+            const cols = Math.ceil(width / CELL) + 2;
+            const rows = Math.ceil(height / CELL) + 2;
+            for (let i = -1; i < cols; i++) {
+                for (let j = -1; j < rows; j++) {
+                    const x = i * CELL + origin;
+                    const y = j * CELL + origin * 0.55;
+                    const dist = Math.hypot(x - px, y - py);
+                    if (dist > glowR) continue;
+                    const t = 1 - dist / glowR;
+                    const pulse = 0.55 + 0.45 * Math.sin(now * 0.004 + i * 0.7 + j * 0.45);
+                    const size = 1.1 + t * 2.4 * pulse;
+                    const a = 0.08 + t * 0.72;
+                    const mix = t;
+                    const r = accent.r * mix + cool.r * (1 - mix);
+                    const g = accent.g * mix + cool.g * (1 - mix);
+                    const b = accent.b * mix + cool.b * (1 - mix);
+                    ctx.beginPath();
+                    ctx.fillStyle = `rgba(${r | 0},${g | 0},${b | 0},${a})`;
+                    ctx.arc(x, y, size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            const spot = ctx.createRadialGradient(px, py, 0, px, py, glowR);
+            spot.addColorStop(0, 'rgba(255,107,53,0.16)');
+            spot.addColorStop(0.28, 'rgba(91,143,255,0.08)');
+            spot.addColorStop(1, 'rgba(0,0,0,0)');
+            ctx.globalCompositeOperation = 'lighter';
+            ctx.fillStyle = spot;
+            ctx.fillRect(0, 0, width, height);
+
+            for (let i = ripples.length - 1; i >= 0; i--) {
+                const ripple = ripples[i];
+                ripple.t += dt;
+                const p = Math.min(1, ripple.t / ripple.life);
+                const radius = 28 + p * 220;
+                const alpha = (1 - p) * 0.45;
+                ctx.beginPath();
+                ctx.strokeStyle = `rgba(255,107,53,${alpha})`;
+                ctx.lineWidth = 1.5 * (1 - p);
+                ctx.arc(ripple.x, ripple.y, radius, 0, Math.PI * 2);
+                ctx.stroke();
+                if (p >= 1) ripples.splice(i, 1);
+            }
+
+            ctx.globalCompositeOperation = 'source-over';
+            const vignette = ctx.createRadialGradient(
+                width * 0.5, height * 0.45, Math.min(width, height) * 0.2,
+                width * 0.5, height * 0.5, Math.max(width, height) * 0.72
+            );
+            vignette.addColorStop(0, 'rgba(8,8,8,0)');
+            vignette.addColorStop(1, 'rgba(8,8,8,0.55)');
+            ctx.fillStyle = vignette;
+            ctx.fillRect(0, 0, width, height);
+            ctx.restore();
+        }
+
+        running = true;
+        last = performance.now();
+        requestAnimationFrame(tick);
+    })();
+
 });
