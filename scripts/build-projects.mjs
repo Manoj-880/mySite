@@ -48,7 +48,8 @@ const LAYOUT = {
     uktbc: 'dossier',
     nehwe: 'studio',
     secureusdt: 'ledger',
-    'sm-scholarly': 'suite'
+    'sm-scholarly': 'suite',
+    solve: 'solve'
 };
 
 function projectLinks(project) {
@@ -273,6 +274,119 @@ function renderBody(project) {
                     <ol class="led-rows">${steps}</ol>
                 </section>
             </div>`;
+    }
+
+    if (layout === 'solve') {
+        const asset = name => `../assets/projects/solve/${name}`;
+        const swatches = [
+            ['Forest Green', '#263D32', 'Wordmark & type', 'light'],
+            ['Sage', '#DCE3D3', 'Soft supporting tone', 'dark'],
+            ['Warm Ivory', '#F5F0E6', 'Backgrounds & label', 'dark'],
+            ['Muted Terracotta', '#B77B58', 'Restrained accent', 'light']
+        ].map(([name, hex, role, tone]) => `
+                    <li class="sv-swatch ${tone}" style="--sw:${hex}">
+                        <span class="sv-swatch-name">${name}</span>
+                        <span class="sv-swatch-hex">${hex}</span>
+                        <span class="sv-swatch-role">${role}</span>
+                    </li>`).join('');
+        const facts = [
+            ['Project type', 'Self-initiated concept'],
+            ['Industry', 'Skincare & Beauty'],
+            ['Tools', 'Affinity'],
+            ['Role', project.role]
+        ].map(([k, v]) => `<li><span>${k}</span><strong>${esc(v)}</strong></li>`).join('');
+        const process = (project.contributions || []).map((w, i) => {
+            const [head, ...rest] = w.split(': ');
+            return `<li><span>${String(i + 1).padStart(2, '0')}</span><h3>${esc(head)}</h3><p>${esc(rest.join(': '))}</p></li>`;
+        }).join('\n');
+        return `
+            <header class="sv-head">
+                <div class="sv-head-copy">
+                    <span class="pp-eyebrow">${eyebrow}</span>
+                    <h1 class="sv-title">Brand Identity <em>&amp;</em> Packaging</h1>
+                    <p class="sv-sub">A Botanical Skincare Concept</p>
+                    <p class="sv-flag"><i class="fas fa-seedling" aria-hidden="true"></i> Self-initiated concept · SOLVÉ is a fictional brand, not a client project</p>
+                </div>
+                <img class="sv-head-logo" src="${asset('solve-logo.webp')}" width="1280" height="1280" alt="SOLVÉ logo — serif wordmark in forest green with a botanical leaf line" fetchpriority="high">
+            </header>
+
+            <figure class="sv-hero">
+                <picture>
+                    <source media="(max-width: 640px)" srcset="${asset('solve-bottle.webp')}" width="1200" height="1500">
+                    <img src="${asset('solve-mockup.webp')}" width="2000" height="1125" alt="${imageLabel}" fetchpriority="high">
+                </picture>
+            </figure>
+            <ul class="pp-rail sv-rail">${facts}</ul>
+
+            <section class="sv-section sv-overview" aria-labelledby="sv-overview-h">
+                <h2 class="pp-h" id="sv-overview-h">Overview</h2>
+                <p class="sv-lead">${lead}</p>
+                <p class="sv-note">The brief was my own: imagine a premium skincare brand inspired by botanical simplicity and modern minimalism, then design the logo and one hero product around it.</p>
+            </section>
+
+            <section class="sv-section sv-identity" aria-labelledby="sv-identity-h">
+                <h2 class="pp-h" id="sv-identity-h">Brand identity</h2>
+                <div class="sv-split">
+                    <img class="sv-logo-tile" src="${asset('solve-logo.webp')}" width="1280" height="1280" loading="lazy" alt="The SOLVÉ logo on a warm ivory background">
+                    <div class="sv-copy">
+                        <h3>A wordmark with one living line</h3>
+                        <p>The logo is set in a refined serif in capitals, with generous spacing and high stroke contrast for a calm, premium voice. A single fine botanical line rises from the O and opens into a leaf over the V, so the nature reference lives inside the lettering instead of sitting beside it.</p>
+                        <dl class="sv-points">
+                            <div><dt>Typography</dt><dd>Elegant serif capitals; open, unhurried spacing.</dd></div>
+                            <div><dt>Botanical detail</dt><dd>One continuous leaf stroke, with the accent echoing the same organic gesture.</dd></div>
+                            <div><dt>Personality</dt><dd>Calm, refined, natural, and quietly minimal.</dd></div>
+                        </dl>
+                    </div>
+                </div>
+            </section>
+
+            <section class="sv-section sv-palette" aria-labelledby="sv-palette-h">
+                <h2 class="pp-h" id="sv-palette-h">Color palette</h2>
+                <ul class="sv-swatches">${swatches}
+                </ul>
+                <p class="sv-note">Proposed brand specification. These values are not sampled from the logo artwork.</p>
+            </section>
+
+            <section class="sv-section sv-pack" aria-labelledby="sv-pack-h">
+                <h2 class="pp-h" id="sv-pack-h">Packaging design</h2>
+                <div class="sv-pack-grid">
+                    <div class="sv-pack-stage">
+                        <img src="${asset('solve-bottle.webp')}" width="1200" height="1500" loading="lazy" alt="SOLVÉ Daily Refresh Balancing Serum in an amber glass dropper bottle">
+                    </div>
+                    <div class="sv-pack-side">
+                        <div class="sv-copy">
+                            <h3>Daily Refresh Balancing Serum</h3>
+                            <ul class="sv-spec">
+                                <li>Amber glass dropper bottle</li>
+                                <li>White / warm ivory label</li>
+                                <li>Forest-green SOLVÉ wordmark</li>
+                            </ul>
+                        </div>
+                        <img class="sv-label" src="${asset('solve-label.webp')}" width="1000" height="1000" loading="lazy" alt="Close-up of the SOLVÉ serum label: wordmark, product name, and descriptor">
+                        <dl class="sv-points">
+                            <div><dt>Hierarchy</dt><dd>The wordmark leads, the product name follows in smaller wide-spaced capitals, and a light descriptor closes the stack.</dd></div>
+                            <div><dt>Contrast</dt><dd>Deep green on a clean label reads clearly, and the warm amber glass frames it.</dd></div>
+                            <div><dt>Typography</dt><dd>A serif wordmark paired with a spaced sans for the product name, so the brand and the product read as two voices.</dd></div>
+                            <div><dt>Presentation</dt><dd>Generous empty label space keeps the pack minimal and premium.</dd></div>
+                        </dl>
+                    </div>
+                </div>
+            </section>
+
+            <section class="sv-section sv-process" aria-labelledby="sv-process-h">
+                <h2 class="pp-h" id="sv-process-h">Design process</h2>
+                <ol class="sv-steps">${process}</ol>
+            </section>
+
+            <section class="sv-final" aria-label="Final showcase">
+                <div class="sv-final-art">
+                    <img class="sv-final-logo" src="${asset('solve-logo.webp')}" width="1280" height="1280" loading="lazy" alt="SOLVÉ logo">
+                    <img class="sv-final-bottle" src="${asset('solve-bottle.webp')}" width="1200" height="1500" loading="lazy" alt="SOLVÉ Daily Refresh Balancing Serum bottle">
+                </div>
+                <p class="sv-final-cap">SOLVÉ — a concept brand, designed in Affinity.</p>
+                <div class="pp-links"><a class="pp-link-btn" href="../index.html#projects"><i class="fas fa-arrow-left" aria-hidden="true"></i>Back to projects</a></div>
+            </section>
+            <div class="pp-tech-row"><span class="pp-h">Tags</span><div class="pp-tech">${tech}</div></div>`;
     }
 
     /* suite — S&M Scholarly */

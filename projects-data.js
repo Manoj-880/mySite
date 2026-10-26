@@ -174,5 +174,28 @@ window.PROJECTS = [
         links: [
             { label: 'www.smscholarly.com', url: 'https://www.smscholarly.com/', icon: 'fa-arrow-up-right-from-square' }
         ]
+    },
+    {
+        slug: 'solve',
+        image: 'assets/projects/solve/solve-mockup.webp',
+        imageAlt: 'SOLVÉ Daily Refresh Balancing Serum — amber glass dropper bottle with a white label and forest-green wordmark',
+        title: 'SOLVÉ — Brand Identity & Packaging',
+        description: 'Self-initiated concept for a fictional botanical skincare brand: refined serif typography, forest-green tones, warm ivory, and minimalist serum packaging.',
+        link: '',
+        repo: '',
+        category: 'design',
+        year: '2026',
+        timeline: '',
+        role: 'Brand & Packaging Design',
+        company: 'Self-initiated concept',
+        tech: ['Affinity', 'Brand Identity', 'Logo Design', 'Packaging Design', 'Typography', 'Art Direction'],
+        overview: 'SOLVÉ is a self-initiated concept for a fictional premium skincare brand, inspired by botanical simplicity and modern minimalism. It is not a commissioned client project; the brand, product, and packaging are my own creation.',
+        contributions: [
+            'Concept: a premium skincare brand built on botanical simplicity and modern minimalism.',
+            'Logo: a refined serif wordmark with a single botanical line drawn in Affinity.',
+            'Color: a restrained palette of forest green, sage, warm ivory, and muted terracotta.',
+            'Packaging: the identity applied to an amber glass dropper bottle for a Daily Refresh Balancing Serum.'
+        ],
+        links: []
     }
 ];

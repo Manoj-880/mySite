@@ -24,6 +24,7 @@ Email: manoj.inamanamelluri123@gmail.com
 - [Nehwe](https://www.craftbymanoj.in/projects/nehwe.html): Gamified e-learning app. UI/UX and design system only. No public website. Figma file linked on the project page
 - [SecureUSDT](https://www.craftbymanoj.in/projects/secureusdt.html): USDT (TRC-20) investment platform. Live at https://www.secureusdt.com
 - [S&M Scholarly](https://www.craftbymanoj.in/projects/sm-scholarly.html): EdTech suite for schools — CMS, analytics, and parent portal. Live at https://www.smscholarly.com/
+- [SOLVÉ](https://www.craftbymanoj.in/projects/solve.html): Self-initiated concept — brand identity and packaging for a fictional botanical skincare brand, designed in Affinity. Not a client project
 
 ## Profiles
 
